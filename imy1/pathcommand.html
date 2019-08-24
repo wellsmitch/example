@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>Raphael Test</title>
+	</head>
+	<body>
+		<div id="my-canvas" style="width:140px;padding:0px;margin:0px;"> </div>
+		<!--some html doms-->
+		<!--some scripts-->
+		<script type="text/javascript" src="js/raphael.min.js"> </script>
+		<script type="text/javascript">
+			var paper = Raphael("my-canvas", 700, 600);
+			//1、直线使用path命令L            
+			paper.path("M20,20L100,20z").attr({
+				"fill": "#5DDEF4",
+				"stroke": "#2A6570",
+				"stroke-width": 2
+			});
+			//2、三角形使用Path命令L             三角形这个命令和上面线段是一致的，只是多连了一次，构成了一个三角形。这里我们是可以明白，只要你不断的用L命令去连接，其实可以构成任意复杂的图形
+			paper.path("M130,30 L200,30 L160,90 z").attr({
+				"fill": "#5DDEF4",
+				"stroke": "red",
+				"stroke-width": 2
+			});
+			//3、T形使用Path命令H,V            三角形这个命令和上面线段是一致的，只是多连了一次，构成了一个三角形。这里我们是可以明白，只要你不断的用L命令去连接，其实可以构成任意复杂的图形
+			paper.path("M 40,40 H 90 V 60 H 70 V 110 H 60 V 60 H 40 z").attr({
+				"fill": "#5DDEF4",
+				"stroke": "#2A6570",
+				"stroke-width": 2
+			});
+			//4、2次贝塞尔曲线形，使用path命令Q      这里我们第一行代码是画两条线段，上面讲解到了，只不过这里没有z结尾来闭合path。第二行代码使用的坐标与第一个完全一致，只不过两个L命令换成了Q，我们查看命令表，Q表示二次贝塞尔曲线，效果大家可以看靠上位置的那个曲线和曲线附着的的线段。Q命令的后的坐标含义可以通过上面线段的坐标来得知。      
+			paper.path("M240,40L300,40L300,100");
+			paper.path("M240,40Q300,40 300,100").attr('stroke', 'red');
+			//5、2次贝塞尔曲线形，使用path命令Q和T（第一个是正常绘制，第二个光滑连接）            
+			/* 这里的效果图是上面图形中最大那个图形。其实如果理解了第四个图形，这个很好理解。唯一的不同就是这里使用了T命令，
+				这个T和接下来的S命令很相似，就是分别对应Q和S的平滑曲线画法，生活他们中间的那个坐标，而直接使用后一（两）个坐标即可。  
+			*/
+			paper.path('M10,250 L90,130 L160,180 L250,190 L250,70'); 
+			paper.path('M10,250 Q90,130 160,180 T250,70').attr('stroke', 'blue');
+			//6、绘制3次贝赛尔曲线，使用命令C，平滑画线使用命令S            
+			paper.path('M320,120 L350,180 L450,260 L480,140');
+			paper.path('M320,120 C350,180 450,260 480,140').attr('stroke', 'red');
+			paper.path('M320,120 S450,260 480,140').attr('stroke', 'yellow');
+			
+		</script>
+	</body>
+</html>

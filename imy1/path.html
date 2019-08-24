@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>Raphael Test</title>
+	</head>
+	<script type="text/javascript">
+		/* 
+			Paper.path([pathString])
+pathString SVG格式的路径字符串。
+路径字符串由一个或多个命令组成。每个命令以一个字母开始，随后是逗号（“,”）分隔的参数。例如："M10,20L30,40"
+
+我们看到两个命令：“M”与参数(10, 20)和“L”与参数(30, 40)大写字母的意思是命令是绝对的，小写是相对的。
+
+这里是可用命令的简表，详细内容请参照：SVG路径字符串格式 。
+
+命令	名称	参数
+M	移动到（moveTo）	(x y)+
+Z	闭合路径（closepath）	(none)
+L	直线（lineTo）	(x y)+
+H	水平直线	x+
+V	垂直直线	y+
+C	曲线（curveto）	(x1 y1 x2 y2 x y)+
+S	平滑曲线	(x2 y2 x y)+
+Q	二次贝赛尔曲线	(x1 y1 x y)+
+T	平滑二次贝塞尔曲线	(x y)+
+A	椭圆弧	(rx ry x-axis-rotation large-arc-flag sweep-flag x y)+
+R	Catmull-Rom 曲线*	x1 y1 (x y)+
+* “Catmull-Rom 曲线”不是标准SVG命令，在2.0版时被加入。 注：有种特殊情况，路径只包含三个命令：“M10,10R…z”。在这种情况下，路径将平滑连接到它的起点。*/
+	</script>
+	<body>
+		<div id="my-canvas" style="width:140px;padding:0px;margin:0px;"> </div>
+		<!--some html doms-->
+		<!--some scripts-->
+		<script type="text/javascript" src="js/raphael.min.js"> </script>
+		<script type="text/javascript">
+			var paper = Raphael("my-canvas", 650, 400);
+			var tri = paper.path("M0,0L26,0L13,18L0,0").attr({
+
+				"fill": "#17A9C6", // filling the background color 
+				"stroke": "#2A6570", // the color of the border 
+				"stroke-width": 2 // the size of the border
+
+			});
+		</script>
+	</body>
+</html>

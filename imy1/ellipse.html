@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>Raphael Test</title>
+	</head>
+	<script type="text/javascript">
+		/* 椭圆的方法是ellipse(),有4个必要参数。分别是x坐标、y坐标、水平半径、垂直半径。水平半径和垂直半径其实就是椭圆的宽和高除以2。
+			*/
+	</script>
+	<body>
+		<div id="my-canvas" style="width:140px;padding:0px;margin:0px;"> </div>
+		<!--some html doms-->
+		<!--some scripts-->
+		<script type="text/javascript" src="js/raphael.min.js"> </script>
+		<script type="text/javascript">
+			var paper = Raphael("my-canvas", 650, 400);
+			var rect = paper.rect(35, 25, 170, 100, 20).attr({
+				"fill": "#17A9C6", //filling with background color 
+				"stroke": "#2A6570", // border color of the rectangle 
+				"stroke-width": 2 // the width of the border
+
+			});
+		</script>
+	</body>
+</html>
