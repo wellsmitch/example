@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+<title></title>
+<script src="js/mui.min.js"></script>
+<link href="css/mui.min.css" rel="stylesheet"/>
+</head>
+<body>
+<header class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+    <h1 class="mui-title">hello</h1>
+</header>
+<div class="mui-content">
+    <div style="padding:20px;">
+        <div style="line-height:38px;" id="dstatus">下载状态</div>
+        <div class="mui-progressbar" id="psb1">
+            <span></span>
+        </div>
+    </div>
+  
+</div>
+</body>
+<script type="text/javascript">
+	/*
+	 
+发布时间 : 2016-09-09  浏览 : 9887 次
+IO模块管理本地文件系统，用于对文件系统的目录浏览、文件的读取、文件的写入等操作。通过plus.io可获取文件系统管理对象。
+提示：
+本节是非常重要的基础知识，用于后面的文件操作、下载等功能，请仔细学习^_^
+
+常量：
+
+1、plus.io.PRIVATE_WWW 应用运行资源目录常量
+
+说明：Number 类型
+
+本地文件系统常量，Number类型，固定值1。应用运行资源目录，仅本应用可访问。 为了确保应用资源的安全性，此目录只可读。
+
+平台支持
+
+Android - ALL (支持): Android平台应用资源是放到apk的assets目录中，安装到设备后无法枚举，为了能够正常枚举访问此目录，需要将应用设置为释放资源模式（在manifest.json中将runmode值设置为liberate），这样程序在第一次运行时将资源释放到sdcard中。 通常在设备上的目录为“/sdcard/Android/data/%PACKAGENAME%/apps/%APPID%/www”，其中%PACKAGENAME%是程序的包名、%APPID%是应用的标识，如“/sdcard/Android/data/io.dcloud.HelloH5/apps/HelloH5/www”。
+
+iOS - ALL (支持): iOS平台应用资源是放到应用的沙盒目录中，安装到设备后放到应用沙盒目录的“/DCloud_Pandora.app/Pandora/apps/%APPID%/www”，如“/DCloud_Pandora.app/Pandora/apps/HBuilder/www”。 如将应用设置为释放资源模式（在manifest.json中将runmode值设置为liberate），程序在第一次运行时将资源释放到应用沙盒目录下的Library中“/Library/Pandora/apps/%APPID%/www”，如“/Library/Pandora/apps/HBuilder/www”。
+
+
+
+2、plus.io.PRIVATE_DOC 应用私有文档目录常量
+说明：Number 类型
+
+本地文件系统常量，Number类型，固定值2。应用私有文档目录，仅本应用可读写。
+
+平台支持
+
+Android - ALL (支持): 通常在设备上的目录为“/sdcard/Android/data/%PACKAGENAME%/.%APPID%/apps/%APPID%/doc”，其中%PACKAGENAME%是程序的包名、%APPID%是应用的标识，如“/sdcard/Android/data/io.dcloud.HBuilder/.HBuilder/apps/HBuilder/doc”。
+
+iOS - ALL (支持): 通常在设备应用沙盒目录下“/Library/Pandora/apps/%APPID%/doc”，其中%APPID%是应用的标识，，如“/Library/Pandora/apps/HBuilder/doc”。
+
+
+3、plus.io.PUBLIC_DOCUMENTS 程序公用文档目录常量
+
+说明：Number 类型
+
+本地文件系统常量，Number类型，固定值3。程序公用文档目录，所有应用可读写。
+
+平台支持
+
+Android - ALL (支持): 通常在设备上的目录为“/sdcard/Android/data/%PACKAGENAME%/.%APPID%/documents”，其中%PACKAGENAME%是程序的包名、%APPID%是应用的标识，如“/sdcard/Android/data/io.dcloud.HBuilder/.HBuilder/documents”。
+
+iOS - ALL (支持): 通常在设备应用沙盒目录下“/Library/Pandora/documents”。
+
+4、plus.io.PUBLIC_DOWNLOADS 程序公用下载目录常量
+
+说明：Number 类型
+
+本地文件系统常量，Number类型，固定值4。程序公用下载目录，所有应用可读写。
+
+平台支持
+
+Android - ALL (支持): 通常在设备上的目录为“/sdcard/Android/data/%PACKAGENAME%/.%APPID%/downloads”，其中%PACKAGENAME%是程序的包名、%APPID%是应用的标识，如“/sdcard/Android/data/io.dcloud.HBuilder/.HBuilder/downloads”。
+
+iOS - ALL (支持): 通常在设备应用沙盒目录下“/Library/Pandora/downloads”。
+	 * 
+	 * 
+	 * */
+</script>
+<script type="text/javascript">
+	/*
+	 方法：
+
+1、requestFileSystem: 请求本地文件系统对象
+
+void plus.io.requestFileSystem( type, succesCB, errorCB );
+获取指定的文件系统，可通过type指定获取文件系统的类型。 获取指定的文件系统对象成功通过succesCB回调返回，失败则通过errorCB返回。
+
+参数：
+
+type: ( Number ) 必选 本地文件系统常量
+
+可取plus.io下的常量，如plus.io.PRIVATE_DOC、plus.io.PUBLIC_DOCUMENTS等。
+
+succesCB: ( FileSystemSuccessCallback ) 必选 请求文件系统成功的回调
+
+errorCB: ( FileErrorCallback ) 可选 请求文件系统失败的回调
+演示代码：
+
+plus.io.requestFileSystem( plus.io.PRIVATE_WWW, function( fs ) {
+    alert("Request file system success!");
+},function(e){
+    alert("Request file system failed: " + e.message);
+});
+
+2、resolveLocalFileSystemURL: 通过URL参数获取目录对象或文件对象
+
+快速获取指定的目录或文件操作对象，如通过URL值“_www/test.html”可直接获取文件操作对象。 url值可支持相对路径URL、本地路径URL、网络路径URL(http://localhost:13131/开头)。 获取指定的文件或目录操作对象成功通过succesCB回调返回，如果指定URL路径或文件不存在则失败通过errorCB回调返回。
+
+参数：
+
+url : ( DOMString ) 必选 要操作文件或目录的URL地址
+
+succesCB: ( FileResolveSuccessCallback ) 必选 获取操作文件或目录对象成功的回调函数
+
+errorCB: ( FileErrorCallback ) 可选 获取操作文件或目录对象失败的回调函数
+演示代码
+
+plus.io.resolveLocalFileSystemURL(
+    '_www/test.txt',
+    function(entry){
+        alert(entry.fullPath);
+	//此处相关知识请见 DirectoryEntry 文件系统中的目录对象，用于管理特定的本地目录
+    },
+    function(e){
+	alert( "Resolve file URL failed: " + e.message );
+    }
+);
+
+3、convertLocalFileSystemURL: 将本地URL路径转换成平台绝对路径
+
+参数：
+
+url: ( String ) 必选 要转换的文件或目录URL地址
+
+URL地址必须是合法的路径，如果地址不合法则返回null。
+
+返回值：
+String : 转换后在平台路径，在不同平台或者不同设备返回的值可能存在差异，如输入url为“_doc/a.png”： Android平台转换后的路径为“/storage/sdcard0/Android/data/io.dcloud.HBuilder/.HBuilder/apps/HBuilder/doc/ａ.png”； 在iOS平台转换后的路径为“/var/mobile/Containers/Data/Application/757966CF-345C-4348-B07F-EEF83CF9A369/Library/Pandora/apps/HBuilder/doc/a.png”。
+
+var path = plus.io.convertLocalFileSystemURL('_www/test.txt');
+alert(path);
+
+4、convertAbsoluteFileSystem: 将平台绝对路径转换成本地URL路径
+
+绝对路径符合各平台文件路径格式，转换后变成RelativeURL类型格式。 功能与convertLocalFileSystemURL方法相反，将绝对路径转换成相对路径。
+
+参数：
+
+path: ( String ) 必选 要转换的平台绝对路径
+
+绝对路径必须是合法的路径，如果绝对路径不合法则返回null。
+
+返回值：DOMString : 转换后本地URL路径
+
+var path    = plus.io.convertLocalFileSystemURL('_www/test.txt');
+var pathNew = plus.io.convertAbsoluteFileSystem(path);
+alert(pathNew);*/
+</script>
+
+</html>

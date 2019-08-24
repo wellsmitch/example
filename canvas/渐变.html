@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<canvas id="box" width="500"  height="500"></canvas>
+<script type="text/javascript">
+
+    //1，创建径向渐变对象 createRadialGradient(x0,y0,r0,x1,y1,r1)，其中x0,y0,r0分别为起始圆的位置坐标和半径，x1,y1,r1为终止圆的坐标和半径。
+		var cvs	= document.getElementById('box');
+		var ctx = cvs.getContext('2d');
+		var lg = ctx.createLinearGradient(110,0,110,200);
+		// var lg = ctx.createRadialGradient(200,200,20,200,200,100);
+        lg.addColorStop(0.1,'red');
+        // lg.addColorStop(0.5,'yellow');
+        // lg.addColorStop(0.7,'pink');
+        lg.addColorStop(1,'blue');
+
+        // ctx.beginPath();
+        // ctx.rect(100,100,200,100);
+        // ctx.fillStyle = lg;
+        // ctx.fill();
+        // ctx.closePath();
+
+        ctx.beginPath();
+        ctx.arc(200,200,100,0,2*Math.PI,true);
+        ctx.fillStyle = lg;
+        ctx.fill();
+        ctx.closePath();
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>测试</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+</head>
+<body>
+	<input type="button" name="" value="发表" id="btn">
+	<textarea name="" cols="50" rows="20" id="txt">　日称，日本政府将在9月底制定使用人工卫星和无人机的海洋监视体制的基本计划。
+
+　　日本报道，最早在2015年度实施将现有卫星活用于海洋监视系统的实证实验的内容也将写入计划。受中国在东海和南海强化海洋战略影响，日本政府希望尽早构筑利用卫星的海洋监视体制。报道称，从太空监视海洋状况的体制被称为海洋监视(MDA)。日本政府决定以国家安全保障局和宇宙战略室等为中心运用MDA。计划通过MDA搜集进入尖阁诸岛(即我钓鱼岛及其附属岛屿——本网注)周边海域的中国舰船和可疑船只的动向、中国在南海海域的动向等安全保障上所不可或缺的信息。
+
+　　计划将写入构成MDA的人工卫星、无人机、舰船和调查船等体制的概要。日本的宇宙航空研究开发机构(JAXA)计划尽早实施活用陆地观测技术卫星“Daichi-2”等卫星的实证实验，这些卫星被目前被用于火山活动的观测等。</textarea>
+</body>
+<script>
+	var btn=document.getElementById('btn');
+	var txt=document.getElementById('txt');
+	// var reg3=/日本/g;
+	// var reg4=/政府/g;
+	// var reg5=/钓鱼岛/g;
+	var reg=/日本|政府|钓鱼岛|南海/g;
+	btn.onclick=function (){
+		// txt.value=txt.value.replace(reg,a);
+		txt.value=txt.value.replace(reg,function (x){
+			//replace方法可以依次返回每次匹配到的值x
+			// alert(x);
+			var a='';
+			for (var i = 0; i < x.length; i++) {
+				a=a+'*';
+			};
+			return a;
+		});
+	}
+
+	// var str='中国人民解放军';
+	// alert(str.length)
+</script>
+</html>

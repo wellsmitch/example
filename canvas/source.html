@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<canvas id="box" width="500"  height="500"></canvas>
+<script type="text/javascript">
+		var cvs	= document.getElementById('box');
+		var ctx = cvs.getContext('2d');
+
+
+
+		// ctx.beginPath();
+		// ctx.arc(200,200,100,0,2*Math.PI,true);
+		// ctx.fillStyle = 'red';
+		// ctx.fill();
+		// ctx.closePath();
+        // //上方是旧图
+        // ctx.globalCompositeOperation = 'xor';
+        //lighter xor copy
+        //下方是新图
+
+        ctx.beginPath();
+        ctx.shadowColor = 'yellow';
+        ctx.shadowBlur = 20; //阴影级别
+        ctx.shadowOffsetX = 5;
+        ctx.shadowOffsetY = 5;
+        ctx.arc(260,260,100,0,2*Math.PI,true);
+        ctx.fillStyle = 'blue';
+        ctx.fill();
+        ctx.closePath();
+
+
+</script>
+
+</body>
+</html>

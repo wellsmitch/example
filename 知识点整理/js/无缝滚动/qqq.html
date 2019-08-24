@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>标题</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+<link rel="stylesheet" href="reset.css">
+<style>
+	#out{width:283px;height:699px;background:url(q1.png) 0 0 no-repeat;position:relative;float: right;}
+	#tx{width:60px;height:60px;position:absolute;top:30px;left:0;border:1px solid red;}
+	#show{width:279px;height:521px;background:url(q2.png) 0 0 no-repeat;position: absolute;top:0;left:-279px;display:none;opacity: 0; }
+</style>
+</head>
+<body>
+	<div id="out">
+		<div id="inner">
+			<div id="tx"></div>
+			<div id="show"></div>
+		</div>
+	</div>
+</body>
+<script>
+	var inner=document.getElementById('inner');
+	var tx=document.getElementById('tx');
+	var show=document.getElementById('show');
+	var tim1=null,tim2=null;//time1循环计时器，time2一次性计时器
+	var tp=0,op=0;//tp控制高度top；op控制透明度
+	function clear(){
+		clearInterval(tim1);
+		clearTimeout(tim2);
+	}
+	inner.onmouseover=function(){
+		tim2=setTimeout(function(){
+			show.style.display='block';
+			tim1=setInterval(function(){
+				tp++;
+				op+=(1/20);
+				if (tp>=40) {
+					tp=40;
+					op=1;
+				};
+				show.style.top=tp+'px';
+				show.style.opacity=op;
+			},100)
+		},400)
+	}
+</script>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<svg id="svgCanvas"></svg>
+<script src="https://d3js.org/d3.v5.min.js"></script>
+<script type="text/javascript">
+    var img = "33.jpeg";//imgurl 就是你的图片路径
+
+    function getBase64Image(img) {
+        var canvas = document.createElement("canvas");
+        canvas.id = 'canvas'
+        canvas.width = img.width;
+        canvas.height = img.height;
+        var ctx = canvas.getContext("2d");
+        ctx.drawImage(img, 0, 0, img.width, img.height);
+        var ext = img.src.substring(img.src.lastIndexOf(".")+1).toLowerCase();
+        var dataURL = canvas.toDataURL("image/"+ext);
+        return dataURL;
+    }
+
+    var image = new Image();
+    image.src = img;
+    image.onload = function(){
+        var base64 = getBase64Image(image);
+        console.log(base64);
+        var ig = document.createElement('img');
+        ig.src = base64;
+        document.body.appendChild(ig)
+    }
+
+
+
+
+
+</script>
+</body>
+</html>

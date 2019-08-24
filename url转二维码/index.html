@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8"/>
+    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+    <script src="js/qrcode.js"></script>
+    <style>
+        #qrcode{
+            /*text-align: center;*/
+            /*display: table-cell;*/
+            /*width: 96px;*/
+            /*height: 96px;*/
+            /*vertical-align:middle;*/
+            /*position: relative;*/
+        }
+    </style>
+</head>
+<body>
+<div id="qrcode">
+
+</div>
+<input type="text" id="getval"/> <button id="send">点击更换验证码</button>
+<script>
+    window.onload =function(){
+        var qrcode = new QRCode(document.getElementById("qrcode"), {
+            width : 96,//设置宽高
+            height : 96
+        });
+        qrcode.makeCode("http://222.143.38.161:8080/app/static/lib/apk/client.apk?mp.wexin.qq.com");
+        document.getElementById("send").onclick =function(){
+            qrcode.makeCode(document.getElementById("getval").value);
+        }
+    }
+</script>
+
+<!--<input type="text" id="getval"/> <button id="send">点击更换验证码</button>-->
+<!--<script>-->
+    <!--jQuery('#qrcode').qrcode({ width: 375, height: 375, text: window.location.href });-->
+    <!--$("#save").click(function () {-->
+        <!--var canvas = $('#qrcode').find("canvas").get(0);-->
+        <!--var url = canvas.toDataURL('image/jpeg');-->
+        <!--'https://www.baidu.com'.get(0).click();-->
+        <!--return false;-->
+    <!--});-->
+<!--</script>-->
+</body>
+</html>

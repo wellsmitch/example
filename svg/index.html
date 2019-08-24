@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<script type="text/javascript" src="svg.js"></script>
+<body>
+<div id="drawing"></div>
+<script type="text/javascript">
+    var draw = SVG('drawing').size(300, 130);
+    // var polyline = draw.polyline([[0,0], [100,50], [50,100]]).fill('#f06').move(20, 20)
+    //
+    // var polygon = draw.polygon('50,0 60,40 100,50 60,60 50,100 40,60 0,50 40,40')
+
+
+    var path = draw.path('M139.5,47.5 183,47.5 183,80 139.5,80 139.5,47.5')
+    path.fill('none')
+    path.stroke({ color: '#f06', width: 4, linecap: 'round', linejoin: 'round' })
+</script>
+
+
+</body>
+</html>

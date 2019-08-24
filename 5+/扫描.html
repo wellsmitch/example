@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+<title></title>
+<link rel="stylesheet" type="text/css" href="css/mui.min.css"/>
+<script src="js/jquery-1.11.0.js" type="text/javascript" charset="utf-8"></script>
+<style type="text/css">
+	#out{
+		width: 90vw;
+		height: 70vh;
+		border: 1px solid red;
+		margin-left:5vw ;
+		margin-top: 20px;
+		position: relative;
+		overflow: hidden;
+	}
+	
+	
+</style>
+</head>
+<body>
+	<header class="mui-bar mui-bar-nav">
+	    <h1 class="mui-title">扫一扫</h1>
+	</header>
+	<div class="mui-content">
+		<div id="out">
+			
+		</div>
+	    <button type="button" class="mui-btn mui-btn-blue">开始扫描</button>
+	    <button type="button" class="mui-btn mui-btn-blue">关闭扫描</button>
+	    
+	</div>
+	
+</body>
+<script type="text/javascript">
+	
+	var scan=null;
+	
+	document.addEventListener('plusready',Plusready,false)
+	
+	
+	function Plusready(){
+		$('button').eq(0).click(function(){
+			scan = new plus.barcode.Barcode('out');
+			scan.start();
+			scan.onmarked = onmarked; 
+
+		})
+		
+		$('button').eq(1).click(function(){
+			scan.close()
+		})
+		
+	}
+	
+function onmarked( type, result ) {
+	var text = '未知: ';
+	switch(type){
+		case plus.barcode.QR:
+		text = 'QR: ';
+		break;
+		case plus.barcode.EAN13:
+		text = 'EAN13: ';
+		break;
+		case plus.barcode.EAN8:
+		text = 'EAN8: ';
+		break;
+	}
+	scan.close()
+	alert( text+result );
+}
+	
+	
+	function successCB(a){
+		
+	}
+	
+	function errorCB(){
+		alert('err')
+	}
+	
+	
+	
+	
+	
+	
+</script>
+</html>

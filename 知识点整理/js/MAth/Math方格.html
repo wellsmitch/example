@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>math方格</title>
+<style>
+*{padding:0;margin:0;}
+</style>
+</head>
+<body>
+	<!-- 文档被划分为若干个大小的块，每个格填充一个随机的颜色 -->
+</body>
+<script>
+function fn(){
+	//删掉之前的内容
+	document.body.innerHTML = "";
+	//获取可视窗口的宽高
+	var wW = document.documentElement.clientWidth;
+	var wH = document.documentElement.clientHeight;
+	//每一个小div的宽高
+	var divW = wW/10;
+	var divH = wH /10;
+	//创建文档碎片,优化页面性能，减少页面多余节点
+	var fra = document.createDocumentFragment();
+	// var div = document.createElement("div");//会多一个div节点
+	//创建10行的div
+	for (var j = 0; j <10; j++) {
+		//创建10个div
+		for (var i = 0; i <10; i++) {
+			var oDiv = document.createElement("div");
+			oDiv.style.height = divH + "px";
+			oDiv.style.width = divW + "px";
+			oDiv.style.position = "absolute";
+			oDiv.style.top = j*divH+"px";
+			oDiv.style.left = i*divW+"px";
+			//让颜色随机
+			var r = Math.floor(Math.random()*256);
+			var g = Math.floor(Math.random()*256);
+			var b = Math.floor(Math.random()*256);
+		
+			oDiv.style.background = "rgb("+r+","+g+","+b+")";
+			// document.body.appendChild(oDiv);//循环插入会影响性能
+			//把创建的div插入到文档碎片fra中
+			fra.appendChild(oDiv);
+			// div.appendChild(oDiv);
+		}
+	};
+	//把fra文档碎片插入到body中
+	document.body.appendChild(fra);
+	// document.body.appendChild(div);
+}
+window.onload=window.onresize= fn;
+</script>
+</html>

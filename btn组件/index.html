@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+<!-- 蓝色开关打开状态 -->
+        <div class="outDiv">
+            <div class="insideDiv"></div>
+        </div>
+</body>
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+<script type="text/javascript">
+    function btnEvents() {
+        function moveaction(css_) {
+            var css = function (t, s) {
+                s = document.createElement('style');
+                s.innerText = t;
+                $('body style').html('')
+                document.body.appendChild(s);
+            };
+            css(css_)
+        }
+
+        moveaction(
+            '.outDiv:before{\n' +
+            '    font-size: 13px;\n' +
+            '    position: absolute;\n' +
+            '    top: 3px;\n' +
+            '    right: 11px;\n' +
+            '    content: \'off\';\n' +
+            '    text-transform: uppercase;\n' +
+            '    color: #999;\n' +
+            '}'
+        )
+
+        $('.outDiv').click(function () {
+            console.log(getComputedStyle($(this)[0]).backgroundColor == 'rgb(255, 255, 255)')
+            if (getComputedStyle($(this)[0]).backgroundColor == 'rgb(255, 255, 255)') {
+                $('.insideDiv').toggleClass('moveRight')
+                $('.outDiv').css({'backgroundColor': 'blue'})
+
+                moveaction(
+                    '.outDiv:before{\n' +
+                    '    font-size: 13px;\n' +
+                    '    position: absolute;\n' +
+                    '    top: 3px;\n' +
+                    '    left: 11px;\n' +
+                    '    content: \'on\';\n' +
+                    '    text-transform: uppercase;\n' +
+                    '    color: #fff;\n' +
+                    '}'
+                )
+            } else {
+                console.log(99999999999)
+                $('.insideDiv').toggleClass('moveRight')
+                $('.outDiv').css({'backgroundColor': '#fff'})
+                moveaction(
+                    '.outDiv:before{\n' +
+                    '    font-size: 13px;\n' +
+                    '    position: absolute;\n' +
+                    '    top: 3px;\n' +
+                    '    right: 11px;\n' +
+                    '    content: \'off\';\n' +
+                    '    text-transform: uppercase;\n' +
+                    '    color: #999;\n' +
+                    '}'
+                )
+            }
+        })
+    }
+    btnEvents()
+</script>
+</html>

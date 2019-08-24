@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>标题</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+</head>
+<body>
+	账号：<input type="text" name="" value="" id="zh">
+	密码：<input type="text" name="" value="" id="mm">
+	<input type="button" name="" value="登录" id="btn">
+</body>
+<script>
+var zh=document.getElementById('zh');
+var mm=document.getElementById('mm');
+var btn=document.getElementById('btn');
+btn.onclick=function(){
+	if (window.XMLHttpRequest) {
+		var xhr=new XMLHttpRequest();
+	}else{
+		var xhr=new ActiveXObject('Microsoft.XMLHTTP');
+	};
+	xhr.open('get','http://localhost/www/ajax/form.php?user='+zh.value+'&pass='+mm.value+'&_='+Math.random(),true);
+
+	xhr.send(null);
+	xhr.onreadystatechange=function(){
+		if (xhr.readyState==4) {
+			if (xhr.status==200) {
+				var str=xhr.responseText;
+				alert(str);
+			}
+			else{
+				alert('登录失败');
+			};
+		};
+	}
+}
+</script>
+</html>

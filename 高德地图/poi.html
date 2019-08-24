@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<a href="javascript:;" onclick="qqZone()">QQ空间</a>
+<script type="text/javascript">
+    function qqZone() {
+        var p = {
+            url: 'https://blog.csdn.net/qq_39135287/article/details/80897631',
+            showcount: '1',    /*是否显示分享总数,显示：'1'，不显示：'0' */
+            desc: '',        /*默认分享理由(可选)*/
+            summary: '还不赶紧点击进来观看',   /*分享摘要(可选)*/
+            title: 'js实现第三方平台分享功能',    /*分享标题(可选)*/
+            site: '',   /*分享来源 如：腾讯网(可选)*/
+            pics: '',
+            style: '203',
+            width: 98,
+            height: 22
+        };
+        var s = [];
+        for(var i in p) {
+            s.push(i + '=' + encodeURIComponent(p[i] || ''));
+        }
+        url = "http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?" + s.join('&');
+        window.open(url);
+    }
+</script>
+
+</body>
+</html>

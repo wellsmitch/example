@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<canvas id="c"></canvas>
+</body>
+<script>
+    var canvas = document.getElementById('c');
+    var ctx = canvas.getContext('2d');
+    canvas.width = 500;
+    canvas.height = 500;
+    ctx.beginPath();
+    // console.log(Math.pow(2,3));
+    for (var x = 0;x<500;x+=.1) {
+        var h = Math.abs(Math.sqrt(1-Math.pow(x, 2))) + Math.pow(x, 3/2);
+        h ? ctx.lineTo(x, h) : null;
+        //70  30
+    }
+    ctx.fill();
+    ctx.closePath();
+</script>
+</html>

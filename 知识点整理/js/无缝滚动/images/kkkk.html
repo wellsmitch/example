@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>标题</title>
+	<meta name="keywords" content="">
+	<meta name="description" content="">
+	<style>
+		#div1{width:965px;height:136px;position:relative;margin:0 auto;overflow:hidden;}
+		#div1 ul{position:absolute;left:0;top:0;}
+		#div1 ul li{width:193px;height:136px;float:left;list-style:none;}
+	</style>
+</head>
+<body>
+	<div id="div1">
+		<ul>
+			<li><img src="01.jpg"></li>
+			<li><img src="02.jpg"></li>
+			<li><img src="03.jpg"></li>
+			<li><img src="04.jpg"></li>
+			<li><img src="05.jpg"></li>
+		</ul>
+	</div>
+</body>
+<script>
+	// window.onload=function(){
+		var odiv=document.getElementById('div1');
+		var oul=odiv.getElementsByTagName('ul')[0];
+		var ali=oul.getElementsByTagName('li');
+  		oul.innerHTML=oul.innerHTML+oul.innerHTML;
+  		oul.style.width=ali[0].offsetWidth*ali.length+'px';
+  		setInterval(function(){
+  			if (oul.offsetLeft<-oul.offsetWidth/2) {
+  				oul.style.left='0';
+  			};
+  			oul.style.left=oul.offsetLeft-2+'px';
+  		},30);
+	// }
+</script>
+</html>

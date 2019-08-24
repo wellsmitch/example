@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+<span id="box"></span>
+<script type="text/javascript">
+    var str =  'wcfvjasbnfovjbwfbwkefbewfewwcfvjasbnfovjbwfbwkefbewfew';
+    var m = '';
+    var le = 0;
+	var timer = setInterval(function () {
+	    le++;
+	    if(le == str.length){clearInterval(timer)}
+        m += str[le];
+        $('#box').text(m)
+    },100)
+</script>
+</body>
+</html>

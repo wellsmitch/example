@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<svg id="svgCanvas"></svg>
+<canvas id="canvas" width="200"  height="200"></canvas>
+<script src="https://d3js.org/d3.v5.min.js"></script>
+<script type="text/javascript">
+    var cvs	= document.getElementById('canvas');
+    var ctx = cvs.getContext('2d');
+    var Img = new Image();
+    Img.src = 'sevenCenter.png';
+    Img.onload = function () {
+        draw(this);
+
+    };
+
+    // ctx.beginPath();
+    // ctx.arc(0,0,100,0,2*Math.PI,true);
+    // ctx.strokeStyle = 'blue';
+    // ctx.closePath();
+    // ctx.clip();
+
+    function draw(obj) {
+        ctx.drawImage(obj,0,0,50,50); //起点  终点 宽  高
+        // var pat = ctx.createPattern(obj,'repeat')
+       /* var pat = ctx.createPattern(obj,'no-repeat'); //必须当做填充样式
+        ctx.fillStyle = pat;
+        ctx.fillRect(0,0,box.width,box.height)*/
+        // ctx.drawImage(obj,x,y,w,rx,rw,rh)
+        // img:图片  x , y 剪切原图片的起始位置  w  , h  在原图片上剪切的宽高
+        // rx  ry  在画布中开始绘画的位置 rw rh 绘画图片的宽高
+
+
+        //从画布图片中取一块图片
+        // var data = ctx.getImageData(a,b,c,d)//a:取得起点x坐标  b: 取得起点y坐标 c:取的宽度 d:取得高度
+        // ctx.putImageData(data,e,f)//e:取号图片所放位置的起点x坐标  f:取号图片所放位置的起点y坐标
+    }
+
+
+
+    </script>
+</body>
+</html>

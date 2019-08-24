@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>标题</title>
+	<meta name="keywords" content="">
+	<meta name="description" content="">
+</head>
+<body>
+	<h1>您好某某某，上次登录时间是2016年2月17日</h1>
+</body>
+<script>
+
+var h1=document.getElementsByTagName('h1')[0];
+h1.innerHTML='您好'+getcookie('user')+'上次登录时间是'+getcookie('time');
+function setcookie(key,value,days){//设置cookie
+		var dates=new Date();
+		dates.setDate(dates.getDate()+days);
+		document.cookie=key+'='+escape(value)+'; expires='+dates;
+	}
+	function getcookie(key){//读取cookie
+		var arr=unescape(document.cookie).split('; ');
+		for (var i = 0; i < arr.length; i++) {
+			var arr2=arr[i].split('=');
+			if (arr2[0]==key) {
+				return arr2[1];
+			};
+		};
+		return false;
+	}
+	function rmcookie(key){//删除cookie
+		setcookie(key,'1',-2);
+	}
+</script>
+</html>

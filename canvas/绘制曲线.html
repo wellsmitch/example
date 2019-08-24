@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<canvas id="box" width="200"  height="200"></canvas>
+<script type="text/javascript">
+    var cvs	= document.getElementById('box');
+    var ctx = cvs.getContext('2d');
+    ctx.moveTo(10,10);
+    ctx.arcTo(100,100,200,100,50);//第一坐标  第二坐标  半径
+    ctx.stroke()
+
+
+</script>
+</body>
+</html>

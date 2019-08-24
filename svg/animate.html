@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script type="text/javascript" src="svg.js"></script>
+<input type="text">
+<div id="drawing"></div>
+
+<script type="text/javascript">
+    /*
+    *   <>: ease in and out
+    *    >: ease out
+    *   <: ease in
+    *    -: linear
+    *    =: external control
+    *
+    * */
+    var draw = SVG('drawing').viewbox(0, 0, 300, 140);
+    var rect = draw.rect(100, 100).fill('#a03').radius(10, 20);
+    // rect.animate({ ease: '<>', delay: '1.5s' }).attr({ fill: '#f03' }).attr('x', '10%').attr('x', '50%')
+    // rect.animate(2000, '<', 1000).attr({ fill: '#f03' })
+    // rect.animate(3000).move(200, 200);
+    //
+    // rect.mouseover(function() { this.pause() });
+    // rect.mouseout(function() {  rect.animate(3000).move(200, 200).reverse(true) })
+    // rect.animate(3000).move(100, 100).loop(true,5)
+
+    // rect.animate(3000).move(100, 100).after(function(situation) {
+    //     this.animate().attr({ fill: '#f06' })
+    // })
+
+
+    // var position
+    //     , from = 100
+    //     , to   = 300;
+    //
+    // rect.animate(3000).move(100, 100).during(function(pos, morph, eased, situation) {
+    //
+    //     position = from + (to - from) * pos
+    //     console.log(position)
+    // })
+
+
+
+    var ellipse = draw.ellipse(100, 100).attr('cx', '20%').fill('#333');
+
+    // rect.animate(3000).move(100, 100).during(function(pos, morph, eased, situation) {
+    //     // numeric values
+    //     ellipse.size(morph(100, 200), morph(100, 50));
+    //
+    //     // unit strings
+    //     ellipse.attr('cx', morph('20%', '80%'));
+    //
+    //     // hex color strings
+    //     ellipse.fill(morph('#333', '#ff0066'))
+    // }
+
+    var click = function() {
+        this.fill({ color: '#f06' })
+    };
+
+    ellipse.on('click', click)
+</script>
+</body>
+</html>

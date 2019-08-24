@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>demo.html</title>
+
+    <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+    <meta http-equiv="description" content="this is my page">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+    <!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+    <script type="text/javascript" src="quickQuery-packer.js"></script>
+    <!--<link rel="stylesheet" type="text/css" href="quickQuery.css">-->
+<script type="text/javascript">
+    'use strict';
+
+	function f() {
+        console.log(a)
+    }
+
+    f();
+    var a = 1;
+    /*
+    *
+    * 调用函数之后再引入变量  否则可能会出现 全局变量污染 函数内的私有特殊变量；
+    * */
+</script>
+    <script type="text/javascript">
+
+
+        var arriveCityArray = new Array("","","");
+        arriveCityArray[0] = new Array("0", "丽江", "LIJIANG",);
+        arriveCityArray[1] = new Array("1", "青岛", "QINGDAO");
+        arriveCityArray[2] = new Array("2", "临沧", "LINCANG");
+        arriveCityArray[3] = new Array("3", "林西", "LINXI");
+        arriveCityArray[4] = new Array("4", "临沂", "LINYI");
+        arriveCityArray[5] = new Array("5", "柳州", "LIUZHOU");
+        arriveCityArray[6] = new Array("6", "洛阳", "LUOYANG");
+        arriveCityArray[7] = new Array("7", "庐山", "LUSHAN");
+        arriveCityArray[8] = new Array("8", "泸州", "LUZHOU");
+        arriveCityArray[9] = new Array("9", "德宏芒市", "DEHONGMANGSHI");
+        arriveCityArray[10] = new Array("10", "满洲里", "MANZHOULI");
+        arriveCityArray[11] = new Array("11", "秦皇岛", "QINHUANGDAO");
+        arriveCityArray[12] = new Array("12", "齐齐哈尔", "QIQIHAER");
+        arriveCityArray[13] = new Array("13", "衢州", "QVZHOU");
+        arriveCityArray[14] = new Array("14", "三亚", "SANYA");
+        arriveCityArray[15] = new Array("15", "上海", "SHANGHAI");
+        arriveCityArray[16] = new Array("16", "鄯善", "SHANSHAN");
+        arriveCityArray[17] = new Array("17", "汕头", "SHANTOU");
+        arriveCityArray[18] = new Array("18", "韶关", "SHAOGUAN");
+        arriveCityArray[19] = new Array("19", "沙市", "SHASHI");
+        arriveCityArray[20] = new Array("20", "沈阳", "SHENYANG");
+        arriveCityArray[21] = new Array("21", "深圳", "SHENZHEN");
+        arriveCityArray[22] = new Array("22", "石家庄", "SHIJIAZHUANG");
+        arriveCityArray[23] = new Array("23", "思茅", "SIMAO");
+        arriveCityArray[24] = new Array("24", "苏州", "SUZHOU");
+        arriveCityArray[25] = new Array("25", "塔城", "TACHENG");
+        arriveCityArray[26] = new Array("26", "太原", "TAIYUAN");
+        arriveCityArray[27] = new Array("27", "天津", "TIANJIN");
+        arriveCityArray[28] = new Array("28", "通化", "TONGHUA");
+        arriveCityArray[29] = new Array("29", "通辽", "TONGLIAO");
+        arriveCityArray[30] = new Array("30", "铜仁", "TONGREN");
+        // arriveCityArray[31] = new Array("31", "乌兰浩特", "WULANHAOTE");
+        // arriveCityArray[32] = new Array("32", "乌鲁木齐", "WULUMUQI");
+        // arriveCityArray[33] = new Array("33", "万州", "WANZHOU");
+        // arriveCityArray[34] = new Array("34", "潍坊", "WEIFANG");
+        // arriveCityArray[35] = new Array("35", "威海", "WEIHAI");
+        // arriveCityArray[36] = new Array("36", "温州", "WENZHOU");
+        // arriveCityArray[37] = new Array("37", "武汉", "WUHAN");
+        // arriveCityArray[38] = new Array("38", "芜湖", "WUHU");
+        // arriveCityArray[39] = new Array("39", "无锡", "WUXI");
+        // arriveCityArray[40] = new Array("40", "武夷山", "WUYISHAN");
+        // arriveCityArray[41] = new Array("41", "梧州", "WUZHOU");
+        // arriveCityArray[42] = new Array("42", "厦门", "XIAMEN");
+        // arriveCityArray[43] = new Array("43", "西安", "XIAN");
+        // arriveCityArray[44] = new Array("44", "襄樊", "XIANGFAN");
+        // arriveCityArray[45] = new Array("45", "西昌", "XICHANG");
+        // arriveCityArray[46] = new Array("46", "锡林浩特", "XILINHAOTE");
+        // arriveCityArray[47] = new Array("47", "兴城", "XINGCHENG");
+        // arriveCityArray[48] = new Array("48", "兴宁", "XINGNING");
+        // arriveCityArray[49] = new Array("49", "邢台", "XINGTAI");
+        // arriveCityArray[50] = new Array("50", "西宁", "XINING");
+        // arriveCityArray[51] = new Array("51", "西双版纳", "XISHUANGBANNA");
+        // arriveCityArray[52] = new Array("52", "徐州", "XVZHOU");
+        // arriveCityArray[53] = new Array("53", "延安", "YANAN");
+        // arriveCityArray[54] = new Array("54", "盐城", "YANCHENG");
+        // arriveCityArray[55] = new Array("55", "延吉", "YANJI");
+        // arriveCityArray[56] = new Array("56", "烟台", "YANTAI");
+        // arriveCityArray[57] = new Array("57", "宜宾", "YIBIN");
+        // arriveCityArray[58] = new Array("58", "宜昌", "YICHANG");
+        // arriveCityArray[59] = new Array("59", "银川", "YINCHUAN");
+        // arriveCityArray[60] = new Array("60", "义乌", "YIWU");
+        // arriveCityArray[61] = new Array("61", "永州", "YONGZHOU");
+        // arriveCityArray[62] = new Array("62", "元谋", "YUANMOU");
+        // arriveCityArray[63] = new Array("63", "榆林", "YULIN");
+        // arriveCityArray[64] = new Array("64", "张家界", "ZHANGJIAJIE");
+        // arriveCityArray[65] = new Array("65", "湛江", "ZHANJIANG");
+        // arriveCityArray[66] = new Array("66", "昭通", "ZHAOTONG");
+        // arriveCityArray[67] = new Array("67", "郑州", "ZHENGZHOU");
+        // arriveCityArray[68] = new Array("68", "舟山", "ZHOUSHAN");
+        // arriveCityArray[69] = new Array("69", "遵义", "ZUNYI");
+        // arriveCityArray[70] = new Array("70", "北京南苑", "BEIJINGNANYUAN");
+        // arriveCityArray[71] = new Array("71", "铱兰", "YILAN");
+        // arriveCityArray[72] = new Array("72", "梨山", "LISHAN");
+        // arriveCityArray[73] = new Array("73", "广元", "GUANGYUAN");
+        // arriveCityArray[74] = new Array("74", "大足", "DAZU");
+        // arriveCityArray[75] = new Array("75", "东胜", "DONGSHENG");
+        // arriveCityArray[76] = new Array("76", "庆阳", "QINGYANG");
+        // arriveCityArray[77] = new Array("77", "伊宁", "YINING");
+        // arriveCityArray[78] = new Array("78", "运城", "YUNCHENG");
+        // arriveCityArray[79] = new Array("79", "曼彻斯特", "MANCHESITE");
+        // arriveCityArray[80] = new Array("80", "巴厘岛", "BALIDAO");
+        // arriveCityArray[81] = new Array("81", "北干巴鲁", "BEIGANBALU");
+        // arriveCityArray[82] = new Array("82", "吉达", "JIDA");
+        // arriveCityArray[83] = new Array("83", "班贾尔马", "BANJAERMA");
+        // arriveCityArray[84] = new Array("84", "巴淡岛", "BADANDAO");
+        // arriveCityArray[85] = new Array("85", "巴东", "BADONG");
+        // arriveCityArray[86] = new Array("86", "巴厘巴板", "BALIBABAN");
+        // arriveCityArray[87] = new Array("87", "班达亚齐", "BANDAYAQI");
+        // arriveCityArray[88] = new Array("88", "棉丹", "MIANDAN");
+        // arriveCityArray[89] = new Array("89", "乌戎潘当", "WURONGPANDANG");
+        // arriveCityArray[90] = new Array("90", "比亚克", "BIYAKE");
+        // arriveCityArray[91] = new Array("91", "查亚普拉", "CHAYAPULA");
+        // arriveCityArray[92] = new Array("92", "万鸦老", "WANYALAO");
+        // arriveCityArray[93] = new Array("93", "特姆巴加普拉", "TEMUBAJIAPULA");
+        // arriveCityArray[94] = new Array("94", "日惹", "RIRE");
+        // arriveCityArray[95] = new Array("95", "三宝垄", "SANBAOLONG");
+        // arriveCityArray[96] = new Array("96", "苏拉", "SULA");
+        // arriveCityArray[97] = new Array("97", "巨港", "JVGANG");
+        // arriveCityArray[98] = new Array("98", "柏林", "BOLIN");
+        // arriveCityArray[99] = new Array("99", "不莱梅", "BULAIMEI");
+        // arriveCityArray[100] = new Array("100", "科隆", "KELONG");
+        // arriveCityArray[101] = new Array("101", "德雷斯顿", "DELEISIDUN");
+        // arriveCityArray[102] = new Array("102", "多特蒙德", "DUTEMENGDE");
+        // arriveCityArray[103] = new Array("103", "杜塞尔多夫", "DUSAIERDUOFU");
+        // arriveCityArray[104] = new Array("104", "埃尔福特", "AIERFUTE");
+        // arriveCityArray[105] = new Array("105", "腓特烈港", "FEITELIEGANG");
+        // arriveCityArray[106] = new Array("106", "明斯特", "MINGSITE");
+        // arriveCityArray[107] = new Array("107", "法兰克福", "FALANKEFU");
+        // arriveCityArray[108] = new Array("108", "汉诺威", "HANNUOWEI");
+        // arriveCityArray[109] = new Array("109", "汉堡", "HANBAO");
+        // arriveCityArray[110] = new Array("110", "霍夫", "HUOFU");
+        // arriveCityArray[111] = new Array("111", "基尔", "JIER");
+        // arriveCityArray[112] = new Array("112", "哈勒", "HALE");
+        // arriveCityArray[113] = new Array("113", "慕尼黑", "MUNIHEI");
+        // arriveCityArray[114] = new Array("114", "纽伦堡", "NIULUNBAO");
+        // arriveCityArray[115] = new Array("115", "帕德博恩", "PADEBOEN");
+        // arriveCityArray[116] = new Array("116", "萨尔布吕肯", "SAERBULVKEN");
+        // arriveCityArray[117] = new Array("117", "斯图加特", "SITUJIATE");
+        // arriveCityArray[118] = new Array("118", "格拉茨", "GELACI");
+        // arriveCityArray[119] = new Array("119", "因斯布鲁克", "YINSIBULUKE");
+        // arriveCityArray[120] = new Array("120", "克拉根福特", "KELAGENFUTE");
+        window.onload = function(){
+            //模式一
+            $quickQuery(arriveCityArray,{},function (a,b) {
+                console.log(a,b);
+                //此回调函数是点击后进行的回调
+                console.log($('#quickQuery_content_box li'));
+            });
+            //模式二
+            // $quickQuery( { "demo": arriveCityArray, "demo1": arriveCityArray }, {'isPage': true} );
+
+        }
+    </script>
+</head>
+ 
+  <body>
+    <input class="quickQuery$focus" style="border: 3px solid #ccc;" />
+    <input id="demo" value="北京" />
+    <input id="demo1" value="上海" />
+   
+    <input class="quickQuery$focus ttt" id="qq" value="guang" />
+    <input class="NNN quickQuery$focus ttt" id="qqq" />
+    <input class="NNNquickQuery$focus" />
+   
+    <div class="quickQuery$focus"></div>
+    <input class="NNNquickQuery$focus" type="button" value="按钮"/>
+  </body>
+
+</html>

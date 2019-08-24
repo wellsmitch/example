@@ -1,0 +1,146 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>标题</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+<link rel="stylesheet" href="reset.css">
+<style>
+#out{width:386px;height:272px;overflow:hidden;position:relative;border:1px solid red;margin:20px auto;}
+#inner{width:386px;height:272px;overflow:hidden;}
+#con{width:3000px;height:272px;overflow:hidden;}
+#con img{width:386px;height:272px;float:left;}
+#zuo{width:25px;height:25px;background:url(images/fx1.png) 0 0 no-repeat;position:absolute;left:5px;top:125px;cursor:pointer;}
+#you{width:25px;height:25px;background:url(images/fx2.png) 0 0 no-repeat;position:absolute;right:5px;top:125px;cursor:pointer;}
+#list{width:200px;overflow:hidden;position:absolute;bottom:20px;left:100px;}
+#list li{width:30px;line-height:30px;text-align:center;float:left;margin-left:10px;background:#ccc;}
+#list .show{background:#fff;color:red;}
+</style>
+</head>
+<body>
+	<div id="out">
+		<div id="inner">
+			<div id="con">
+				<!-- <img src="images/05.jpg" alt=""> -->
+				<img src="images/01.jpg" alt="">
+				<img src="images/02.jpg" alt="">
+				<img src="images/03.jpg" alt="">
+				<img src="images/04.jpg" alt="">
+				<img src="images/05.jpg" alt="">
+				<!-- <img src="images/01.jpg" alt=""> -->
+			</div>
+		</div>
+		<p id="zuo"></p>
+		<p id="you"></p>
+		<ul id="list">
+			<li class="show">1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+			<li>5</li>
+		</ul>
+	</div>
+</body>
+<script>
+	var inner=document.getElementById('inner');
+	var con=document.getElementById('con');
+	var zuo=document.getElementById('zuo');
+	var you=document.getElementById('you');
+	var list=document.getElementById('list');
+	var imgs=con.getElementsByTagName('img');
+	var lis=list.getElementsByTagName('li');
+	var x=0,timer=null,timer2=null;//x代表数字的下标
+	var v=1;//v代表图片的下标
+
+	var firstimg=con.children[0].cloneNode(true);//1
+	var lastimg=con.children[con.children.length-1].cloneNode(true);//最后一张
+	con.appendChild(firstimg);
+	con.insertBefore(lastimg,con.children[0]);
+
+	inner.scrollLeft=imgs[0].offsetWidth;//起始位置
+
+	function automove(){
+		timer=setInterval(function(){
+			x++;
+			if (x>=lis.length) {
+				x=0;
+			};
+			v++;
+			if (v>=imgs.length) {
+				v=2;
+				inner.scrollLeft=imgs[0].offsetWidth;
+			};
+			move();
+			// listyle();
+		},2000)
+	}
+	you.onclick=function(){
+		clearInterval(timer);
+		x++;
+		if (x>=lis.length) {
+			x=0;
+		};
+		v++;
+		if (v>=imgs.length) {
+			v=2;
+			inner.scrollLeft=imgs[0].offsetWidth;
+		};
+		move();
+		// listyle();
+		automove();
+	}
+	zuo.onclick=function(){
+		clearInterval(timer);
+		x--;
+		if (x<0) {
+			x=lis.length-1;
+		};
+		v--;
+		if (v<0) {
+			v=imgs.length-3;
+			inner.scrollLeft=imgs[0].offsetWidth*(v+1);
+		};
+		move();
+		automove();
+	}
+
+	for (var i = 0; i < lis.length; i++) {
+		lis[i].onclick=function(){
+			clearInterval(timer);
+			for (var i = 0; i < lis.length; i++) {
+				if(lis[i]==this){
+					x=i;
+					v=i+1;
+					move();
+					automove();
+				}
+			};
+		}
+	};
+	function move(){//每张图片滚动
+		clearInterval(timer2);
+		var start=inner.scrollLeft;//起始位置
+		var end=imgs[0].offsetWidth*v;//结束位置
+		var step=0;//起始步数
+		var stepmax=20;//最大步数
+		var eveystep=(end-start)/20;//平均每步走的距离
+		timer2=setInterval(function(){
+			step++;
+			if (step==stepmax) {
+				step=0;
+				clearInterval(timer2);
+			};
+			start+=eveystep;
+			inner.scrollLeft=start;
+		},20)
+		for (var i = 0; i < lis.length; i++) {
+			lis[i].className='';
+		};
+		lis[x].className='show';
+
+	}
+
+	automove();
+</script>
+</html>

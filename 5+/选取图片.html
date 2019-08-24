@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <script src="../js/mui.min.js"></script>
+    <link href="../css/mui.min.css" rel="stylesheet" />
+    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+    <script type="text/javascript" charset="utf-8">
+        mui.init();
+    </script>
+</head>
+<body>
+<ul class="mui-table-view">
+    <li class="mui-table-view-cell list1">
+        <a class="mui-navigate-right">
+            Item 1s
+        </a>
+    </li>
+    <li class="mui-table-view-cell list1">
+        <a class="mui-navigate-right">
+            Item 2d
+        </a>
+    </li>
+    <li class="mui-table-view-cell list1">
+        <a class="mui-navigate-right">
+            Item 3
+        </a>
+    </li>
+</ul>
+<img id="im" width="100" src="" >
+从相册中选择图片
+<br/>
+<button onclick="galleryImg()">选择单张图片</button>
+<br/>
+<button onclick="galleryImgs()">选择多张图片</button>
+</body>
+<script type="text/javascript">
+    mui('.mui-table-view').on('tap', '.list1', function() {
+        // mui.init({
+        // 	subpages: [{
+        // 		url: 'detail',
+        // 		id: 'detail.html',
+        // 		styles: {
+        // 			top: '45px', //mui标题栏默认高度为45px；
+        // 			bottom: '0px' //默认为0px，可不定义；
+        // 		}
+        // 	}]
+        // });
+        mui.openWindow({
+            id:'detail',
+            url:'detail.html',
+            show:{
+                autoShow:true  ,
+                aniShow:'pop-in'
+            }
+        })
+    })
+
+
+    // 扩展API加载完毕后调用onPlusReady回调函数
+    document.addEventListener( "plusready", onPlusReady, false );
+    // 扩展API加载完毕，现在可以正常调用扩展API
+    function onPlusReady() {
+    }
+    // 从相册中选择图片
+    function galleryImg() {
+        // 从相册中选择图片
+        console.log("从相册中选择图片:");
+        plus.gallery.pick( function(path){
+            console.log(path);
+            $('#im').attr('src',path)
+        }, function ( e ) {
+            console.log( "取消选择图片" );
+        }, {filter:"image"} );
+    }
+    // 从相册中选择多张图片
+    function galleryImgs(){
+        // 从相册中选择图片
+        console.log("从相册中选择多张图片:");
+        plus.gallery.pick( function(e){
+            for(var i in e.files){
+                console.log(e.files[i]);
+            }
+        }, function ( e ) {
+            console.log( "取消选择图片" );
+        },{filter:"image",multiple:true});
+    }
+</script>
+</html>

@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>测试</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+<link rel="stylesheet" href="reset.css">
+<style>
+	body{padding-top: 30px;}
+	#head{overflow: hidden; margin:0 auto; width: 600px;}
+	#head span{width: 198px; height: 38px; line-height: 38px; text-align: center; border: 1px solid #000; float: left; font-size: 24px; cursor: pointer;}
+	#head span:hover{color: red;}
+	#content{width: 598px; height: 238px; border: 1px solid #000; margin:0 auto; overflow: hidden;}
+	#content li{width: 598px; height: 238px; line-height: 238px; text-align: center; font-size: 60px; display: none;}
+	/*当前显示样式*/
+	#head .select{background: #ccc;}
+	#content .show{display: block;}
+</style>
+</head>
+<body>
+	<h2 id="head">
+		<span id="span1" class="select" onclick="xuan(1,2,3);">标题1</span>
+		<span id="span2" onclick="xuan(2,3,1);">标题2</span>
+		<span id="span3" onclick="xuan(3,1,2);">标题3</span>
+	</h2>
+	<ul id="content">
+		<li id="con1" class="show">内容1111</li>
+		<li id="con2">内容2222</li>
+		<li id="con3">内容3333</li>
+	</ul>
+</body>
+<script>
+function xuan(a,b,c){
+	var spana=document.getElementById('span'+a);
+	var spanb=document.getElementById('span'+b);
+	var spanc=document.getElementById('span'+c);
+	var cona=document.getElementById('con'+a);
+	var conb=document.getElementById('con'+b);
+	var conc=document.getElementById('con'+c);
+	spana.className='';
+	spanb.className='';
+	spanc.className='';
+	cona.className='';
+	conb.className='';
+	conc.className='';
+	spana.className='select';
+	cona.className='show';
+}
+</script>
+</html>

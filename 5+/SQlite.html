@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+</head>
+<body>
+<script type="text/javascript">
+    console.log(123456);
+    document.addEventListener('plusready',function(){
+        // console.log(plus.sqlite,798789)
+        plus.sqlite.openDatabase({
+            name: 'first',
+            path: '_doc/test.db',
+            success: function(e){
+                console.log('openDatabase success!');
+                executeSQL();
+                updateSQL();
+                deleteSQL();
+                selectSQL()
+
+            },
+
+
+            fail: function(e){
+                console.log('openDatabase failed: '+JSON.stringify(e));
+            }
+        });
+        // 删除数据的SQL语句
+        function deleteSQL() {
+            plus.sqlite.selectSql({
+                name: 'first',
+                sql: "delete from database where wher ='北京11'",
+                success: function(data){
+                    console.log("删除成功");
+                    // 	for(var i in data){
+                    // 		console.log(data[i]);
+                    //
+                    // 	}
+
+                    // plus.sqlite.closeDatabase({
+                    // 	name: 'first',
+                    // 	success:function ()  {
+                    // 		console.log('closeDatabase success!');
+                    // 	}
+                    // });
+                },
+                fail: function(e){
+                    console.log('selectSql failed: '+JSON.stringify(e));
+                }
+            });
+        }
+        // 修改数据的SQL语句
+        function updateSQL(){
+            plus.sqlite.selectSql({
+                name: 'first',
+                sql: "update database set wher = '上海12222vv' where wher = '上海12222b'",
+                success: function(data){
+                    console.log("updateSql 'wher' = '上海' where 'wher' == '北京11'");
+                    // 	for(var i in data){
+                    // 		console.log(data[i]);
+                    //
+                    // 	}
+
+                    // plus.sqlite.closeDatabase({
+                    // 	name: 'first',
+                    // 	success:function ()  {
+                    // 		console.log('closeDatabase success!');
+                    // 	}
+                    // });
+                },
+                fail: function(e){
+                    console.log('selectSql failed: '+JSON.stringify(e));
+                }
+            })
+        }
+        // 查询SQL语句
+        function selectSQL(){
+            plus.sqlite.selectSql({
+                name: 'first',
+                //sql: 'select count [whre] from database', //wher COUNT [*]
+                sql: 'select * from database limit 3',// limit 3  限制3条数据
+                success: function(data){
+
+                    console.log('selectSql success: ', data.length);
+                    for(var i in data){
+                        console.log(data[i]);
+
+                    }
+                    plus.sqlite.closeDatabase({
+                        name: 'first',
+                        success:function ()  {
+                            console.log('closeDatabase success!');
+                        },
+                    });
+                },
+                fail: function(e){
+                    console.log('selectSql failed: '+JSON.stringify(e));
+                }
+            });
+        }
+        // 执行SQL语句
+        function executeSQL(){
+            plus.sqlite.executeSql({
+                name: 'first',
+                sql: 'create table if not exists database("wher" CHAR(110),"location" CHAR(100),"age" INT(11))',
+                success: function(e){
+                    console.log('executeSql success!');
+                    plus.sqlite.executeSql({
+
+                        name: 'first',
+                        sql: "insert into database values('北京11','安乐林','11')",
+                        //sql: "UPDATE database set 'where' = 北京11" ,
+                        success: function(e){
+                            console.log('executeSql success!');
+                        },
+                        fail: function(e){
+                            console.log('executeSql failed: '+JSON.stringify(e));
+                        }
+                    });
+                },
+                fail: function(e){
+                    console.log('executeSql failed: '+JSON.stringify(e));
+                }
+            });
+        }
+    })
+</script>
+</body>
+</html>

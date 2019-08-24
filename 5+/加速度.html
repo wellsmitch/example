@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+<title></title>
+<link rel="stylesheet" type="text/css" href="css/mui.min.css"/>
+<script src="js/jquery-1.11.0.js" type="text/javascript" charset="utf-8"></script>
+<style type="text/css">
+	#out{
+		width: 90vw;
+		height: 70vh;
+		border: 1px solid red;
+		margin-left:5vw ;
+		margin-top: 20px;
+		position: relative;
+		overflow: hidden;
+	}
+	#out p{
+		position: absolute;
+		width: 90vw;
+		height: 35vh;
+	}
+	.p1{
+		background: yellow;
+		top: 0;
+	}
+	.p2{
+		background: blue;
+		top: 35vh;
+	}
+
+</style>
+</head>
+<body>
+	<header class="mui-bar mui-bar-nav">
+	    <h1 class="mui-title">加速度</h1>
+	</header>
+	<div class="mui-content">
+		<div id="out">
+			<p class="p1"></p>
+			<p class="p2"></p>
+		</div>
+	    <button type="button" class="mui-btn mui-btn-blue">获取加速度</button>
+	    <button type="button" class="mui-btn mui-btn-blue">清除监听</button>
+	</div>
+
+</body>
+<script type="text/javascript">
+
+	var watchId=null;
+
+	document.addEventListener('plusready',Plusready,false)
+
+
+	function Plusready(){
+		$('button').eq(0).click(function(){
+//			plus.accelerometer.getCurrentAcceleration( successCB, errorCB );
+			watchId=plus.accelerometer.watchAcceleration( successCB, errorCB, {frequency:1000} );
+		})
+
+		$('button').eq(1).click(function(){
+			plus.accelerometer.clearWatch( watchId );
+		})
+
+	}
+
+	function successCB(a){
+//		alert(a.xAxis)
+//		$('#out').html('x---'+a.xAxis+'<br/>y---'+a.yAxis+'<br/>z---'+a.zAxis)
+
+		if( (Math.abs(加速度.xAxis)+Math.abs(加速度.yAxis)+Math.abs(加速度.zAxis)) >20 ){
+			$('.p1').slideUp('slow',function(){
+				setTimeout(function(){
+					$('.p1').slideDown('slow')
+				},1000)
+			})
+			$('.p2').animate({'top':'70vh'},800,function(){
+				setTimeout(function(){
+					$('.p2').animate({'top':'35vh'},800)
+				},1000)
+			})
+
+		}
+
+
+	}
+
+	function errorCB(){
+		alert('err')
+	}
+
+
+
+
+
+
+</script>
+</html>

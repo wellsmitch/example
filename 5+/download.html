@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+<title></title>
+<script src="js/mui.min.js"></script>
+<link href="css/mui.min.css" rel="stylesheet"/>
+</head>
+<body>
+<header class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+    <h1 class="mui-title">hello</h1>
+</header>
+<div class="mui-content">
+    <div style="padding:20px;">
+        <div style="line-height:38px;" id="dstatus">下载状态</div>
+        <div class="mui-progressbar" id="psb1">
+            <span></span>
+        </div>
+    </div>
+    <div style="padding:20px;">
+        <button id="download" onclick="createDownload();" class="mui-btn-blue mui-pull-right">开始下载</button>
+        <button id="download1" onclick="cDownload();" class="mui-btn-red mui-pull-right" style="margin-right:10px;">取消下载</button>
+    </div>
+</div>
+<script>
+mui.init();
+//初始化下载对象
+var dtask     = null;
+var psb1      = mui('#psb1');
+var dstatus   = mui('#dstatus');
+
+
+function createDownload(){
+        var isFile1 = false;
+        //判断文件是否已经下载
+        plus.io.resolveLocalFileSystemURL(
+            '_downloads/Snip_V2.0_5771.dmg',
+            function(entry){
+                if(entry.isFile){
+                    mui.toast('已经下载');
+                }
+            },
+            function(e){dBase();}
+        );
+}
+function dBase(){
+    if(dtask){mui.toast('下载任务已经存在'); return;}
+    dtask = plus.downloader.createDownload(
+        'http://snip.qq.com/resources/Snip_V2.0_5771.dmg',
+        {method:"GET"},
+        //下载完成执行的回调函数
+        function(d, status){
+            mui.toast(d.filename);
+        }
+    );
+    dtask.addEventListener("statechanged", function(task,status){
+        if(!dtask){return;}
+        switch(task.state) {
+            case 1: // 开始
+                mui.toast("开始下载...");
+            break;
+            case 2: // 已连接到服务器
+                mui.toast( "链接到服务器...");
+            break;
+            case 3:    // 已接收到数据
+                var progressVal = (task.downloadedSize/task.totalSize)*100;
+                psb1.progressbar({progress:progressVal}).show();
+                dstatus[0].innerHTML = task.downloadedSize+'/'+task.totalSize;
+            break;
+            case 4:    // 下载完成
+                //mui.toast( "下载完成！");
+            break;
+        }
+    });
+    dtask.start();
+}
+function cDownload(){
+    if(!dtask){mui.toast('请先开始下载'); return;}
+    dtask.abort();
+    dtask = null;
+}
+</script>
+</body>
+<script type="text/javascript">
+</script>
+</html>

@@ -1,0 +1,65 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>标题</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+<style>
+*{margin: 0;padding: 0;list-style: none;}
+#out{width: 810px;margin:0 auto;overflow:hidden;}
+#out ul{float: left;margin-left:20px;width:250px;overflow: hidden;}
+#out ul li{width:248px;border:1px solid #000;margin: 10px 0;}
+#out ul li img{width:248px;height: 100%;}
+</style>
+</head>
+<body>
+<div id="out">
+	<ul>
+		<!-- <li></li> -->
+	</ul>
+	<ul>
+		<!-- <li></li> -->
+	</ul>
+	<ul>
+		<!-- <li></li> -->
+	</ul>
+</div>
+</body>
+<script>
+var out=document.getElementById('out');
+var ul=out.children;
+for (var i = 0; i < 12; i++) {
+	appenli();
+};
+function appenli(){
+	var lis=document.createElement('li');
+	lis.innerHTML='<img src="" alt="" />';
+	lis.style.height=Math.floor(Math.random()*121+150)+'px';//150-270
+	var ul1=ul[0].offsetHeight;
+	var ul2=ul[1].offsetHeight;
+	var ul3=ul[2].offsetHeight;
+	var ulmin=Math.min(ul1,ul2,ul3);
+	for (var i = 0; i < ul.length; i++) {
+		if(ul[i].offsetHeight==ulmin){
+			ul[i].appendChild(lis);
+		}
+	};
+	var imgs=out.getElementsByTagName('img');
+	for (var i = 0; i < imgs.length; i++) {
+		var j=Math.ceil(Math.random()*25);
+		imgs[i].src='images/'+j+'.jpg';
+	};
+}
+window.onscroll=function(){
+	var scl=document.body.scrollTop||document.documentElement.scrollTop;//兼容w3c与ie获取
+	var winh=document.documentElement.clientHeight;//窗口高度
+	var doch=document.documentElement.offsetHeight;//文档总高度
+	if (doch-winh-500<=scl) {
+		for (var i = 0; i < 12; i++) {
+			appenli();
+		};
+	};
+}
+</script>
+</html>

@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+	<!--http://www.hcoder.net/tutorials/info_103.html-->
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+		<button>按钮1</button>
+		<script type="text/javascript">
+			
+			
+//			function Plusready() {
+				document.addEventListener('plusready',Plusready,false)
+				
+				function Plusready(){
+					$('button').click(function(){
+						plus.io.resolveLocalFileSystemURL(
+						    '_documents',
+						    function(entry){
+						    	entry.getDirectory('mytest', {create:true,exclusive:false},function(entry1){
+						            alert('创建或打开成功');
+							},function(){
+							  alert('创建或者打开子目录失败');
+							})
+						    },
+						    function(e){alert('获取io操作对象失败');}
+						)
+						
+						
+/*						plus.io.resolveLocalFileSystemURL(
+						    '_documents',
+						    function(entry){
+						        entry.getFile('2.txt',{create:true,exclusive:false},
+						            function(file){
+						                file.createWriter(function(writer){
+						                    writer.write('hi...');
+						                   alert('写入成功');
+						                },function(){
+						                    alert('写入失败');
+						                });
+						            },
+						            function(e){
+						                alert('打开文件失败');
+						            }
+						        );
+						    },
+						    function(e){alert('打开文件夹_www失败');}
+						);*/
+
+					})
+					
+				}
+				
+//			}
+			/*
+			 
+发布时间 : 2016-09-09  浏览 : 13160 次
+关于RelativeURL 相对路径URL
+
+说明：只能在扩展API中使用，相对于基座提供的特定目录，以“_”开头。
+
+常量：
+
+"_www": (DOMString 类型 )应用资源目录
+
+保存应用的所有html、css、js等资源文件，与文件系统中根目录PRIVATE_WWW一致，后面加相对路径如“_www/res/icon.png”。
+注意：应用资源目录是只读目录，只能读取次目录下的文件，不能修改或新建。
+
+"_doc": (DOMString 类型 )应用私有文档目录
+
+用于保存应用运行期业务逻辑数据，与文件系统中根目录PRIVATE_DOCUMENTS，如“_doc/userdata.xml”。
+
+"_documents": (DOMString 类型 )程序公用文档目录
+
+用于保存程序中各应用间可共享文件的目录，与文件系统中根目录PUBLIC_DOCUMENTS，如“_document/share.doc”。
+
+"_downloads": (DOMString 类型 )程序公用下载目录
+
+用于保存程序下载文件的目录，与文件系统中根目录PUBLIC_DOWNLOADS，如“_download/mydoc.doc”。
+			 * 
+			 * */
+		</script>
+	</body>
+	<script type="text/javascript">
+		//判断文件是否存在
+		
+		function filecunzai(){
+			plus.io.resolveLocalFileSystemURL(
+			    '_www/test.txt',
+			    function(entry){
+				if(entry.isFile){
+			            mui.toast('是一个文件');
+				}else{
+				    mui.toast('不是文件');
+				}
+			    },
+			    function(e){
+				mui.toast(e.message);
+			    }
+			);
+		}
+		
+		//判断文件是否是文件
+		function isFile() {
+			plus.io.resolveLocalFileSystemURL(
+		    '_www/',
+		    function(entry){
+			if(entry.isDirectory){
+			mui.toast('是一个文件夹');
+		        }else{
+			mui.toast('不是文件夹');
+		        }
+		    },
+		    function(e){
+			mui.toast(e.message);
+		    }
+		);
+		}
+//	name: 目录操作对象的名称，不包括路径
+	function filename() {
+		plus.io.resolveLocalFileSystemURL(
+		    '_www/',
+		    function(entry){
+			mui.toast(entry.name);
+		    },
+		    function(e){
+			mui.toast(e.message);
+		    }
+		);
+	}
+	// fullPath: 目录操作对象的完整路径，文件系统的绝对路径
+	function fullpath() {
+		plus.io.resolveLocalFileSystemURL(
+		    '_www/',
+		    function(entry){
+			mui.toast(entry.fullPath);
+		    },
+		    function(e){
+				mui.toast(e.message);
+		    }
+		);
+	}
+	//创建或打开子目录getDirectory
+	/*
+	 
+	 * 说明：创建或打开当前目录指定的目录。 创建或打开目录操作成功通过succesCB回调返回，失败则通过errorCB返回。
+
+参数：
+
+path: ( DOMString ) 必选 要操作目录相对于当前目录的地址
+
+flag: ( Flags ) 可选 要操作文件或目录的参数
+
+succesCB: ( EntrySuccessCallback ) 可选 创建或打开目录成功的回调函数
+
+errorCB: ( FileErrorCallback ) 可选 创建或打开目录失败的回调函数
+
+返回值：void : 无
+
+平台支持：Android - 2.2+ (支持) iOS - 4.3+ (支持)*/
+
+function getDirectory() {
+	plus.io.resolveLocalFileSystemURL(
+    '_documents',
+    function(entry){
+    	entry.getDirectory('mytest', {create:true,exclusive:false},function(entry1){
+            mui.toast('创建或打开成功');
+	},function(){
+	    mui.toast('创建或者打开子目录失败');
+	})
+    },
+    function(e){mui.toast('获取io操作对象失败');}
+)
+}
+
+//删除目录entry.remove( succesCB, errorCB );
+function removefile() {
+	plus.io.resolveLocalFileSystemURL(
+    '_documents/mytest',
+    function(entry){
+        entry.remove(function(){
+	    mui.toast('删除成功');
+	});
+    },
+    function(e){mui.toast('获取io操作对象失败');}
+)	
+}
+//创建或打开文件并获取内容 
+function newfileopen(){
+	plus.io.resolveLocalFileSystemURL(
+    '_www',
+    function(entry){
+        entry.getFile('1.txt',{create:true,exclusive:false},
+            function(file){
+                //创建文件读取对象
+                var fileReader = new plus.io.FileReader();
+                fileReader.readAsText(file, 'utf-8');
+                fileReader.onloadend = function(evt) {
+                    mui.alert(evt.target.result);
+                }
+            },
+            function(e){
+                mui.toast('打开文件失败');
+            }
+        );
+    },
+    function(e){mui.toast('打开文件夹_www失败');}
+);
+}
+	</script>
+</html>

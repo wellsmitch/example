@@ -1,0 +1,68 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>测试</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+<style>
+	*{ margin:0;padding:0;}
+	body{width: 3000px; height: 3000px;}
+	#out{width: 140px; height: 240px; background: green; position: absolute; display: none;}
+	#out a{font-size: 36px; text-decoration: none; color: red;}
+</style>
+</head>
+<body>
+	<div id="out">
+		<a href="###">上一页</a>
+		<a href="###">下一页</a>
+		<a href="###">复制</a>
+		<a href="###">粘贴</a>
+		<a href="###">刷新</a>
+	</div>
+</body>
+<script>
+var out=document.getElementById('out');
+document.oncontextmenu=function (ev){
+	
+	var Event=ev||window.event;
+	if (Event.preventDefault) {//阻止默认事件
+		Event.preventDefault();
+	} else{
+		Event.returnValue=false;
+	};
+	// return false;//不能放这里
+
+	out.style.display='block';
+
+	//窗口高度
+	var winH=document.documentElement.clientHeight;
+	//窗口宽度
+	var winW=document.documentElement.clientWidth;
+	var scrollTop=document.body.scrollTop||document.documentElement.scrollTop;
+	var scrollLeft=document.body.scrollLeft||document.documentElement.scrollLeft;
+	
+	var outH=out.offsetHeight;
+	var outW=out.offsetWidth;
+	// alert(outH);
+	// out.style.display='block';
+
+	out.style.left=Event.clientX+scrollLeft+'px';
+	out.style.top=Event.clientY+scrollTop+'px';
+
+	if (Event.clientY>=winH-outH){
+		out.style.top=scrollTop+Event.clientY-outH+'px';
+	}
+	if (Event.clientX>=winW-outW) {
+		out.style.left=Event.clientX-outW+scrollLeft+'px';
+	};
+	
+	// return false;
+
+	
+}
+document.onclick=function (){
+	out.style.display='none';
+}
+</script>
+</html>

@@ -1,0 +1,67 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>测试</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+<style>
+*{margin:0; padding:0;}
+div{width: 100px; height: 100px; font-size: 80px; color: blue; line-height: 100px; text-align: center;}
+#box1{background: red; position: absolute; cursor: move; z-index: 2;}
+#box2{background: green; position: absolute; left: 500px; top: 280px; z-index: 1;}
+</style>
+</head>
+<body>
+	<div id="box1">1</div>
+	<div id="box2">2</div>
+</body>
+<script>
+var box1=document.getElementById('box1');
+var box2=document.getElementById('box2');
+box1.onmousedown=function (ev){
+	var event=ev||window.event;
+	var sb_bkX=event.clientX-box1.offsetLeft;
+	var sb_bkY=event.clientY-box1.offsetTop;
+	document.onmousemove=function (ev){
+		var event=ev||window.event;
+		var left=event.clientX-sb_bkX;
+		var top=event.clientY-sb_bkY;
+		box1.style.left=left+'px';
+		box1.style.top=top+'px';
+		//获取box1各个方向的距离
+		var l1=box1.offsetLeft;
+		var r1=box1.offsetLeft+box1.offsetWidth;
+		var t1=box1.offsetTop;
+		var b1=box1.offsetTop+box1.offsetHeight;
+
+		//获取box2各个方向的距离
+		var l2=box2.offsetLeft;
+		var r2=box2.offsetLeft+box2.offsetWidth;
+		var t2=box2.offsetTop;
+		var b2=box2.offsetTop+box2.offsetHeight;
+
+		if (r1<l2||l1>r2||b1<t2||t1>b2) {//没碰上
+			box2.style.background='green';
+		} else{
+			// box2.style.background='yellow';
+			if (r1<r2) {
+				box2.style.left=box2.offsetLeft+50+'px';
+			} else{
+				box2.style.left=box2.offsetLeft-50+'px';
+			};
+			if (b1<b2) {
+				box2.style.top=box2.offsetTop+50+'px';
+			} else{
+				box2.style.top=box2.offsetTop-50+'px';
+			};
+		};
+	}
+	document.onmouseup=function (){
+		document.onmousemove=null;
+		document.onmouseup=null;
+	}
+	return false;
+}
+</script>
+</html>

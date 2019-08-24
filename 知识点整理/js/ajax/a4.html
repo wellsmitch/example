@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>标题</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+<style>
+	*{list-style: none;}
+	#txt{width:500px;height:30px;position:absolute;left:50px;}
+	#con{width:462px;border:1px solid #000;position: absolute;left:50px;top:27px;}
+	#con li{background:#f4f4f4;}
+	#con li:hover{background:#ccc;}
+</style>
+</head>
+<body>
+	<input type="text" name="" value="" id="txt">
+	<ul id="con"><!-- <li></li> --></ul>
+</body>
+<script>
+var txt=document.getElementById('txt');
+var con=document.getElementById('con');
+txt.onkeyup=function(){
+	con.innerHTML='';
+	if (window.XMLHttpRequest) {
+		var xhr=new XMLHttpRequest();
+	}else{
+		var xhr=new ActiveXObject('Microsoft.XMLHTTP');
+	};
+	xhr.open('post','http://localhost/www/ajax/baidu.php?sc=http://suggestion.baidu.com/su?wd=',true);
+	xhr.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+	xhr.send('wd='+txt.value);
+	// xhr.onreadystatechange=function(){
+	// 	if (xhr.readyState==4) {
+	// 		if (xhr.status==200) {
+	// 			var str=xhr.responseText;
+	// 			var json=eval('('+str+')');
+	// 			for (var i = 0; i < json.s.length; i++) {
+	// 				con.innerHTML+='<li>'+json.s[i]+'</li>';
+	// 			};
+	// 		}
+	// 		else{
+	// 			alert(xhr.status);
+	// 		};
+	// 	};
+	// }
+	xhr.onload=function(){
+		//解析成json对象
+		var data=JSON.parse(xhr.responseText);
+		for (var i = 0; i < data.s.length; i++) {
+			con.innerHTML+='<li>'+data.s[i]+'</li>';
+		};
+	}
+}
+</script>
+</html>

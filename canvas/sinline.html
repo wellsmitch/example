@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+    <style type="text/css">
+        #c{
+            margin: 0 auto;
+            display: block;
+        }
+        #r{
+            display: block;
+            margin: 0 auto;
+        }
+        #r::before{
+            color: black;
+            content: attr(min);
+            padding-right: 10px;
+        }
+        #r::after{
+            color: black;
+            content: attr(max);
+            padding-left: 10px;
+        }
+    </style>
+</head>
+<body>
+<canvas id="c"></canvas>
+
+<script type="text/javascript">
+    var canvas = document.getElementById('c');
+    var ctx = canvas.getContext('2d');
+    var mW = canvas.width = 250;
+    var mH = canvas.height = 250;
+
+    //Sin 曲线属性
+    var waveWidth = 0.015 ;   //波浪宽度,数越小越宽
+    var waveHeight = 20; //波浪高度,数越大越高
+    var speed = 0.09; //波浪速度，数越大速度越快
+    var xOffset = 0; //波浪x偏移量
+
+    //画sin 曲线函数
+    var drawSin = function(xOffset){
+        ctx.beginPath();
+        //在整个轴长上取点
+        for(var x = 0; x < mW; x += 120 / mW){
+            var y = -Math.sin(x * waveWidth + xOffset);
+            ctx.lineTo(x , y * waveHeight + 30);// 调整了上界限有空隙的问题
+        }
+        //封闭路径
+        ctx.lineTo(mW , mH - 24);
+        ctx.lineTo(0 , mH - 24);
+        ctx.fill();
+    };
+
+
+    var render = function(){
+        ctx.clearRect(0, 0, mW, mH);
+        drawSin(xOffset);
+        xOffset += speed;
+        requestAnimationFrame(render);
+    };
+
+    render();
+</script>
+</body>
+</html>

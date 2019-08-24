@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+	</head>
+	<body>
+		<video width="800" src="audio/Echosmith - Bright.mp4"controls="controls" height="" autoplay="autoplay">
+			<!--<source src="audio/aa.qsv" type="video/qsv"></source>-->
+			<!--<source src="myvideo.ogv" type="video/ogg"></source>
+			<source src="myvideo.webm" type="video/webm"></source>-->
+			<!--<object width="" height="" type="application/x-shockwave-flash" data="myvideo.swf">
+				<param name="movie" value="myvideo.swf" />
+				<param name="flashvars" value="autostart=true&amp;file=myvideo.swf" />
+			</object>
+			当前浏览器不支持 video直接播放，点击这里下载视频： <a href="myvideo.webm">下载视频</a>-->
+		</video>
+	</body>
+	<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	<script type="text/javascript">
+		//currentTime  获取当前的播放时长  快进快退
+		//object.load()重新加载该文件  重新播放
+		//pause()暂停的方法
+		//play()播放的方法
+		//RequestFullscreen()全屏展示  存在兼容问题
+		/*
+		 webkitRequestFullscreen()
+		 mozwebkitRequestFullscreen()		 
+		 msRequestFullscreen()
+		 * */
+		//功能事件************
+		//窗口的关闭事件window.onunload()=function(){}
+		//播完事件 object.onended = function(){}
+		
+		console.log($('video'))
+		window.onload = function(){
+		$('video')[0].play()
+			
+		}
+
+	</script>
+</html>

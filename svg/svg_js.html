@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="drawing"></div>
+
+<!--三次贝塞尔曲线-->
+<svg width="190px" height="160px" version="1.1" xmlns="http://www.w3.org/2000/svg">
+    <path d="M130 110 C 120 140, 180 140, 170 110" stroke="black" fill="transparent"/>
+    <circle cx="130" cy="110" r="2" fill="red"/>
+    <circle cx="120" cy="140" r="2" fill="red"/>
+    <line x1="130" y1="110" x2="120" y2="140" style="stroke:rgb(255,0,0);stroke-width:2"/>
+    <circle cx="180" cy="140" r="2" fill="red"/>
+    <circle cx="170" cy="110" r="2" fill="red"/>
+    <line x1="180" y1="140" x2="170" y2="110" style="stroke:rgb(255,0,0);stroke-width:2"/>
+</svg>
+
+<!--三次贝塞尔曲线简写-->
+<svg width="190px" height="160px" version="1.1" xmlns="http://www.w3.org/2000/svg">
+    <path d="M10 80 C 40 10, 65 10, 95 80 S 150 150, 180 80" stroke="black" fill="transparent"/>
+    <circle cx="10" cy="80" r="2" fill="red"/>
+    <circle cx="40" cy="10" r="2" fill="red"/>
+    <line x1="10" y1="80" x2="40" y2="10" style="stroke:rgb(255,0,0);stroke-width:1"/>
+
+    <circle cx="65" cy="10" r="2" fill="red"/>
+    <circle cx="95" cy="80" r="2" fill="red"/>
+    <line x1="65" y1="10" x2="95" y2="80" style="stroke:rgb(255,0,0);stroke-width:1"/>
+
+    <circle cx="125" cy="150" r="2" fill="blue"/>
+    <circle cx="180" cy="80" r="2" fill="red"/>
+    <circle cx="150" cy="150" r="2" fill="red"/>
+    <line x1="95" y1="80" x2="125" y2="150" style="stroke:blue;stroke-width:1"/>
+    <line x1="180" y1="80" x2="150" y2="150" style="stroke:rgb(255,0,0);stroke-width:1"/>
+</svg>
+
+<!--二次贝塞尔曲线-->
+<svg width="190px" height="160px" version="1.1" xmlns="http://www.w3.org/2000/svg">
+    <path d="M10 80 Q 95 10 180 80" stroke="black" fill="transparent"/>
+    <!--Points-->
+    <circle cx="10" cy="80" r="2" fill="red"/>
+    <circle cx="95" cy="10" r="2" fill="red"/>
+    <circle cx="180" cy="80" r="2" fill="red"/>
+    <line x1="10" y1="80" x2="95" y2="10" style="stroke:rgb(255,0,0);stroke-width:1"/>
+    <line x1="95" y1="10" x2="180" y2="80" style="stroke:rgb(255,0,0);stroke-width:1"/>
+</svg>
+
+<!--二次贝塞尔曲线简写-->
+<svg width="190px" height="160px" version="1.1" xmlns="http://www.w3.org/2000/svg">
+    <path d="M10 80 Q 52.5 10, 95 80 T  180 80" stroke="black" fill="transparent"/>
+
+    <circle cx="10" cy="80" r="2" fill="red"/>
+    <circle cx="52.5" cy="10" r="2" fill="red"/>
+    <line x1="10" y1="80" x2="52.5" y2="10" style="stroke:rgb(255,0,0);stroke-width:1"/>
+
+    <circle cx="95" cy="80" r="2" fill="red"/>
+    <line x1="95" y1="80" x2="52.5" y2="10" style="stroke:rgb(255,0,0);stroke-width:1"/>
+
+    <circle cx="180" cy="80" r="2" fill="blue"/>
+    <circle cx="137.5" cy="150" r="2" fill="blue"/>
+    <line x1="95" y1="80" x2="137.5" y2="150" style="stroke:rgb(0,0,255);stroke-width:1"/>
+    <line x1="137.5" y1="150" x2="180" y2="80" style="stroke:rgb(0,0,255);stroke-width:1"/>
+</svg>
+
+<svg width="320px" height="320px" version="1.1" xmlns="http://www.w3.org/2000/svg">
+    <path d="M10 315
+           L 110 215
+           A 30 50 -50 0 1 162.55 162.45
+           L 172.55 152.45
+           A 30 50 -45 0 1 215.1 109.9
+           L 315 10" stroke="black" fill="green" stroke-width="2" fill-opacity="0.5"/>
+</svg>
+
+<!--https://www.cnblogs.com/callmesummer/p/4569649.html-->
+<svg width="325px" height="325px" version="1.1" xmlns="http://www.w3.org/2000/svg">
+    <path d="M80 80
+           A 45 45, 0, 0, 0, 125 125
+           L 125 80 Z" fill="green"/>
+    <path d="M230 80
+           A 45 45, 0, 1, 0, 275 125
+           L 275 80 Z" fill="red"/>
+    <path d="M80 230
+           A 45 45, 0, 0, 1, 125 275
+           L 125 230 Z" fill="purple"/>
+    <path d="M230 230
+           A 45 45, 0, 1, 1, 275 275
+           L 275 230 Z" fill="blue"/>
+</svg>
+<!--
+
+    A rx ry x-axis-rotation large-arc-flag sweep-flag x y
+    弧形命令A的前两个参数分别是x轴半径和y轴半径，->2
+    弧形命令A的第三个参数表示弧形的旋转情况，->1
+    large-arc-flag（角度大小） 和sweep-flag（弧线方向），large-arc-flag决定弧线是大于还是小于180度，0表示小角度弧，1表示大角度弧。 ->1
+    sweep-flag表示弧线的方向，0表示从起点到终点沿逆时针画弧，1表示从起点到终点沿顺时针画弧。 ->1
+
+-->
+
+<script type="text/javascript" src="svg.js"></script>
+<script type="text/javascript">
+    var draw = SVG('drawing').size(500, 500);
+    var path = draw.path('M0 0 A50 50 0 0 1 50 50 A50 50 0 0 0 100 100');
+    path.fill('none').move(20, 20).stroke({ width: 1, color: '#ccc' });
+
+    var text = draw.text(function(add) {
+        add.tspan('We go ');
+        add.tspan('up').fill('#f09').dy(-40);
+        add.tspan(', then we go down, then up again').dy(40)
+    });
+
+    var path1 = 'M 100 200 C 200 100 300 0 400 100 C 500 200 600 300 700 200 C 800 100 900 100 900 100';
+
+    text.path(path1).font({ size: 42.5, family: 'Verdana' })
+
+    // path.marker('start', 10, 10, function(add) {
+    //     add.element('title').words('This is a title.')
+    // })
+
+</script>
+
+</body>
+</html>

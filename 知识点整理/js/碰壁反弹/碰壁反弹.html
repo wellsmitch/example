@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>测试</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+<link rel="stylesheet" href="reset.css">
+<style>
+#outer{width: 600px; height: 300px; border: 1px solid red; margin:20px auto; position: relative;}
+#con{width: 50px; height: 50px; background: green; position: absolute; left:0px; top:0px;}
+</style>
+</head>
+<body>
+<div id="outer">
+	<div id="con"></div>
+</div>
+</body>
+<script>
+var outer=document.getElementById('outer');
+var con=document.getElementById('con');
+var movex=1,movey=1,timer=null,posl=100,post=80;//保存运动方向
+timer=setInterval(function (){
+	if (movex==1) {
+		posl--;
+		if (posl<=0) {
+			posl=0;
+			movex=0;
+		};
+		con.style.left=posl+'px';
+	} else{
+		posl++;
+		if (posl>=outer.clientWidth-con.clientWidth) {
+			posl=outer.clientWidth-con.clientWidth;
+			movex=1;
+		};
+		con.style.left=posl+'px';
+	};
+	if (movey==1) {
+		post--;
+		if (post<=0) {
+			post=0;
+			movey=0;
+		};
+		con.style.top=post+'px';
+	} else{
+		post++;
+		if (post>=outer.clientHeight-con.clientHeight) {
+			post=outer.clientHeight-con.clientHeight;
+			movey=1;
+		};
+		con.style.top=post+'px';
+	};
+},10)
+</script>
+</html>

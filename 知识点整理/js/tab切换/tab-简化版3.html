@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+<head>
+	<title>tab-this写法3</title>
+	<meta charset='utf-8' />
+<style>
+h2 {width:600px;height:25px;border:1px #000 solid;margin:0 auto;}
+h2 span{width:100px;height:25px;float:left;text-align:center;line-height:25px;font-size:13px; cursor: pointer;}
+div{display:none;width:600px;height:100px;text-align:center;line-height:100px;font-size:20px;border:1px #000 solid;margin:0 auto;}
+/*当前显示样式*/
+span.on{background:#ccc;}
+div.block{background:yellow;display:block;}
+</style>
+</head>
+<body>
+	<h2>
+		<span id="span1" class="on" onclick="changeTab(this)">标题1</span>
+		<span id="span2" onclick="changeTab(this)">标题2</span>
+		<span id="span3" onclick="changeTab(this)">标题3</span>
+		<span id="span4" onclick="changeTab(this)">标题4</span>
+		<span id="span5" onclick="changeTab(this)">标题5</span>
+		<span id="span6" onclick="changeTab(this)">标题6</span>
+	</h2>
+	<div id="div1" class="block">内容11</div>
+	<div id="div2">内容22</div>
+	<div id="div3">内容33</div>
+	<div id="div4">内容44</div>
+	<div id="div5">内容55</div>
+	<div id="div6">内容66</div>
+<script>
+	function changeTab(a) {
+		var spans = document.getElementsByTagName('span');
+		var divs = document.getElementsByTagName('div');
+		for (var i=0; i<spans.length; i++) {
+			if (spans[i]==a) {
+				spans[i].className="on";
+				divs[i].className="block";
+			}else{
+				spans[i].className="";
+				divs[i].className="";
+			}
+		}
+	}
+</script>
+</body>
+</html>
+
+

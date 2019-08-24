@@ -1,0 +1,74 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>标题</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+</head>
+<style>
+	#btn{font-size:50px;}
+	form{width:300px;margin:10px auto;display: none;}
+</style>
+<body>
+	<a href="javascript: " id="btn">登录</a>
+	<form method="" action="denglu2.html">
+		<div>账号：<input type="text" name="" value="" id="zh"></div>
+		<div>密码：<input type="password" name="" value="" id="mm"></div>
+		<div>记住密码：<input type="checkbox" name="" value="" id="jz"></div>
+		<div><input type="submit" name="" value="登录" id="dl"></div>
+	</form>
+
+</body>
+<script>
+function setcookie(key,value,days){//设置cookie
+		var dates=new Date();
+		dates.setDate(dates.getDate()+days);
+		document.cookie=key+'='+escape(value)+'; expires='+dates;
+	}
+	function getcookie(key){//读取cookie
+		var arr=unescape(document.cookie).split('; ');
+		for (var i = 0; i < arr.length; i++) {
+			var arr2=arr[i].split('=');
+			if (arr2[0]==key) {
+				return arr2[1];
+			};
+		};
+		return false;
+	}
+	function rmcookie(key){//删除cookie
+		setcookie(key,'1',-2);
+	}
+
+var btn=document.getElementById('btn');
+var fom=document.getElementsByTagName('form')[0];
+var zh=document.getElementById('zh');
+var mm=document.getElementById('mm');
+var jz=document.getElementById('jz');
+var dl=document.getElementById('dl');
+
+btn.onclick=function(){
+	fom.style.display='block';
+}
+
+if (getcookie('pass')) {
+	zh.value=getcookie('user');
+	mm.value=getcookie('pass');
+	jz.checked=true;
+};
+
+dl.onclick=function(){
+	var dates=new Date();
+	var riqi=(dates.getMonth()+1)+'月'+dates.getDate()+'日';
+	setcookie('time',riqi,7);
+	setcookie('user',zh.value,7);
+	if (jz.checked) {
+		setcookie('pass',mm.value,7);
+	}else{
+		rmcookie('pass');
+	};
+	alert('登录成功');
+}
+
+</script>
+</html>

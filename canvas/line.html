@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<script>
+
+    var bw = (document.documentElement.clientWidth/7.5)+"px";
+    var htmlTag = document.getElementsByTagName("html")[0];
+    htmlTag.style.fontSize=bw;
+
+</script>
+<body>
+<canvas id="box" width="200"  height="200"></canvas>
+<script type="text/javascript">
+
+		var cvs	= document.getElementById('box');
+		var ctx = cvs.getContext('2d');
+
+        ctx.lineWidth = 15;
+        // ctx.lineCap = 'round'//端点样式
+        // round square
+        // ctx.beginPath();
+        // ctx.moveTo(50,50);
+        // ctx.lineTo(50,100);
+        // ctx.strokeStyle = 'blue';
+        // ctx.stroke();
+        // ctx.closePath();
+
+
+		// ctx.beginPath();
+		// ctx.moveTo(50,50);
+		// ctx.lineTo(50,100);
+		// ctx.lineTo(100,100);
+		// ctx.lineTo(100,50);
+		// ctx.closePath();
+        // ctx.lineJoin = 'bevel'
+        // -miter (默认) -round (圆角)  bevel(斜角)
+		// 填充颜色
+		// ctx.fillStyle = '#aaa';
+        // ctx.fill();
+        // //描边
+        // ctx.strokeStyle = 'blue';
+        // ctx.lineWidth = 5;
+        // ctx.stroke();
+        //矩形
+        ctx.beginPath();
+        ctx.rect(50,150,50,50);//x  y  长  宽
+        ctx.closePath();
+        ctx.strokeStyle = 'red';
+        ctx.stroke();
+        //快速矩形
+        // ctx.beginPath();
+        // ctx.fillStyle = 'blue';
+        // ctx.fillRect(50,50,50,50);
+        // ctx.closePath();
+        //快速矩形
+        // ctx.beginPath();
+        // ctx.strokeStyle = 'blue';
+        // ctx.strokeRect(50,50,50,50);
+        // ctx.closePath();
+        //圆
+        // ctx.beginPath();
+        // ctx.arc(100,100,50,0,.5* Math.PI,false)//圆心坐标 半径 起始角度  结束角度  是否逆时针
+        // ctx.strokeStyle = 'red';
+        // ctx.stroke();
+
+
+
+</script>
+
+</body>
+</html>

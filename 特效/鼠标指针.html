@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		
+		<style type="text/css">
+			body{
+				position: relative;
+				margin: 0;
+				 cursor: url('20190727121140841_easyicon_net_16.ico'),move;
+				 /* cursor: url('230137139.cur'),default; */
+				 /* 230137139.cur */
+				/* cursor: -ms-zoom-in; */
+			}
+		</style>
+	</head>
+	<body style="height: 300px;border: 1px solid #000;">
+		<a href="#">sdfgthyjukilo</a>
+		<!--https://www.cnblogs.com/xiaohui108/archive/2011/01/20/1940398.html-->
+	</body>
+	<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	<script>
+	$.ajax({
+		type:'post',
+		url:'http://localhost:3000/users/login',
+		data:{
+			name:'songyubin',
+			pw:123456
+		},
+		success:function(data){
+			console.log(data)
+		}
+	})
+	</script>
+</html>

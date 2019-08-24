@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+<title></title>
+<link rel="stylesheet" type="text/css" href="css/mui.min.css"/>
+<script src="js/jquery-1.11.0.js" type="text/javascript" charset="utf-8"></script>
+
+<style type="text/css">
+	#out{
+		width: 90vw;
+		height: 70vh;
+		border: 1px solid red;
+		margin-left:5vw ;
+		margin-top: 20px;
+		position: relative;
+		overflow: hidden;
+	}
+	
+	
+</style>
+</head>
+<body>
+	<header class="mui-bar mui-bar-nav">
+	    <h1 class="mui-title">支付</h1>
+	</header>
+	<div class="mui-content">
+		<div id="out">
+			
+		</div>
+	    <button type="button" class="mui-btn mui-btn-blue">付款</button>
+		<a href="http://1.miranda.applinzi.com/zfb/index.html">付款dddd</a>
+	    
+	</div>
+	
+</body>
+<script type="text/javascript">
+	
+
+	
+	document.addEventListener('plusready',Plusready,false)
+	
+	var channel=null;
+	function Plusready(){
+		
+		plus.payment.getChannels(function(channels){
+	        channel=channels[0];
+	    },function(e){
+	        alert("获取支付通道失败："+e.message);
+	    });
+		var ALIPAYSERVER='http://demo.dcloud.net.cn/helloh5/payment/alipay.php?total=';
+		var WXPAYSERVER='http://demo.dcloud.net.cn/helloh5/payment/wxpay.php?total=';
+		
+		function pay(id){
+    // 从服务器请求支付订单
+    var PAYSERVER='';
+    if(id=='alipay'){
+        PAYSERVER=ALIPAYSERVER;
+    }else if(id=='wxpay'){
+        PAYSERVER=WXPAYSERVER;
+    }else{
+        plus.nativeUI.alert("不支持此支付通道！",null,"捐赠");
+        return;
+    }
+    var xhr=new XMLHttpRequest();
+    xhr.onreadystatechange=function(){
+        switch(xhr.readyState){
+            case 4:
+            if(xhr.status==200){
+                plus.payment.request(channel,xhr.responseText,function(result){
+                    plus.nativeUI.alert("支付成功！",function(){
+                        back();
+                    });
+                },function(error){
+                    plus.nativeUI.alert("支付失败：" + error.code);
+                });
+            }else{
+                alert("获取订单信息失败！");
+            }
+            break;
+            default:
+            break;
+        }
+    }
+    xhr.open('GET',PAYSERVER);
+    xhr.send();
+}
+		
+		
+		
+		
+		
+		
+		$('button').eq(0).click(function(){
+			pay('wxpay')
+
+		})
+		
+		
+	}
+	
+	
+
+	
+	
+	
+	
+	function successCB(a){
+	}
+	
+	function errorCB(){
+		alert('err')
+	}
+	
+	
+	
+	
+	
+	
+</script>
+</html>

@@ -1,0 +1,73 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>标题</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+</head>
+<body>
+	账号：<input type="text" name="" value="" id="zh">
+	密码：<input type="password" name="" value="" id="mm">
+	<input type="button" name="" value="登录" id="login">
+	<input type="button" name="" value="注册" id="add">
+</body>
+<script>
+var zh=document.getElementById('zh');
+var mm=document.getElementById('mm');
+var ologin=document.getElementById('login');
+var add=document.getElementById('add');
+ologin.onclick=function(){
+	if (window.XMLHttpRequest) {
+		var xhr=new XMLHttpRequest();
+	}else{
+		var xhr=new ActiveXObject('Microsoft.XMLHTTP');
+	};
+	xhr.open('get','http://localhost/www/ajax/user.php?act=login&user='+zh.value+'&pass='+mm.value+'&_='+Math.random(),true);
+	xhr.send(null);
+	xhr.onreadystatechange=function(){
+		if (xhr.readyState==4) {
+			if (xhr.status==200) {
+				var str=xhr.responseText;
+				var json=eval('('+str+')');
+				// alert(str);
+				if (json.err) {
+					alert(json.msg);
+				}else{
+					alert(json.msg);
+				};
+			}
+			else{
+				alert('登录失败');
+			};
+		};
+	}
+}
+add.onclick=function(){
+	if (window.XMLHttpRequest) {
+		var xhr=new XMLHttpRequest();
+	}else{
+		var xhr=new ActiveXObject('Microsoft.XMLHTTP');
+	};
+	xhr.open('get','http://localhost/www/ajax/user.php?act=add&user='+zh.value+'&pass='+mm.value+'&_='+Math.random(),true);
+	xhr.send(null);
+	xhr.onreadystatechange=function(){
+		if (xhr.readyState==4) {
+			if (xhr.status==200) {
+				var str=xhr.responseText;
+				var json=eval('('+str+')');
+				// alert(str);
+				if (json.err) {
+					alert(json.msg);
+				}else{
+					alert(json.msg);
+				};
+			}
+			else{
+				alert('登录失败');
+			};
+		};
+	}
+}
+</script>
+</html>

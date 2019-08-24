@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>测试</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+<style>
+	div{font-size: 50px; color: red;}
+</style>
+</head>
+<body>
+	<div>北京时间：<span id="show"></span></div>
+</body>
+<script>
+setInterval(function (){
+	var dates=new Date();
+	var now='';
+	var hs='';
+	var ms='';
+	var ss='';
+	if (dates.getHours()<10) {
+		hs='0'+dates.getHours();
+	} else{
+		hs=dates.getHours();
+	};
+	if (dates.getMinutes()<10) {
+		ms='0'+dates.getMinutes();
+	} else{
+		ms=dates.getMinutes();
+	};
+	if (dates.getSeconds()<10) {
+		ss='0'+dates.getSeconds();
+	} else{
+		ss=dates.getSeconds();
+	};
+
+	now=dates.getFullYear()+'年';
+	now=now+(dates.getMonth()+1)+'月';
+	now=now+dates.getDate()+'日';
+	now=now+hs+'时';
+	now=now+ms+'分';
+	now=now+ss+'秒';
+	now=now+dates.getMilliseconds()+'毫秒';
+	document.getElementById('show').innerHTML=now;
+},1);
+</script>
+</html>

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+<script src="https://webapi.amap.com/maps?v=1.4.10&key=ebedd87f3b20e6f665c1313c1444321c"></script>
+<body>
+<div id="outIn" style="width: 500px;height: 500px;">
+
+</div>
+<button>获取数据</button>
+<script type="text/javascript">
+    var maparr = []
+
+    function Map() {
+        var map = new AMap.Map('outIn', {
+            resizeEnable: true,
+            center: [113.64247, 34.72819],
+            zoom: 13
+        });
+
+            $.get("./data.txt", function (data) {
+                console.log(data)
+                $.each(JSON.parse(data), function (n, value) {
+
+                    if (value.longitude != null && value.latitude != null && value.longitude != 0 && value.latitude != 0) {
+                        var arr = [value.longitude, value.latitude, value.orgname, value.orgaddress, value.phone, value.orgId, n];
+                        maparr.push(arr)
+                    }
+                });
+
+
+                formap(maparr);
+
+            });
+
+        /*
+              arr1 = [//数据入口***************************
+
+                ];*/
+
+        //标注**************************
+        function formap(maps) {
+            console.log(maps)
+            maps.forEach(function (ele, i) {
+                // console.log(ele[0],ele[1])
+                // console.log("yyyy"+ele[0])
+                var marker = new AMap.Marker({
+                    map: map,
+                    position: [
+                        ele[0], ele[1]
+                        //   113.64247,34.72819
+                    ],
+                    content: "<strong style='background:url(http://www.9zhinet.com/map.png) center/cover no-repeat;" +
+                        "display: block;height: 42px;width:38px;text-align:center;line-height: 30px;color: #3a3c40;'>" + '' + "</strong>",
+                    //(i+1)
+                    offset: new AMap.Pixel(-13, -30)
+                });
+
+                marker.setTitle(ele[2]);
+                AMap.event.addListener(marker, 'click', function () {
+
+                    //    mapClikeOrg(ele[5]);
+                    infoWindow.open(map, marker.getPosition());
+
+                    //**********************在此点击事件中加入相关数据逻辑
+                });
+                /*************多地点时候地点关于地图布局的自适应***************/
+                var newCenter = map.setFitView();
+
+                //实例化信息窗体
+                var title = ele[2] + '<span style="font-size:11px;color:#F00;"></span>',
+                    content = [];
+                content.push(ele[3]);
+                content.push('<p>' + "电话：" + ele[4] + '</p>');
+                content.push("<a href='#'>详细信息</a>");
+                var infoWindow = new AMap.InfoWindow({
+                    isCustom: true, //使用自定义窗体
+                    // content: createInfoWindow(title, content.join("<br/>")),
+                    content: createInfoWindow(title, content.join("")),
+                    offset: new AMap.Pixel(86, -30)
+                });
+
+                //关闭信息窗体
+                function closeInfoWindow() {
+                    map.clearInfoWindow();
+                }
+
+                //构建自定义信息窗体
+                function createInfoWindow(title, content) {
+                    var info = document.createElement("div");
+                    info.className = "custom-info input-card content-window-card radius_ overflow";
+                    // info.style.boxShadow = "0 0 20px #000";
+
+                    //可以通过下面的方式修改自定义窗体的宽高
+                    //info.style.width = "400px";
+                    // 定义顶部标题
+                    var top = document.createElement("div");
+                    var titleD = document.createElement("div");
+                    var closeX = document.createElement("img");
+                    top.className = "info-top overflow white";
+                    titleD.innerHTML = title;
+                    titleD.className = "flt";
+                    closeX.className = "frt";
+                    closeX.src = "https://webapi.amap.com/images/close2.gif";
+                    closeX.style.margin = '5px 5px 0 0 ';
+                    closeX.onclick = closeInfoWindow;
+                    top.appendChild(titleD);
+                    top.appendChild(closeX);
+                    info.appendChild(top);
+
+                    // 定义中部内容
+                    var middle = document.createElement("div");
+                    middle.className = "info-middle";
+                    middle.style.backgroundColor = 'white';
+                    middle.innerHTML = content;
+                    info.appendChild(middle);
+
+                    // 定义底部内容
+                    var bottom = document.createElement("div");
+                    bottom.className = "info-bottom";
+                    bottom.style.position = 'relative';
+                    bottom.style.top = '0px';
+                    bottom.style.margin = '0 auto';
+
+                    //底部箭头指向
+                    var sharp = document.createElement("img");
+                    sharp.src = "https://webapi.amap.com/images/sharp.png";
+                    bottom.appendChild(sharp);
+                    info.appendChild(bottom);
+
+                    //定位图标内的数字
+                    var numcite = document.createElement("div");
+                    numcite.innerText = 111111111;
+                    bottom.style.position = 'relative';
+                    bottom.style.top = '0px';
+                    return info;
+                }
+
+                //关闭信息窗体
+                function closeInfoWindow() {
+                    map.clearInfoWindow();
+                }
+
+                $('.amap-copyright,.amap-logo').css({
+                    marginLeft: '-9999px',
+                    'color': 'red'
+                })
+            });
+        }
+
+        //    $('.amap-copyright')[0].style.visibility = 'hidden'
+    }
+    // Map();
+    $('button').click(function () {
+        Map();
+    })
+</script>
+</body>
+
+</html>

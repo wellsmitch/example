@@ -1,0 +1,37 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>拖影</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+<style>
+	div{width:20px;height:20px;background:red;position:absolute;}
+</style>
+</head>
+<body>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+</body>
+<script>
+	var con=document.getElementsByTagName('div');
+	document.onmousemove=function(ev){
+		var Event=ev||window.event;
+		var v=-1,timer=null;
+		timer=setInterval(function(){
+			v++;
+			if (v>=con.length-1) {
+				// v=-1;
+				clearInterval(timer);
+			};
+			con[v].style.left=Event.clientX+'px';
+			con[v].style.top=Event.clientY+'px';
+		},20)
+	}
+</script>
+</html>

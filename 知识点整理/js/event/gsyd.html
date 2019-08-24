@@ -1,0 +1,23 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>标题</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+<style>
+	#out{width:35px;height:35px;background:url(01.png) 0 0 no-repeat;position:absolute;}
+</style>
+</head>
+<body>
+	<div id="out"></div>
+</body>
+<script>
+	var out=document.getElementById('out');
+	document.onmousemove=function(ev){
+		var Event=ev||window.event;
+		out.style.left=Event.clientX+'px';
+		out.style.top=Event.clientY+'px';
+	}
+</script>
+</html>

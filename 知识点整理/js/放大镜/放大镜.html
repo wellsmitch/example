@@ -1,0 +1,83 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>标题</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+<link rel="stylesheet" href="reset.css">
+<style>
+#out{overflow:hidden;padding:50px 0 0 50px;position:relative;}
+#minbox{width:350px;height:350px;cursor:move;position:relative;border:1px solid #000;float: left;}
+#minimg{width:350px;height:350px;}
+#mask{width:175px;height:175px;position:absolute;top:0;left:0;background:yellow;opacity:0.4;filter:alpha(opacity=40);display: none;}
+#maxbox{position:absolute;top:50px;left:412px;width:400px;height:400px;overflow:hidden;border:1px solid red;display: none;}
+#maximg{width:800px;height:800px;/*position:absolute;*/}
+.con{width:592px;height:406px;float:left;margin-left:20px; }
+</style>
+</head>
+<body>
+<div id="out">
+	<div id="minbox">
+		<img src="images/min.jpg" alt="" id="minimg">
+		<p id="mask"></p> 
+	</div>
+	<div id="maxbox">
+		<img src="images/max.jpg" alt="" id="maximg">
+	</div>
+	<div class="con">
+		<img src="images/sp.jpg" alt="">
+	</div>
+</div>
+</body>
+<script>
+function offsetl(obj){
+	var l=0,t=0;
+	while(obj){
+		l=l+obj.offsetLeft;
+		t=t+obj.offsetTop;
+		obj=obj.offsetParent;
+	}
+	return {top:t,left:l};
+}
+
+var minbox=document.getElementById('minbox');
+var minimg=document.getElementById('minimg');
+var maxbox=document.getElementById('maxbox');
+var maximg=document.getElementById('maximg');
+var mask=document.getElementById('mask');
+minbox.onmousemove=function(ev){
+	var Event=ev||window.event;
+	mask.style.display='block';
+	maxbox.style.display='block';
+	var maskl=Event.clientX-offsetl(minbox).left-mask.offsetWidth/2;
+	var maskt=Event.clientY-offsetl(minbox).top-mask.offsetHeight/2;
+	var maxmovex=minbox.clientWidth-mask.offsetWidth;
+	var maxmovey=minbox.clientHeight-mask.offsetHeight;
+	if (maskl>=maxmovex) {
+		maskl=maxmovex;
+	}else if (maskl<=0){
+		maskl=0;
+	};
+	if (maskt>=maxmovey) {
+		maskt=maxmovey;
+	}else if (maskt<=0){
+		maskt=0;
+	};
+
+	mask.style.left=maskl+'px';
+	mask.style.top=maskt+'px';
+
+	var bl=maximg.offsetWidth/minimg.offsetWidth;
+	// maximg.style.left=-bl*maskl+'px';
+	// maximg.style.top=-bl*maskt+'px';
+	maxbox.scrollLeft=bl*maskl;
+	maxbox.scrollTop=bl*maskt;
+
+}
+minbox.onmouseout=function(){
+	mask.style.display='none';
+	maxbox.style.display='none';
+}
+</script>
+</html>

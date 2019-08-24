@@ -1,0 +1,145 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>测试</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+<link rel="stylesheet" href="reset.css">
+<style>
+	/*ody{padding-top: 30px;}
+	#head{overflow: hidden; margin:0 auto; width: 600px;}
+	#head span{width: 198px; height: 38px; line-height: 38px; text-align: center; border: 1px solid #000; float: left; font-size: 24px; cursor: pointer;}
+	#head span:hover{color: red;}
+	#content{width: 598px; height: 238px; border: 1px solid #000; margin:0 auto; overflow: hidden;}
+	#content li{width: 598px; height: 238px; line-height: 238px; text-align: center; font-size: 60px; display: none;}*/
+	#head{width: 600px;margin: 0 auto;overflow: hidden;}
+	#head span{width: 198px;height: 38px;text-align: center;line-height: 38px;border: 1px solid #000;float: left;cursor: pointer;}
+	#content{width: 598px;border: 1px solid #000;height: 238px;margin: 0 auto;overflow: hidden;}
+	#content li{width: 598px;height: 238px;line-height: 238px;font-size: 25px;text-align:center;display: none;}
+	#head .sec{background: #ccc;}
+	#content .show{display: block;}
+</style>
+</head>
+<body>
+	<!-- <h2 id="head">
+		<span>标题1</span>
+		<span>标题2</span>
+		<span>标题3</span>
+	</h2>
+	<ul id="content">
+		<li>内容1111</li>
+		<li>内容2222</li>
+		<li>内容3333</li>
+	</ul> -->
+
+	<h2 id="head">
+		<span class="sec">标题1</span>
+		<span>标题2</span>
+		<span>标题3</span>
+	</h2>
+	<ul id="content">
+		<li class="show">内容1</li>
+		<li>内容2</li>
+		<li>内容3</li>
+	</ul>
+</body>
+<script>
+var spans=document.getElementsByTagName('span');
+var lis=document.getElementsByTagName('li');
+// spans[0].style.backgroundColor="#ccc";
+// lis[0].style.display="block";
+function remove(){
+	spans[0].className='';
+	lis[0].className='';
+	spans[1].className='';
+	lis[1].className='';
+	spans[2].className='';
+	lis[2].className='';
+}
+spans[0].onclick=function(){
+	/*spans[0].style.backgroundColor=''#ccc'';
+	lis[0].style.display=''block'';
+	spans[1].style.backgroundColor='';
+	lis[1].style.display='';
+	spans[2].style.backgroundColor='';
+	lis[2].style.display='';*/
+	/*spans[0].className='sec';
+	lis[0].className='show';
+	spans[1].className='';
+	lis[1].className='';
+	spans[2].className='';
+	lis[2].className='';*/
+	remove();
+	spans[0].className='sec';
+	lis[0].className='show';
+	
+
+}
+spans[1].onclick=function(){
+	/*spans[0].style.backgroundColor='';
+	lis[0].style.display='';
+	spans[1].style.backgroundColor='#ccc';
+	lis[1].style.display='block';
+	spans[2].style.backgroundColor='';
+	lis[2].style.display='';*/
+	/*spans[0].className='';
+	lis[0].className='';
+	spans[1].className='sec';
+	lis[1].className='show';
+	spans[2].className='';
+	lis[2].className='';*/
+	remove();
+	spans[1].className='sec';
+	lis[1].className='show';
+	
+}
+spans[2].onclick=function(){
+	/*spans[0].style.backgroundColor='';
+	lis[0].style.display='';
+	spans[1].style.backgroundColor='';
+	lis[1].style.display='';
+	spans[2].style.backgroundColor=''#ccc'';
+	lis[2].style.display=''block'';*/
+	/*spans[0].className='';
+	lis[0].className='';
+	spans[1].className='';
+	lis[1].className='';
+	spans[2].className='sec';
+	lis[2].className='show';*/
+	remove();
+	spans[2].className='sec';
+	lis[2].className='show';
+	
+}
+// var spans=document.getElementsByTagName('span');
+// var lis=document.getElementsByTagName('li');
+// spans[0].style.backgroundColor='#ccc';
+// lis[0].style.display='block';
+
+// spans[0].onclick=function (){
+// 	spans[0].style.backgroundColor='#ccc';
+// 	spans[1].style.backgroundColor='';
+// 	spans[2].style.backgroundColor='';
+// 	lis[0].style.display='block';
+// 	lis[1].style.display='none';
+// 	lis[2].style.display='none';
+// }
+// spans[1].onclick=function (){
+// 	spans[0].style.backgroundColor='';
+// 	spans[1].style.backgroundColor='#ccc';
+// 	spans[2].style.backgroundColor='';
+// 	lis[0].style.display='none';
+// 	lis[1].style.display='block';
+// 	lis[2].style.display='none';
+// }
+// spans[2].onclick=function (){
+// 	spans[0].style.backgroundColor='';
+// 	spans[1].style.backgroundColor='';
+// 	spans[2].style.backgroundColor='#ccc';
+// 	lis[0].style.display='none';
+// 	lis[1].style.display='none';
+// 	lis[2].style.display='block';
+// }
+</script>
+</html>

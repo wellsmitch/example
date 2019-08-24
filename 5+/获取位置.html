@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+<title></title>
+<link rel="stylesheet" type="text/css" href="css/mui.min.css"/>
+<script src="js/jquery-1.11.0.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.10&key=e4e80d2aa0d24783d16e916c8d5058d1"></script>
+<style type="text/css">
+	#out{
+		width: 90vw;
+		height: 70vh;
+		border: 1px solid red;
+		margin-left:5vw ;
+		margin-top: 20px;
+		position: relative;
+		overflow: hidden;
+	}
+	
+	
+</style>
+</head>
+<body>
+	<header class="mui-bar mui-bar-nav">
+	    <h1 class="mui-title">设备</h1>
+	</header>
+	<div class="mui-content">
+		<div id="out">
+			
+		</div>
+	    <button type="button" class="mui-btn mui-btn-blue">设备--获取位置</button>
+
+	    
+	</div>
+	
+</body>
+<script type="text/javascript">
+	
+
+	
+	document.addEventListener('plusready',Plusready,false)
+	
+	
+	function Plusready(){
+		$('button').eq(0).click(function(){
+//			alert(plus.device.model)
+//			打电话
+//			plus.device.dial( '110', false );
+//			 蜂鸣
+//			plus.device.beep( 300 );	
+//			震动
+//			plus.device.vibrate( 2000 );
+//			设置音量
+//			plus.device.setVolume( 0 );
+
+//			定位
+			plus.geolocation.getCurrentPosition(successCB, errorCB);
+
+		})
+		
+		
+	}
+	
+	function successCB(a){
+//		alert(a.address.district+a.address.street)
+
+		var marker = new AMap.Marker({
+		    position: new AMap.LngLat(a.coords.longitude, a.coords.latitude),   // 经纬度对象，也可以是经纬度构成的一维数组[116.39, 39.9]
+		    title: a.address.district
+		});	
+
+		var map = new AMap.Map('out', {
+	        zoom:18,//级别
+	        center: [a.coords.longitude, a.coords.latitude],//中心点坐标
+	        viewMode:'3D'//使用3D视图
+	    });
+		
+		map.add(marker);
+	}
+	
+	function errorCB(){
+		alert('err')
+	}
+	
+	
+	
+	
+	
+	
+</script>
+</html>

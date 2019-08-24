@@ -1,0 +1,103 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>测试</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+<link rel="stylesheet" href="reset.css">
+<style>
+#outer{width: 1005px; height: 136px; margin:50px auto 0; border: 1px solid red; overflow: hidden;}
+#inner{width: 4000px; height: 136px; overflow: hidden;}
+#con1,#con2{float: left;}
+#con1 img,#con2 img{width: 193px; height: 136px; float: left; margin-right: 10px;}
+#fx{text-align: center;}
+#fx input{font-size: 26px;}
+</style>
+</head>
+<body>
+<div id="outer">
+	<div id="inner">
+		<div id="con1">
+			<img src="images/01.jpg" alt="">
+			<img src="images/02.jpg" alt="">
+			<img src="images/03.jpg" alt="">
+			<img src="images/04.jpg" alt="">
+			<img src="images/05.jpg" alt="">
+		</div>
+		<div id="con2"></div>
+	</div>
+</div>
+<div id="fx">
+	<input type="button" name="" value="<向左滚动">
+	<input type="button" name="" value="向右滚动>">
+</div>
+</body>
+<script>
+var outer=document.getElementById('outer');
+var con1=document.getElementById('con1');
+var con2=document.getElementById('con2');
+var img=con1.getElementsByTagName('img')[0];
+var btns=document.getElementsByTagName('input');
+var timer1=null,timer2=null,timer3=null,timer4=null;
+var x=0;// 储存当前滚动的方向
+
+//把内容1的东西 赋值给内容2
+con2.innerHTML=con1.innerHTML;
+
+function clear(){
+	clearInterval(timer1);
+	clearTimeout(timer2);
+	clearTimeout(timer3);
+	clearInterval(timer4);
+}
+
+function moveleft(){//左滚动函数
+	outer.scrollLeft++;
+	if (outer.scrollLeft>=con1.offsetWidth) {
+		outer.scrollLeft=0;
+	};
+	if (outer.scrollLeft%(img.offsetWidth+10)==0) {
+		clear();
+		timer2=setTimeout(function (){
+			timer1=setInterval(moveleft,10);
+		},2000);
+	};
+}
+function moveright(){//右滚动函数
+	outer.scrollLeft--;
+	if (outer.scrollLeft<=0) {
+		outer.scrollLeft=con1.offsetWidth;
+	};
+	if (outer.scrollLeft%(img.offsetWidth+10)==0) {
+		clear();
+		timer3=setTimeout(function (){
+			timer4=setInterval(moveright,10);
+		},1000);
+	};
+}
+timer1=setInterval(moveleft,10);//进入页面自动走
+
+btns[0].onclick=function (){
+	clear();
+	timer1=setInterval(moveleft,10);
+	// x=0;
+}
+btns[1].onclick=function (){
+	clear();
+	timer4=setInterval(moveright,10);
+	// x=1;
+}
+
+outer.onmouseover=function (){
+	clear();
+}
+outer.onmouseout=function (){
+	if (x==0) {
+		timer1=setInterval(moveleft,10);
+	} else{
+		timer4=setInterval(moveright,10);
+	};
+}
+</script>
+</html>

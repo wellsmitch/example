@@ -1,0 +1,159 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>测试</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+</head>
+<body>
+	<input type="text" name="" value="" id="txt">
+	<span id="ts">提示</span><br/>
+	<input type="button" name="" value="邮箱验证" id="btn">
+</body>
+<script>
+/*常用邮箱后缀：
+	@gmail.com    
+	@yahoo.com   
+	@msn.com   
+	@hotmail.com   
+	@aol.com 
+	@ask.com      
+	@live.com      
+	@qq.com     
+	@0355.net      
+	@163.com 
+	@163.net       
+	@263.net       
+	@3721.net    
+	@yeah.net    
+	@googlemail.com 
+	@mail.com 
+	国外常用邮箱：  
+	@hotmail.com    
+	@msn.com   
+	@yahoo.com   
+	@gmail.com   
+	@aim.com 
+	@aol.com         
+	@mail.com   
+	@walla.com    
+	@inbox.com 
+	国内常见邮箱：  
+	@126.com       
+	@163.com     
+	@sina.com      
+	@21cn.com    
+	@sohu.com
+	@yahoo.com.cn   
+	@tom.com    
+	@qq.com      
+	@etang.com    
+	@eyou.com 
+	@56.com         
+	@x.cn       
+	@chinaren.com    
+	@sogou.com  
+	@citiz.com*/
+// (数字/字母/下划线){6,24}@(字母/数字)(点/字母){1,4}
+var txt=document.getElementById('txt');
+var ts=document.getElementById('ts');
+var btn=document.getElementById('btn');
+btn.onclick=function(){
+	var reg=/\s+/g;
+	var regs=/^\w{6,24}@[a-z0-9]{1,12}(\.[a-z]{2,4}){1,4}$/g;
+	if (reg.test(txt.value)) {
+		ts.innerHTML='不能有空格';
+	}else{
+		if (regs.test(txt.value)) {
+			ts.innerHTML='格式正确';
+		}else{
+			ts.innerHTML='格式错误';
+		};
+	};
+}
+
+
+
+
+
+
+
+
+
+// var txt=document.getElementById('txt');
+// var ts=document.getElementById('ts');
+// var btn=document.getElementById('btn');
+// btn.onclick=function(){
+// 	var reg=/^\w{6,24}@[a-z0-9]{1,12}(\.[a-z]{2,4})$/g;
+// 	var regs=/\s+/g;
+// 	if (regs.test(txt.value)) {
+// 		ts.innerHTML='不能有空格';
+// 		ts.style.color='red';
+// 	}else{
+// 		if (reg.test(txt.value)) {
+// 			ts.innerHTML='格式正确';
+// 			ts.style.color='yellow';
+// 		}else{
+// 			ts.innerHTML='格式错误';
+// 			ts.style.color='red';
+// 		};
+// 	};
+// }
+
+// var txt=document.getElementById('txt');
+// var ts=document.getElementById('ts');
+// var btn=document.getElementById('btn');
+// btn.onclick=function(){
+// 	var reg=/^\w{6,24}@[a-z0-9]{1,12}(\.[a-z]{2,4}){1,4}$/g;
+// 	var regs=/\s+/g;
+// 	if (regs.test(txt.value)) {
+// 		ts.innerHTML='不能有空格';
+// 		ts.style.color='red';
+// 	}else{
+// 		if (reg.test(txt.value)) {
+// 			ts.innerHTML='格式正确';
+// 			ts.style.color='yellow';
+// 		}else{
+// 			ts.innerHTML='格式错误';
+// 			ts.style.color='red';
+// 		};
+// 	};
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*btn.onclick=function (){
+	var reg=/^\w{6,24}@[a-z0-9]{1,12}(\.[a-z]{2,4}){1,4}$/g;
+	var regs=/\s+/g;
+	if (regs.test(txt.value)) {
+		ts.innerHTML='亲，不能含有空格！';
+		ts.style.color='red';
+	} else{
+		if (reg.test(txt.value)) {
+			ts.innerHTML='恭喜，格式正确！';
+			ts.style.color='green';
+		} else{
+			ts.innerHTML='抱歉，格式错误！';
+			ts.style.color='red';
+		};
+	};
+}*/
+</script>
+</html>

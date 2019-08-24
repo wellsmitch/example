@@ -1,0 +1,57 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>测试</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+<style>
+	#time{font-size: 40px; color: green;}
+</style>
+</head>
+<body>
+<div id="time">
+	距放假还有：
+	<span>2</span>
+	<span>天</span>
+	<span>2</span>
+	<span>小时</span>
+	<span>2</span>
+	<span>分钟</span>
+	<span>2</span>
+	<span>秒</span>
+	<span>2</span>
+	<span>毫秒</span>
+</div>
+</body>
+<script>
+/*1秒 = 1000  毫秒
+1分 = 1000*60 毫秒
+1小时 = 1000*60*60 毫秒
+1天 = 1000*60*60*24 毫秒*/
+
+var spans=document.getElementsByTagName('span');
+var set=new Date('2016/01/29,12:00:00');//结束时间对象
+var end=set.getTime();//1970.1.1到2015.10.1的毫秒数
+
+setInterval(function (){
+	var now=new Date();//当前时间对象
+	var start=now.getTime();//1970.1.1到当前的毫秒数
+	var allTime=end-start;//当前到2015.10.1的毫秒数
+	var days=parseInt(allTime/(1000*60*60*24));//剩余天数
+	var _hours=allTime%(1000*60*60*24);//减掉天数剩余的毫秒数
+	var hours=parseInt(_hours/(1000*60*60));//剩余小时数
+	var _minutes=_hours%(1000*60*60);//减掉天数小时数剩余毫秒数
+	var minutes=parseInt(_minutes/(1000*60));//剩余分钟数
+	var _seconds=_minutes%(1000*60);//减掉天数小时数分钟数剩余毫秒数
+	var seconds=parseInt(_seconds/(1000));//剩余秒数
+	var millis=_seconds%(1000);//毫秒数
+
+	spans[0].innerHTML=days;
+	spans[2].innerHTML=hours;
+	spans[4].innerHTML=minutes;
+	spans[6].innerHTML=seconds;
+	spans[8].innerHTML=millis;
+},1)
+</script>
+</html>

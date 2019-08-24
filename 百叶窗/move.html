@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+		section{
+			width: 600px;
+			height: 400px;
+			position: relative;
+			overflow: hidden;
+			background: black;
+			opacity: .8;
+			transition: all 1s;
+		}
+		section:hover{
+			opacity: 1;
+		}
+		img{
+			position: absolute;
+			right: 0;
+			z-index: -10;
+			transition: all 1s;
+			
+		}	
+		section:hover img{
+				transform: translateX(40px);	
+		}		
+		div{
+			padding-left:100px ;
+			margin: 200px auto;
+			height: 80px;
+	
+			overflow: hidden;		
+		}
+		div p:nth-child(1){
+			margin-top: 20px;
+			font-size: 18px;
+			color: red;
+			transition: all 1s;
+		}
+		div p:nth-child(2){
+			font-size: 12px;
+			color: #ddd;
+			margin-top: 80px;
+			transition: all 1s;	
+		}
+		section:hover div p:nth-child(1){
+			transform: translateY(-20px);
+		}
+		section:hover div p:nth-child(2){
+			transform: translateY(-90px);
+		}
+		</style>
+		
+	</head>
+	<body>
+		<section>
+			<img src="img/pic1.jpg"/>
+			<div>
+				<p>NNFONFOFN</p>
+				<p>cnsncsnvsnvsobvbevoibvoib</p>
+			</div>
+		</section>
+	</body>
+</html>

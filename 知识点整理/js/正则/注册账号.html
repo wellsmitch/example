@@ -1,0 +1,154 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>测试</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+<style>
+	input{width: 180px; height: 22px; margin-bottom: 10px;}
+	.red{border: 1px solid red;}
+	.green{border: 1px solid green;}
+</style>
+</head>
+<body>
+<h1>账号注册</h1>
+<form method="" action="https://www.baidu.com/" id="form">
+	账号：<input type="text" name="user" value="">请输入6-24位数字/字母或下划线(不能含有空格)<br>
+	密码：<input type="text" name="pass1" value="">请输入6-16位数字/字母(区分大小写/不能含有空格)<br>
+	确认：<input type="text" name="pass2" value="">请确认两次输入的密码一致<br>
+	邮箱：<input type="text" name="email" value="">请正确输入邮箱地址(不能含有空格)<br>
+	昵称：<input type="text" name="nicheng" value="">请输入2-12位字符(不能含有空格)<br>
+	<input type="submit" name="" value="注册">
+</form>
+</body>
+<script>
+var form=document.getElementById('form');
+var zh=document.getElementsByName('user')[0];
+var ma=document.getElementsByName('pass1')[0];
+var qr=document.getElementsByName('pass2')[0];
+var yx=document.getElementsByName('email')[0];
+var nc=document.getElementsByName('nicheng')[0];
+var sub=false;
+// form.onsubmit=function(){
+// 	// sub=false;
+// 	//账号
+// 	var reg1=/\s+/g;
+// 	var reg1s=/\w{6,24}/g;//账号
+// 	var reg2=/[a-zA-Z0-9]{6,16}/g;//密码
+// 	var regyx=/^\w{6,24}@[a-z0-9]{1,12}(\.[a-z]{2,4}){1,4}$/g;//邮箱
+// 	var regnc=/.{2,12}/g;//昵称
+// 	if (reg1.test(zh.value)) {
+// 		zh.className='red';
+// 		sub=true;
+// 	}else{
+// 		if(reg1s.test(zh.value)) {
+// 			zh.className='green';
+// 			sub=false;
+// 		}else{
+// 			zh.className='red';
+// 			sub=true;
+// 		};
+// 	};
+// 	//密码
+	
+// 	if (reg1.test(ma.value)) {
+// 		ma.className='red';
+// 		sub=true;
+// 	}else{
+// 		if (reg2.test(ma.value)) {
+// 			ma.className='green';
+// 			sub=true;
+// 		}else{
+// 			ma.className='red';
+// 			sub=true;
+// 		};
+// 	};
+
+// 	if (sub) {
+// 		return false;
+// 	};
+// }
+
+var form=document.getElementById('form');
+var user=document.getElementsByName('user')[0];
+var pass1=document.getElementsByName('pass1')[0];
+var pass2=document.getElementsByName('pass2')[0];
+var email=document.getElementsByName('email')[0];
+var nicheng=document.getElementsByName('nicheng')[0];
+var sub=false;
+form.onsubmit=function (){
+	var regs=/\s+/g;//匹配空格
+	sub=false;
+	var regzh=/\w{6,24}/g;//账号
+	if (regs.test(user.value)) {
+		user.className='red';
+		sub=true;
+	} else{
+		if (regzh.test(user.value)) {
+			user.className='green';
+			// sub=false;
+		} else{
+			user.className='red';
+			sub=true;
+		};
+	};
+
+	var regmm=/[a-zA-Z0-9]{6,16}/g;//密码
+	if (regs.test(pass1.value)) {
+		pass1.className='red';
+		sub=true;
+	} else{
+		if (regmm.test(pass1.value)) {
+			pass1.className='green';
+			// sub=false;
+		} else{
+			pass1.className='red';
+			sub=true;
+		};
+	};
+
+	if (pass2.value==pass1.value) {//确认密码
+		pass2.className=pass1.className;
+		// sub=false;
+	} else{
+		pass2.className='red';
+		sub=true;
+	};
+
+	var regyx=/^\w{6,24}@[a-z0-9]{1,12}(\.[a-z]{2,4}){1,4}$/g;//邮箱
+	if (regs.test(email.value)) {
+		email.className='red';
+		sub=true;
+	} else{
+		if (regyx.test(email.value)) {
+			email.className='green';
+			// sub=false;
+		} else{
+			email.className='red';
+			sub=true;
+		};
+	};
+
+	// var regnc=/[^\s]{2,12}/g;//昵称
+	// var regnc=/\S{2,12}/g;//昵称
+	var regnc=/.{2,12}/g;//昵称
+	if (regs.test(nicheng.value)) {
+		nicheng.className='red';
+		sub=true;
+	} else{
+		if (regnc.test(nicheng.value)) {
+			nicheng.className='green';
+			// sub=false;
+		} else{
+			nicheng.className='red';
+			sub=true;
+		};
+	};
+
+	if (sub) {
+		return false;//阻止默认事件 阻止表单提交
+	};
+}
+</script>
+</html>

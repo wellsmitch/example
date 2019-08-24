@@ -1,0 +1,60 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>测试</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+<link rel="stylesheet" href="reset.css">
+<style>
+	body{padding-top: 30px;}
+	#head{overflow: hidden; margin:0 auto; width: 600px;}
+	#head span{width: 198px; height: 38px; line-height: 38px; text-align: center; border: 1px solid #000; float: left; font-size: 24px; cursor: pointer;}
+	#head span:hover{color: red;}
+	#content{width: 598px; height: 238px; border: 1px solid #000; margin:0 auto; overflow: hidden;}
+	#content li{width: 598px; height: 238px; line-height: 238px; text-align: center; font-size: 60px; display: none;}
+	/*当前显示样式*/
+	#head .select{background: #ccc;}
+	#content .show{display: block;}
+</style>
+</head>
+<body>
+	<h2 id="head">
+		<span class="select">标题1</span>
+		<span>标题2</span>
+		<span>标题3</span>
+	</h2>
+	<ul id="content">
+		<li class="show">内容1111</li>
+		<li>内容2222</li>
+		<li>内容3333</li>
+	</ul>
+</body>
+<script>
+var spans=document.getElementsByTagName('span');
+var lis=document.getElementsByTagName('li');
+function remove(){ //清除所有类名
+	spans[0].className='';
+	spans[1].className='';
+	spans[2].className='';
+	lis[0].className='';
+	lis[1].className='';
+	lis[2].className='';
+}
+spans[0].onclick=function (){
+	remove();//先清除
+	spans[0].className='select';//再添加
+	lis[0].className='show';//再添加
+}
+spans[1].onclick=function (){
+	remove();
+	spans[1].className='select';
+	lis[1].className='show';
+}
+spans[2].onclick=function (){
+	remove();
+	spans[2].className='select';
+	lis[2].className='show';
+}
+</script>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+    #box{
+        /*width: 250px;*/
+        border: 1px saddlebrown solid;
+    }
+    </style>
+</head>
+<body>
+<canvas id="box" width="200"  height="200"></canvas>
+<script type="text/javascript">
+    var cvs	= document.getElementById('box');
+    var ctx = cvs.getContext('2d');
+
+    cvs.onmousedown = function (e) {
+        var e =e ||window.event;
+
+        ctx.moveTo(e.clientX - cvs.offsetLeft,e.clientY - cvs.offsetTop);
+
+        document.onmousemove = function (e) {
+            var e = e ||window.event;
+            ctx.lineTo(e.clientX - cvs.offsetLeft,e.clientY - cvs.offsetTop);
+            ctx.strokeStyle = '#000';
+            ctx.stroke()
+        };
+        document.onmouseup = function () {
+            document.onmousemove = null;
+
+        }
+    }
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			#ctr{
+				width: 500px;
+				height: 500px;
+			}
+		</style>
+	</head>
+	<body>
+	<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	<script type="text/javascript">
+
+	</script>
+		<svg id="ctr" width='500' height='500px'>
+			<!--<text x="0" y="0" fill="red" text-anchor="middle" dominant-baseline="hanging" >I study SVG</text>-->
+			<!--rectangle-->
+			<!--<rect width='100' height='100' fill='#f44336' stroke='#8bc34a' stroke-width='1' x='5' y='5'></rect>-->
+			<!--circle ellipse line-->
+			<!--<circle r='100' cx='105' cy='105' fill='#9727b0' stroke='#e91e83' stroke-width='10' x='5' y='5'></circle>
+			<ellipse rx='200' ry='100' cx='205' cy='105' fill='#2196f3' stroke='#000' stroke-width='10'></ellipse>
+			<line x1='25' y1='25' x2='200' y2='200' stroke='red' stroke-width='10'></line>-->
+			<!--多边形-->
+			<!--<polygon id="box" points='220,10 300,210 170,250 123,234' fill='#607d8b' stroke='#000' stroke-width='10'>-->
+				<!--<text>qweqw</text>-->
+			<!--</polygon>-->
+			<!--折线-->
+			<!--<polyline points='220,10 300,210 170,250 123,234' fill='none' stroke='#000' stroke-width='10'></polyline>-->
+			<!--path-->
+			<!--<path d='M100,100 L300,150 L300,300' fill='none' stroke='#000' stroke-width='10'></path>-->
+			<!--曲线-->
+			<!--绝对-->
+			<!--<path d='M100,100 L300,150 L300,300 Q200,400 100,200' fill='none' stroke='#000' stroke-width='10'></path>-->
+			<!--<path d='M100,100 300,150 300,300 100,100' fill='none' stroke='#000' stroke-width='1'></path>-->
+			<!--相对-->
+			<!--<path d='m100,100 l300,150 l300,300 q200,400 100,200' fill='none' stroke='yellow' stroke-width='10'></path>-->
+			<!--<text fill='red' font-size='30' x='50' y='50'>-->
+				<!--hello world-->
+				<!--<tspan x='200' y = '200'>second text</tspan>-->
+			<!--</text>-->
+
+			<!--<defs>-->
+				<!--<g id='rectangle'>-->
+					<!--&lt;!&ndash;<rect width='50' height='50' fill='#f44336' stroke='#8bc34a' stroke-width='10' x='5' y='5'></rect>&ndash;&gt;-->
+					<!--<text>faegaergregergegre</text>-->
+					<!--&lt;!&ndash;<rect width='50' height='50' fill='#f44336' stroke='#8ac34a' stroke-width='10' x='50' y='50'></rect>&ndash;&gt;-->
+				<!--</g>-->
+
+			<!--</defs>-->
+			<!--&lt;!&ndash;<use xlink:href='#rectangle'></use>&ndash;&gt;-->
+			<!--<use xlink:href='#rectangle' x='50' y='50'></use>-->
+
+			<!--<use xlink:href='#rectangle'></use>-->
+
+			<!--绘制文本-->
+			<defs>
+				<path id='custom' d='M0,0 L300,300'></path>
+			</defs>
+			<text x='100' y='100' stoke='#000' font-size='30'>
+				<textpath xlink:href='#custom'>hello world</textpath>
+			</text>
+			<!--曲线文字-->
+			<!--<defs>-->
+				<!--<path id='custom' d='M0,0 Q0,100 150,100'></path>-->
+			<!--</defs>-->
+			<!--<text x='10' y='100' stoke='#000' font-size='30'>-->
+				<!--<textpath xlink:href='#custom'>hello world</textpath>-->
+			<!--</text>-->
+			<!--路径裁剪-->
+			<!--<defs>-->
+				<!--<clippath id='clip_path'>-->
+					<!--<rect width='200' height='200' x='250' y='250'></rect>-->
+					<!--<circle r='50' cx='200' cy='200'></circle>-->
+				<!--</clippath>-->
+			<!--</defs>-->
+			<!--<circle r='200' cx='250' cy='250' fill='blue' clip-path='url(#clip_path)'></circle>-->
+
+			<!--<rect width='200' height='200' x='250' y='250' fill='none' stroke='green' stroke-width='5'></rect>-->
+			<!--<circle r='200' cx='250' cy='250' fill='none' stroke='red' stroke-width='5'></circle>-->
+			<!--<circle r='50' cx='200' cy='200' fill='none' stroke='green' stroke-width='5'></circle>-->
+
+
+		</svg>
+		<!--<div id="box1">feraegvraegbvaergaergerge</div>-->
+	<!--<script type="text/javascript">
+			box.onmouseenter = function () {
+				alert('已划入')
+            };
+            box.onmouseleave = function () {
+                alert('已划出')
+            };
+            box1.onmouseenter = function () {
+                alert('已划入11111')
+            };
+	</script>-->
+
+	</body>
+</html>

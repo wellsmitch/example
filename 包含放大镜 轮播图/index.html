@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<style type="text/css">
+			*{margin: 0;padding: 0;}
+			#small_img{
+				width: 350px;
+				height: 54px;
+			}
+		
+			#middle_img {
+				width: 260px;
+				height: 260px;
+				margin-bottom: 20px;
+				/*border: 1px solid #000;*/
+				/*此处若加上边框会增大div 2px的大小导致边缘会有缝隙 */
+				position: relative;
+			}
+			
+			#scan {
+				width: 50px;
+				height: 50px;
+				background: yellow;
+				opacity: .5;
+				display: none;
+			}
+			
+			#list li {
+				list-style: none;
+				float: left;
+				margin: 0 2px;
+			}
+			
+			#list img {
+				display: block;
+				width: 54px;
+				height: 54px;
+			}
+			#img_wrap{
+				width: 290px;
+				height: 54px;
+				overflow: hidden;
+			}
+			#list{
+				width: 464px;
+				
+			}
+			#rightBtn{
+				display:block ;
+				float: right;
+			}
+			#leftBtn{
+				width: 20px;
+				height: 20px;
+				display: block;
+				float: left;
+			}
+			.border_show {
+				box-sizing: border-box;
+				border: 2px solid red;
+			}
+			
+			.overhiden {
+				display: block;
+				overflow: hidden;
+			}
+			
+			.flt {
+				float: left;
+			}
+			
+			.frt {
+				float: right;
+			}
+			
+			#large {
+				width: 300px;
+				height: 300px;
+				border: 1px solid #000;
+				position: absolute;
+				left: 280px;
+				top: 0;
+				display: none;
+				overflow: hidden;
+			}
+			
+			#large img {
+				width: 1200px;
+				height: 1200px;
+			}
+			
+			#middle_img img {
+				width: 260px;
+				height: 260px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="middle_img">
+			<div id="scan">
+
+			</div>
+			<img src="img/01.jpg" alt="" />
+		</div>
+		<div id="large">
+
+		</div>
+		<div id="small_img">
+			<a href="javascript:;" class="overhiden flt">
+				<span id="leftBtn">
+					&lt;
+				</span>
+			</a>
+			<div id="img_wrap" class="flt">
+				<ul id="list">
+					<li><img src="img/01.jpg" alt="" /></li>
+					<li><img src="img/02.jpg" alt="" /></li>
+					<li><img src="img/03.jpg" alt="" /></li>
+					<li><img src="img/04.jpg" alt="" /></li>
+					<li><img src="img/05.jpg" alt="" /></li>
+					<li><img src="img/06.jpg" alt="" /></li>
+					<li><img src="img/07.jpg" alt="" /></li>
+					<li><img src="img/08.jpg" alt="" /></li>
+				</ul>
+			</div>
+
+			<a href="javascript:;" class="overhiden frt">
+				<span id="rightBtn">
+					&gt;
+				</span>
+			</a>
+
+		</div>
+		<script src="animateBak.js" type="text/javascript" charset="utf-8"></script>
+		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+
+		<script type="text/javascript">	
+			var margin = 0
+			$('#leftBtn').on('click',function() {
+				if(margin > -174) {
+					margin -= 58;
+					animate(list, { 'marginLeft': margin })
+				}
+			})
+			$('#rightBtn').on('click',function() {
+				if(margin < 0) {
+					margin += 58;
+					animate(list, { 'marginLeft': margin })
+				}
+			})
+			//此处用于ajax替换
+			for(var i = 0; i < $('#list li img').length; i++) {
+				$($('#list li img')[i]).attr('index', i + 1)
+				$('#list li img')[i].onmouseover = function() {
+					var a = $(this).attr('index')
+					$('#middle_img')[0].innerHTML = `<div id="scan"></div>																				
+										 <img src="img/0${a}.jpg" alt="" />`
+					$('#large')[0].innerHTML = `<img src="img/0${a}.jpg" alt="" />`
+					$('#middle_img img').css({ 'width': 260, 'height': 260 })
+				}
+			}
+			$('#middle_img')[0].onmouseenter = function() { //此处使用ente可以监听到scan父级元素box用over则监听不到
+				$('#large').css('display', 'block');
+				$('#scan').css({ 'display': 'block', 'position': 'absolute' });
+				var middleW = middle_img.offsetWidth - scan.offsetWidth;
+				var middleH = middle_img.offsetHeight - scan.offsetHeight;
+				middle_img.onmousemove = function(evt) {
+					//						//左边	
+					$('#large').css('width', $('#scan').width() / $('#middle_img').width() * $('#large img').width())
+					$('#large').css('height', $('#scan').height() / $('#middle_img').height() * $('#large img').height())
+					var middleH = $('#middle_img img').height() - $('#scan').height()
+					var largeH = $('#large img').height() - $('#large').height()
+
+					var middlew = $('#middle_img').width() - $('#scan').width()
+					var largew = $('#large img').width() - $('#large').width()
+
+					MLwidth = largew / middlew
+					MLheight = largeH / middleH
+				//遮罩边界判断
+					scan.style.left = evt.clientX - parseFloat(middle_img.offsetLeft) - scan.offsetWidth / 2 + 'px'
+					if(parseFloat(scan.style.left) <= 0) {
+						scan.style.left = 0
+					} else if(parseFloat(scan.style.left) >= middleW) {
+						scan.style.left = middleW + 'px'
+					}
+					scan.style.top = evt.clientY - parseFloat(middle_img.offsetTop) - scan.offsetHeight / 2 + 'px'
+
+					if(parseFloat(scan.style.top) <= 0) {
+						scan.style.top = 0
+					} else if(parseFloat(scan.style.top) >= middleH) {
+						scan.style.top = middleH + 'px'
+					}
+					$('#large img')[0].style.left = -$('#middle_img #scan').position().left * MLwidth + 'px'
+					$('#large img')[0].style.top = -$('#middle_img #scan').position().top * MLheight + 'px'
+					$('#large img').css('position', 'absolute')
+				}
+			}
+			$('#middle_img').on('mouseleave',function() {
+				$('#scan').css('display', 'none')
+				$('#large').css('display', 'none')
+			})
+		</script>
+	</body>
+</html>

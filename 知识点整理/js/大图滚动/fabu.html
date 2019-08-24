@@ -1,0 +1,116 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>发布</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+<link rel="stylesheet" href="reset.css">
+<style>
+	#out{width:500px;overflow:hidden;margin:20px auto;background:#eee;}
+	#tit,#con{width:490px;margin:10px auto;overflow:hidden;font-size:20px;}
+	#bt{width:390px;padding:5px;line-height:20px;}
+	#nr{width:390px;padding:5px;height:200px;overflow:hidden;}
+	.num{text-align: right;margin-right:20px;}
+	#btn{font-size:30px;margin-left:10px;}
+	#list{width:450px;margin:10px auto;overflow:hidden;}
+	#list li{overflow:hidden;}
+	#list li h3{background:#ccc;line-height:38px;width:450px;overflow:hidden;}
+	#list li h3 a{float:right;margin-right:10px;}
+	#list li p{width:430px;margin:10px auto;overflow:hidden;}
+</style>
+</head>
+<body>
+	<div id="out">
+		<div id="tit">
+			<span>标题：</span>
+			<input type="text" name="" value="" id="bt">
+		</div>
+		<div id="con">
+			<span>内容：</span>
+			<textarea name="" id="nr" ></textarea>
+		</div>
+		<p class="num">还可以输入<span id="num">200</span>字</p>
+		<button id="btn">发布</button>
+		<h1>显示内容</h1>
+		<ul id="list">
+			<!-- <li>
+				<h3>111111 <a href="###">X</a></h3>
+				<p>11111</p>
+			</li> -->
+		</ul>
+	</div>
+</body>
+<script>
+	var bt=document.getElementById('bt');
+	var nr=document.getElementById('nr');
+	var num=document.getElementById('num');
+	var btn=document.getElementById('btn');
+	var list=document.getElementById('list');
+	var timer1=null,timer2=null;
+	btn.onclick=function(){
+		if (nr.value.length>=200) {
+			nr.value=nr.value.substring(0,200);
+		};
+		if (bt.value==''||nr.value=='') {
+			alert('不能为空！');
+		}else{
+			var lis=document.createElement('li');
+			lis.innerHTML='<h3>'+bt.value+'<a href="###">X</a></h3><p>'+nr.value+'</p>';
+			if (list.children.length==0) {
+				list.appendChild(lis);
+				run();
+				bt.value='';
+				nr.value='';
+				num.innerHTML=200;
+				num.style.color='green';
+			}else{
+				list.insertBefore(lis,list.children[0]);
+				run();
+				bt.value='';
+				nr.value='';
+				num.innerHTML=200;
+				num.style.color='green';
+			};
+			var aa=list.getElementsByTagName('a');
+			for (var i = 0; i < aa.length; i++) {
+				aa[i].onclick=function(){
+					list.removeChild(this.parentNode.parentNode);
+				}
+			};
+		};
+			function run(){
+				// clearInterval(timer1)
+				var start=0;
+				var end=lis.offsetHeight;
+				var step=0;
+				lis.style.height='0px';
+				timer1=setInterval(function(){
+					step++;
+					if (step>=10) {
+						clearInterval(timer1);
+					};
+					start+=end/10;
+					lis.style.height=start+'px';
+				},100)
+			}
+		
+	}
+	nr.onfocus=function(){
+		timer2=setInterval(function(){
+			var x=200;
+			var y=nr.value.length;
+			x=x-y;
+			if (x<=0) {
+				num.style.color='red';
+			}else{
+				num.style.color='green';
+			};
+			num.innerHTML=x;
+		},10)
+	}
+	nr.onblur=function(){
+		clearInterval(timer2);
+	}
+</script>
+</html>
