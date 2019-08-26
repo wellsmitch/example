@@ -28,12 +28,17 @@
 		<script type="text/javascript" src="js/raphael.min.js"> </script>
 		<script type="text/javascript">
 			var paper = Raphael("my-canvas", 650, 400);
-			var rect = paper.rect(35, 25, 170, 100, 20).attr({
-				"fill": "#17A9C6", //filling with background color 
-				"stroke": "#2A6570", // border color of the rectangle 
-				"stroke-width": 2 // the width of the border
+            var text = paper.text(40,55,"Raphael Text").attr({
 
-			});
+                "fill":"#17A9C6", // font-color
+
+                "font-size":75, // font size in pixels
+
+                "text-anchor":"start",//"start", "middle" or "end" 默认"middle"
+
+                "font-family":"century gothic" // font family of the text
+
+            });
 		</script>
 	</body>
 </html>

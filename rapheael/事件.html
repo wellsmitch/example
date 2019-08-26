@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>Raphael Test</title>
+	</head>
+<!-- https://blog.csdn.net/sinolzeng/article/details/41597121 -->
+	<body>
+		<div id="my-canvas" style="width:140px;padding:0px;margin:0px;"> </div>
+		<!--some html doms-->
+		<!--some scripts-->
+		<script type="text/javascript" src="js/raphael.min.js"> </script>
+		<script type="text/javascript">
+			var paper = Raphael("my-canvas", 650, 400);
+			// circle()方法一共3个参数，分别是x,y坐标和半径。我们在刚才的代码中添加上面的操作
+			var circle = paper.circle(30, 30, 10).attr({
+				"fill": "#17A9C6",
+				"stroke": "#2A6570",
+				"stroke-width": 2
+			}).hover(
+                function(){circle.attr({"fill":"green"})},
+                function(){circle.attr({"fill":"red"})}
+            ) //给 circle 对象绑定 hover 事件
+		</script>
+	</body>
+</html>

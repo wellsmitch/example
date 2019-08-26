@@ -1,0 +1,54 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <!--https://www.jianshu.com/p/1acf11dea10e-->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta name="prefix" content="yasin">
+    <title></title>
+    <link href="./css/bootstrap.min.css" rel="stylesheet">
+    <link href="./css/public.css?v=2016" rel="stylesheet">
+    <link href="./css/page.css" rel="stylesheet">
+    <link href="./css/draw-position.css" rel="stylesheet">
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="/frontend/js/lib/compatible.js"></script>
+    <![endif]-->
+</head>
+<body>
+
+
+
+<!-- 容器 [[-->
+<!-- <div class="container-fixed">
+    <div class="manage-container"> -->
+
+<!-- 内容 [[-->
+
+
+<div id="drawWrapper" class="draw-area draw-pos-popup" style="height: 450px; z-index: 1; margin: 0 auto;">
+    <div id="drawPaper" class="draw-pos">
+        <div class="diagram-name" id="diagramName"></div>
+        <div id="contextMenu" class="house-type-set-panel"></div>
+        <p id="tipMessage" class="tip-message"></p>
+    </div>
+</div>
+<button onclick="getData()">获取数据</button>
+
+<!-- 内容 ]]-->
+
+<!-- </div>
+</div> -->
+<!-- 容器 ]]-->
+
+<script type="text/javascript" src="frontend/js/lib/global.js"></script>
+<script type="text/javascript" src="modules/js/public/lib/raphael.js?v=201710271550"></script>
+<script type="text/javascript">
+    var id = '39e82058-a131-8101-0671-7c804c7fc1f2',
+        url = 'https://img.myysq.com.cn/mobilecheckroom/projectroomtype/yasin/39e82058-1a29-05c4-b2bd-35f6e762c7c8_orig.png';
+
+    seajs.use('js/huxing.js?v=201710271550');
+</script>
+</body>
+</html>

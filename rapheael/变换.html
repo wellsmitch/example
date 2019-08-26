@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>Raphael Test</title>
+	</head>
+ <!--https://blog.csdn.net/sinolzeng/article/details/41597121 -->
+	<body>
+		<div id="my-canvas" style="width:140px;padding:0px;margin:0px;"> </div>
+		<!--some html doms-->
+		<!--some scripts-->
+        <script type="text/javascript">
+        	/*
+        	*
+        	* 除了修改对象的属性，我们还可以变换(transform)对象，比如平移、旋转、缩放。
+
+Raphael 对象变换有四个命令：
+
+t – translate，平移
+
+r – rotate，旋转
+
+s – scale，缩放
+
+m – matrix
+
+拿 t100,100r45t-100,0s.5 来说：
+
+对象水平方向平移 100
+
+垂直方向平移 100
+
+旋转 45 度
+
+水平方向往负方向平移 100
+
+缩小图形到原来的一半
+        	* */
+        </script>
+		<script type="text/javascript" src="js/raphael.min.js"> </script>
+		<script type="text/javascript">
+			var paper = Raphael("my-canvas", 650, 400);
+
+            //T　平移|S　缩放 | R　按角度旋转| M　变换矩阵
+            var rect2=paper.rect(110,95,60,40,5).attr({fill:"#4c8ecc",stroke:"green"}).transform("r90t20,0");
+            rect2.animate(
+            { "width":"300", "height":"200" },
+            500,
+            'bounce',
+            function(){ }
+            );
+		</script>
+	</body>
+</html>

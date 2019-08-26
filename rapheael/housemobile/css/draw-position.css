@@ -1,0 +1,151 @@
+body {
+    background: #fff
+}
+
+.ht-list {
+    max-height: 280px;
+    overflow-y: auto
+}
+
+.ht-li {
+    display: block;
+    padding: 0 15px;
+    line-height: 28px;
+    color: #666;
+    border-top-color: #ddd !important;
+    text-align: left;
+    cursor: pointer
+}
+
+.ht-li:hover {
+    background: #fefefe
+}
+
+.ht-li>i {
+    display: none;
+    margin-top: 6px
+}
+
+.ht-li .act {
+    color: #46b549
+}
+
+.ht-li .act>i {
+    display: inline-block
+}
+
+.ht-remove {
+    color: #666;
+    border-top: 1px solid #ddd;
+    cursor: pointer
+}
+
+.ht-remove>i {
+    color: #888;
+    vertical-align: -1px
+}
+
+.pop-message {
+    position: fixed;
+    display: none;
+    width: 100%;
+    top: -1px;
+    text-align: center;
+    z-index: 1000
+}
+
+.pop-message>p {
+    display: inline-block;
+    padding: 10px 20px;
+    color: red;
+    background-color: white;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 12px 0 #aaa
+}
+
+.tip-message {
+    position: absolute;
+    display: inline-block;
+    padding: 5px 10px;
+    background-color: white;
+    line-height: 1
+}
+
+.draw-remark {
+    padding: 20px 15px 15px 4em;
+    text-indent: -3em;
+    font-size: .85em
+}
+
+.diagram-name {
+    width: auto;
+    padding: 0 10px 0 10px;
+    display: none;
+    position: absolute;
+    left: 50%;
+    top: 15px;
+    -webkit-transform: translateX(-50%);
+    -moz-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    transform: translateX(-50%);
+    background-color: rgba(0,0,0,0.4);
+    color: #fff;
+    z-index: 999
+}
+
+.next-diagram {
+    display: none;
+    width: 20px;
+    height: 37px;
+    background: url("/modules/images/basicdata/arrowr.png");
+    position: absolute;
+    top: 45%;
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    right: 15px;
+    z-index: 999
+}
+
+.prev-diagram {
+    display: none;
+    width: 20px;
+    height: 37px;
+    background: url("/modules/images/basicdata/arrowl.png");
+    position: absolute;
+    top: 45%;
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    left: 15px;
+    z-index: 999
+}
+
+.diagram-box {
+    float: left;
+    border: none;
+    background-color: #fff
+}
+
+.diagram-list {
+    width: 9999px;
+    height: 450px;
+    z-index: 1;
+    margin: 0 auto;
+    -webkit-transition: all 500ms ease-out;
+    -moz-transition: all 500ms ease-out;
+    transition: all 500ms ease-out
+}
+
+.diagram-num {
+    padding: 0 10px 0 10px;
+    z-index: 999;
+    display: none;
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    background-color: rgba(0,0,0,0.4);
+    color: #fff
+}
