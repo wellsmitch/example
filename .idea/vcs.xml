@@ -3,5 +3,6 @@
   <component name="VcsDirectoryMappings">
     <mapping directory="" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/gaodeapi" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/share" vcs="Git" />
   </component>
 </project>
