@@ -1188,4 +1188,12 @@
             /***/ }
         /******/ ])
 });
-;
+var str = <thead>
+                <tr class="shiju_ml" id="sfx2">
+                <th style="width:16mm;height:10mm">序号</th>
+                <th style="width:118mm;height:10mm">材料名称</th>
+                <th style="width:21mm;height:10mm">页次</th>
+                <th style="display:none">类型</th>
+                <th style="display:none">备注</th>
+                </tr>
+            </thead>;

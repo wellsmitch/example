@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/polyfill7.4.4.js"></script>
+    <script src="../js/browser5.5.23.js"></script>
+</head>
+<body>
+<input type="text" autocomplete="off" id="userName">
+<br>
+<span id="uName"></span>
+<script type="text/babel">
+    let a = 121121;
+    var obj = {
+        pwd: "1234"
+    };
+    //主要使用到了get和set方法，最为关键
+    Object.defineProperty(obj,"userName",{
+        get:function(){
+            console.log('get init');
+        },
+        set:function(val){
+            console.log("set init");
+            console.log(val);
+            document.getElementById("uName").innerText=val;
+            document.getElementById("userName").value=val;
+        }
+    });
+    document.getElementById("userName").addEventListener("keyup", function (event) {
+        var stringa = JSON.stringify({a: event.target.value});
+        console.log(stringa);
+        obj.userName = (stringa);
+        console.log(obj);
+    })
+</script>
+</body>
+</html>

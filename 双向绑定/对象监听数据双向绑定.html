@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/jquery.js"></script>
+    <script src="SYB.js"></script>
+</head>
+<body>
+<input type="text" id="box">
+<p id="boxCon"></p>
+<script type="text/javascript">
+
+
+    var self_Vue = {name: '初始化值'};
+    var s = [];
+    var str = '';
+    var obj = {
+        // userName:''
+
+    };
+    var ss = new SYB(obj);
+
+    function again(syb) {
+        console.log("syb--------")
+    }
+
+    ss.dataWatcher();
+    console.log(ss);
+    document.getElementById("box").addEventListener("keyup",function(event){
+        console.log(event.target.value);
+        obj.watchData = event.target.value;
+            // obj.userName=event.target.value;
+            console.log(432523);
+        }
+    );
+   // $('#boxCon').text(boxval);
+
+    // window.setTimeout(function () {
+    //     self_Vue.name1 = '重新赋值wdq了';
+    //     self_Vue.name = '重新赋值了';
+    //
+    //     var dataWa = new SYB(self_Vue);
+    //     console.log(dataWa);
+    //     dataWa.dataWatcher();
+    //     dataWa.dataWatcher();
+    //
+    //
+    //     s = [888,6556];
+    //     var s1 = new SYB(s);
+    //     s1.dataWatcher();
+    //
+    //     str ='[888,6556]';
+    //     var str1 = new SYB(s);
+    //     str1.dataWatcher();
+    //
+    //
+    //
+    //     console.log(self_Vue);
+    //     console.log(s);
+    //     console.log(str);
+    // }, 1000);
+
+
+</script>
+</body>
+</html>

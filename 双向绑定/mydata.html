@@ -1,0 +1,31 @@
+var self_Vue = {name: '初始化值'};
+window.setTimeout(function () {
+self_Vue.name = '重新赋值了';
+console.log(self_Vue);
+}, 2000);
+
+function SYB(obj) {
+// 对象监听的双向绑定
+this.obj = obj;
+
+}
+
+SYB.prototype.dataWatcher = function () {
+
+if (Array.isArray(this.obj)) {
+
+}else if(typeof this.obj && !Array.isArray(this.obj)) {
+Object.defineProperty(self_Vue, name, {
+enumerable: false,
+configurable: true,
+get: function proxyGetter() {
+return self_Vue.name;
+},
+set: function proxySetter(newVal) {
+self_Vue.name = newVal;
+}
+})
+}
+
+
+};

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="proxy.js"></script>
+    <script src="../js/polyfill7.4.4.js"></script>
+    <script src="../js/browser5.5.23.js"></script>
+</head>
+<body>
+<script type="text/javascript">
+    let xiaohong = {
+        name: "小红",
+        age: 15
+    };
+    xiaohong = new Proxy(xiaohong, {
+        get(target, key) {
+            let result = target[key];
+            //如果是获取 money 属性，则添加 元字
+            if (key === "age") result += "岁";
+            return result;
+        },
+        set(target, key, value) {
+            if (key === "age" && typeof value !== "number") {
+                throw Error("age字段必须为Number类型");
+            }
+            target[key] = value;
+            // return Reflect.set(target, key, value);
+        }
+    });
+    console.log(xiaohong.name);
+    // console.log(`我叫${xiaohong.name}  我今年${xiaohong.age}了`);
+    xiaohong.age = 12;
+</script>
+</body>
+</html>

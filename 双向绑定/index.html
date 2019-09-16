@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1  style="text-decoration: underline">dcesfewfewfewfewf</h1>
+<h1 id="name">{{name}}</h1>
+<script src="observer.js"></script>
+<script src="watcher.js"></script>
+<script src="selfVue.js"></script>
+<input type="text" autocomplete="off" id="userName">
+
+<script>
+
+    var ele = document.querySelector('#name');
+    var self_Vue = new SelfVue({
+        name: '第一次显示数据'
+    }, ele, 'name');
+
+
+    // document.getElementById("userName").addEventListener("keyup",function(event){
+    //     self_Vue.data.name1= event.target.value;
+    //     }
+    // );
+    console.log(self_Vue.data);
+    window.setTimeout(function () {
+        console.log('值变了');
+        self_Vue.data.name1 = '重新赋值了';
+        // self_Vue.data.name = '重新赋值了';
+        console.log(self_Vue.data)
+    }, 2000);
+</script>
+</body>
+</html>
