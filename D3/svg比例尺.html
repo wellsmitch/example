@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/D3.js"></script>
+    <style>
+        #chart {
+            width: 800px;
+            height: 800px;
+            background: #f7f7f7;
+        }
+        .bar {
+            display: inline-block;
+            width: 100px;
+            height: 300px;
+            background: #7ed26d;
+        }
+    </style>
+</head>
+<body>
+<div id="chart">
+    <!--<div class="bar"></div>-->
+</div>
+<script type="text/javascript">
+    var dataset = [10, 20, 30, 40, 50];
+    var dataarr = [];
+    for(var i =0;i<20;i++) {
+        dataarr.push(Math.floor((Math.random() * 50)))
+    }
+
+    var svg = d3.select("#chart")
+        .append('svg')
+        .attr('width', 800)
+        .attr('height', 400);
+
+    svg.selectAll('rect')
+        .data(dataarr)
+        .enter()
+        .append('rect')
+        .attr('x',function (d,i) {
+            return i * (800 / dataarr.length)
+        })
+        .attr('y',function (d) {
+            return 400 - d * 5
+        })
+        .attr('width', 800 / dataarr.length - 5)
+        .attr('height', function (d) {
+            return d * 5
+        })
+        .attr('fill','#7ed26d')
+        // .attr('height',100)
+
+    // 添加label
+    svg.selectAll('text')
+        .data(dataarr)
+        .enter()
+        .append('text')
+        .text(function (d) {
+            return d;
+        })
+        .attr('x',function (d,i) {
+            return i * (800 / dataarr.length) + ((800 / dataarr.length)-5)/2
+        })
+        .attr('y',function (d) {
+            return 400 - d * 5 + 15
+        })
+        .attr('font-size',14)
+        .attr('fill','#fff')
+        .attr('text-anchor','middle')
+</script>
+</body>
+</html>
