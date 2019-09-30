@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/D3.js"></script>
+    <style>
+        #chart {
+            width: 1200px;
+            height: 800px;
+            background: #f7f7f7;
+        }
+        .bar {
+            display: inline-block;
+            width: 100px;
+            height: 300px;
+            background: #7ed26d;
+        }
+    </style>
+</head>
+<body>
+<div id="chart">
+    <!--<div class="bar"></div>-->
+</div>
+<script type="text/javascript">
+    var data = [
+        [400, 200], [210, 140], [722,300],[70,160],[250,50],[110, 280], [699, 255], [90, 220]
+    ];
+    var svgh=800;
+    var svgw=1200;
+    var svg = d3.select("#chart")
+        .append('svg')
+        .attr('width', svgw)
+        .attr('height', svgh);
+
+    var x_scale = d3.scaleLinear()
+        .domain([0,d3.max(data,function (d) {
+            return d[0]
+        })])
+        .range([0,svgw - 100]);
+
+    var y_scale = d3.scaleLinear()
+        .domain([0,d3.max(data,function (d) {
+            return d[1]
+        })])
+        .range([0,svgh - 100]);
+    var r_scale = d3.scaleLinear()
+        .domain([0,d3.max(data,function (d) {
+            return d[1]
+        })])
+        .range([5,30]);
+
+    svg.selectAll('circle')
+        .data(data)
+        .enter()
+        .append('circle')
+        .attr('cx',function (d) {
+            return x_scale(d[0])
+        })
+        .attr('cy',function (d) {
+            return y_scale(d[1])
+        })
+        .attr('r', function (d) {
+            return r_scale(d[1])
+        })
+        .attr('fill','#d1ab0e')
+        // .attr('height',100)
+
+    var x_axis = d3.axisBottom(x_scale);
+    svg.append('g')
+        .call(x_axis);
+
+
+
+    // 添加label
+    svg.selectAll('text')
+        .data(data)
+        .enter()
+        .append('text')
+        .text(function (d) {
+            return d.join(',');
+        })
+        .attr('x',function (d,i) {
+            return x_scale(d[0])
+        })
+        .attr('y',function (d) {
+            return y_scale(d[1])
+        })
+        // .attr('font-size',14)
+        // .attr('fill','#fff')
+        // .attr('text-anchor','middle')
+</script>
+</body>
+</html>
