@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!--<script src="js/barcode.js"></script>-->
+    <script src="js/barcode3.1.1.min.js"></script>
+</head>
+<body>
+<!--
+    此处的标签可以用
+    img   svg  canvas
+-->
+<svg id="barcode" width="300"></svg>
+</body>
+<script type="text/javascript">
+    JsBarcode("#barcode", "12345678S90128", {
+        // format: "pharmacode",
+        lineColor: "#0aa",
+        width: 1,
+        height: 40,
+        displayValue: true
+    })
+</script>
+</html>

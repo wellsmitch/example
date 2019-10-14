@@ -3,11 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <script src="../js/jquery.js"></script>
 </head>
 <body>
 <svg id="svgCanvas"></svg>
 <canvas id="canvas" width="200"  height="200"></canvas>
-<script src="https://d3js.org/d3.v5.min.js"></script>
+
+<img id="mapConImage" src="" alt="">
+<!--<script src="https://d3js.org/d3.v5.min.js"></script>-->
 <script type="text/javascript">
     var cvs	= document.getElementById('canvas');
     var ctx = cvs.getContext('2d');
@@ -40,7 +43,8 @@
         // ctx.putImageData(data,e,f)//e:取号图片所放位置的起点x坐标  f:取号图片所放位置的起点y坐标
     }
 
-
+    $('#mapConImage')[0].src = $('canvas')[0].toDataURL("image/png");
+    // $("#zyPrintConWraper").printArea();
 
     </script>
 </body>
