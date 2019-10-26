@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>自定义滚动条</title>
+    <script src="jquery.js"></script>
+    <script src="jquery.nicescroll.js"></script>
+</head>
+<body>
+<ul style="height: 100px;overflow: auto;line-height: 30px">
+    <li>fesarfger</li>
+    <li>fesarfger</li>
+    <li>fesarfger</li>
+    <li>fesarfger</li>
+    <li>fesarfger</li>
+    <li>fesarfger</li>
+    <li>fesarfger</li>
+    <li>fesarfger</li>
+    <li>fesarfger</li>
+    <li>fesarfger</li>
+    <li>fesarfger</li>
+</ul>
+<script type="text/javascript">
+	$('ul').niceScroll({
+        cursorcolor: "#99bbba", //滚动条的颜色
+        cursoropacitymax: 0.9, //滚动条的透明度，从0-1
+        touchbehavior: false, //使光标拖动滚动像在台式电脑触摸设备 true滚动条拖动不可用
+        cursorwidth: "6px", //滚动条的宽度  单位默认px
+        cursorborder: "0", // 游标边框css定义
+        cursorborderradius: "3px", //滚动条两头的圆角
+        autohidemode: false, //是否隐藏滚动条  true的时候默认不显示滚动条，当鼠标经过的时候显示滚动条
+        zindex: "auto", //给滚动条设置z-index值
+        railvalign:'defaul',
+        railpadding: {
+            top: 0,
+            right: -6,
+            left: 0,
+            bottom: 0
+        }, //滚动条的位置
+    })
+</script>
+</body>
+</html>
