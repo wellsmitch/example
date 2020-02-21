@@ -3,6 +3,7 @@
     <title>Client Flow Example</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <script src="../js/jquery.js"></script>
 </head>
 <body>
 <script type="text/javascript">
@@ -10,9 +11,8 @@
 
     }
 </script>
-<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
 <!--100229030   101712793-->
-<script type="text/javascript" src="http://qzonestyle.gtimg.cn/qzone/openapi/qc_loader.js" data-appid="101712793" charset="utf-8"></script>
+<script type="text/javascript" src="http://qzonestyle.gtimg.cn/qzone/openapi/qc_loader.js" data-appid="101825085" charset="utf-8"></script>
 <!-- 重定向页面跳转 start -->
 <a href="javascript:" id="qqLoginBtn">本页面未跳转</a>
 
@@ -23,7 +23,7 @@
 
 <!--本页面跳转  start-->
 <!-- 注意： 此处可以用于重定向页面   如果使用小窗口弹出   进行重定向时候会出现重定向页面出现在小窗口里面的现象 -->
-<a href="https://graph.qq.com/oauth2.0/authorize?client_id=101712793&redirect_uri=http://www.gengxinblog.com/docs&response_type=code&scope=get_user_info">本页面登陆跳转</a>
+<a href="https://graph.qq.com/oauth2.0/authorize?client_id=101825085&redirect_uri=http://www.wellsmitch.top:8080/syb&response_type=code&scope=get_user_info">本页面登陆跳转</a>
 <!--本页面跳转 end-->
 
 
@@ -109,8 +109,8 @@
 <script type="text/javascript">
     $('#login').click(function () {
         QC.Login.showPopup({
-            appId:"101712793",
-            redirectURI:"http://www.gengxinblog.com/docs"
+            appId:"101825085",
+            redirectURI:"http://www.wellsmitch.top:8080/syb"
         });
     });
 

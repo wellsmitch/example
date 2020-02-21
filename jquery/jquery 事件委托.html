@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/jquery.js"></script>
+</head>
+<body>
+<div class="asd">
+    <button>按钮</button>
+</div>
+<script type="text/javascript">
+    $('.asd').on('click', 'button', function (e) {
+        console.log(43534534);
+       e.stopPropagation();
+       // e.preventDefault();
+    });
+    $('.asd').click( function () {
+        console.log(111);
+        alert(123)
+    })
+</script>
+</body>
+</html>

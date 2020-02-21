@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/jquery.js"></script>
+</head>
+<body>
+<script type="text/javascript">
+    var ajaxdeferred = function () {
+        var deferred = $.Deferred();   //实例化
+       /* $.ajax({
+        		type:"get",
+        		url:"./a.json",
+        		async:true,
+        		success:function(data) {
+                    deferred.resolve(data);  //成功则这行resolve()
+        		}
+        	});*/
+        setTimeout(function () {
+            deferred.resolve('111111');  //成功则这行resolve()
+        }, 2000);
+        return deferred.promise();  //返回promise状态
+    };
+
+    var f = ajaxdeferred();
+    f.done(function (a) {
+        console.log(a);
+    })
+</script>
+<script type="text/javascript">
+    new Promise();
+    /*
+    var wait=function(){
+        var dtd=$.Deferred();
+        var tasks=function(){
+            alert("执行完毕！");
+            dtd.resolve('111');
+        };
+        setTimeout(tasks,1000);
+        return dtd.promise();
+    };
+    var d=wait();
+    d.done(function(a){
+        console.log(a);
+        alert("success");
+    })
+        .fail(function(){alert("error")});*/
+</script>
+</body>
+</html>
