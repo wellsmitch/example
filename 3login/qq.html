@@ -2,17 +2,19 @@
 <head>
     <title>Client Flow Example</title>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
     <script src="../js/jquery.js"></script>
 </head>
 <body>
 <script type="text/javascript">
-	console.log = function () {
-
-    }
+    // console.log = function () {
+    //
+    // }
 </script>
 <!--100229030   101712793-->
-<script type="text/javascript" src="http://qzonestyle.gtimg.cn/qzone/openapi/qc_loader.js" data-appid="101825085" charset="utf-8"></script>
+<script type="text/javascript" src="http://qzonestyle.gtimg.cn/qzone/openapi/qc_loader.js" data-appid="101825085"
+        charset="utf-8"></script>
 <!-- 重定向页面跳转 start -->
 <a href="javascript:" id="qqLoginBtn">本页面未跳转</a>
 
@@ -24,6 +26,14 @@
 <!--本页面跳转  start-->
 <!-- 注意： 此处可以用于重定向页面   如果使用小窗口弹出   进行重定向时候会出现重定向页面出现在小窗口里面的现象 -->
 <a href="https://graph.qq.com/oauth2.0/authorize?client_id=101825085&redirect_uri=http://www.wellsmitch.top:8080/syb&response_type=code&scope=get_user_info">本页面登陆跳转</a>
+
+<a href="https://graph.qq.com/oauth2.0/authorize?client_id=101851897&redirect_uri=https://www.wellsmitch.top/httpsitem/index.html&response_type=code&scope=get_user_info">tomcat
+    login</a>
+<a href="https://graph.qq.com/oauth2.0/authorize?client_id=101851897&redirect_uri=https://www.wellsmitch.top/index.html&response_type=code&scope=get_user_info">tomcat
+    logina</a>
+
+<button id="getToken">获取token</button>
+
 <!--本页面跳转 end-->
 
 
@@ -36,72 +46,107 @@
 <!--https://justcoding.iteye.com/blog/2030743-->
 <!-- https://wiki.open.qq.com/wiki/%E3%80%90QQ%E7%99%BB%E5%BD%95%E3%80%91JS_SDK%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E -->
 <script type="text/javascript">
-   // 重定向页面跳转 start
+    // 重定向页面跳转 start
 
     // $('#qqLoginBtn img').attr('src','https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=529386822,2425893525&fm=58');
     //  只要 QC.Login 触发  下面函数会自动触发
-   // $('#qqLoginBtn').click(function () {
-        QC.Login({
-            btnId:"qqLoginBtn",	//插入按钮的节点id
-            size: "C_S"
+    // $('#qqLoginBtn').click(function () {
+    QC.Login({
+        btnId: "qqLoginBtn",	//插入按钮的节点id
+        size: "C_S"
+    });
+    var timer = setInterval(function () {
+        if ($('#qqLoginBtn img').length) {
+            $('#qqLoginBtn img').attr('src', 'https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=529386822,2425893525&fm=58');
+            // alert($('#qqLoginBtn img').length)
+            clearInterval(timer)
+        }
+
+
+    });
+    var paras = {};
+    QC.api("get_user_info", paras)
+        .success(function (s) {//成功回调
+            console.log(s);
+            console.log(JSON.parse(s.dataText));
+            // alert("获取用户信息成功！当前用户昵称为："+s.data.nickname);
+        })
+        .error(function (f) {//失败回调
+            alert("获取用户信息失败！");
+        })
+        .complete(function (c) {//完成请求回调
+            alert("获取用户信息完成！");
         });
- var timer = setInterval(function () {
-     if($('#qqLoginBtn img').length) {
-         $('#qqLoginBtn img').attr('src','https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=529386822,2425893525&fm=58');
-         // alert($('#qqLoginBtn img').length)
-         clearInterval(timer)
-     }
+    // });
 
-
-   });
-       var paras = {};
-       QC.api("get_user_info", paras)
-           .success(function(s){//成功回调
-               console.log(s);
-               console.log(JSON.parse(s.dataText));
-               // alert("获取用户信息成功！当前用户昵称为："+s.data.nickname);
-           })
-           .error(function(f){//失败回调
-               alert("获取用户信息失败！");
-           })
-           .complete(function(c){//完成请求回调
-               alert("获取用户信息完成！");
-           });
-   // });
-
-
-
+    // https://www.wellsmitch.top/httpsitem/index.html;
+    $('#getToken').click(function () {
+        $.ajax({
+            type: "get",
+            url: "http://47.111.113.130/oauth2.0/token",
+            data: {
+                grant_type: 'authorization_code',
+                client_id: '101851897',
+                client_secret: '6f9ee95dbf4b8d266242b5d423554d41',
+                code: 'A9367D796B17BEED4959894EEB004043',
+                redirect_uri: 'https://www.wellsmitch.top/index.html',
+            },
+            async: true,
+            success: function (data) {
+               var access_token = data.split('&')[0].split('=')[1];
+                $.ajax({
+                    url: "http://47.111.113.130/oauth2.0/me?access_token=" + access_token,
+                    dataType: 'jsonp',
+                    jsonpCallback: 'callback',
+                    success: function (res) {
+                        $.ajax({
+                            type: "get",
+                            url: "http://47.111.113.130/user/get_user_info",
+                            data: {
+                                access_token: access_token,
+                                oauth_consumer_key: res.client_id,
+                                openid: res.openid
+                            },
+                            success:function (userInfo) {
+                                console.log(userInfo);
+                            }
+                        })
+                    }
+                })
+            }
+        });
+    });
 </script>
 <script type="text/javascript">
     //调用QC.Login方法，指定btnId参数将按钮绑定在容器节点中
     // $('#login').click(function () {
-      /*  QC.Login({
-                //btnId：插入按钮的节点id，必选
-                btnId: "qqLoginBtn",
-                //用户需要确认的scope授权项，可选，默认all
-                scope: "all",
-                //按钮尺寸，可用值[A_XL| A_L| A_M| A_S|  B_M| B_S| C_S]，可选，默认B_S
-                size: "A_XL"
-            }, function (reqData, opts) {//登录成功
-                //根据返回数据，更换按钮显示状态方法
-                console.log(reqData, opts);
-                let dom = document.getElementById(opts['btnId']),
-                    _logoutTemplate = [
-                        //头像
-                        '<span><img src="{figureurl}" class="{size_key}"/></span>',
-                        //昵称
-                        '<span>{nickname}</span>',
-                        //退出
-                        '<span><a href="javascript:QC.Login.signOut();">退出</a></span>'
-                    ].join("");
-                dom && (dom.innerHTML = QC.String.format(_logoutTemplate, {
-                    nickname: QC.String.escHTML(reqData.nickname), //做xss过滤
-                    figureurl: reqData.figureurl
-                }));
-            }, function (opts) {//注销成功
-                alert('QQ登录 注销成功');
-            }
-        );*/
+    /*  QC.Login({
+              //btnId：插入按钮的节点id，必选
+              btnId: "qqLoginBtn",
+              //用户需要确认的scope授权项，可选，默认all
+              scope: "all",
+              //按钮尺寸，可用值[A_XL| A_L| A_M| A_S|  B_M| B_S| C_S]，可选，默认B_S
+              size: "A_XL"
+          }, function (reqData, opts) {//登录成功
+              //根据返回数据，更换按钮显示状态方法
+              console.log(reqData, opts);
+              let dom = document.getElementById(opts['btnId']),
+                  _logoutTemplate = [
+                      //头像
+                      '<span><img src="{figureurl}" class="{size_key}"/></span>',
+                      //昵称
+                      '<span>{nickname}</span>',
+                      //退出
+                      '<span><a href="javascript:QC.Login.signOut();">退出</a></span>'
+                  ].join("");
+              dom && (dom.innerHTML = QC.String.format(_logoutTemplate, {
+                  nickname: QC.String.escHTML(reqData.nickname), //做xss过滤
+                  figureurl: reqData.figureurl
+              }));
+          }, function (opts) {//注销成功
+              alert('QQ登录 注销成功');
+          }
+      );*/
     // })
 
 </script>
@@ -109,8 +154,8 @@
 <script type="text/javascript">
     $('#login').click(function () {
         QC.Login.showPopup({
-            appId:"101825085",
-            redirectURI:"http://www.wellsmitch.top:8080/syb"
+            appId: "101825085",
+            redirectURI: "http://www.wellsmitch.top:8080/syb"
         });
     });
 
@@ -120,14 +165,13 @@
 
     });
 
-    if(QC.Login.check()) {
-        QC.Login.getMe(function(openId, accessToken){
+    if (QC.Login.check()) {
+        QC.Login.getMe(function (openId, accessToken) {
             alert(openId, accessToken)
         });
     }
 
 </script>
-
 
 
 </body>
