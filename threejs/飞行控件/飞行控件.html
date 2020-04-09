@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>平行光</title>
+    <title>飞行控件</title>
     <style type="text/css">
         body {
             margin: 0;
@@ -11,16 +11,19 @@
     </style>
     <script src="../js/three.js"></script>
     <script src="../util/common.js"></script>
-    <script src="../js/OrbitControls.js"></script>
+    <script src="../source/js/controls/FlyControls.js"></script>
     <!--
     阴影失效解决 https://blog.csdn.net/weixin_34308389/article/details/88802516
     https://blog.csdn.net/qq_24013817/article/details/50410433
+
+    飞行控件 https://blog.csdn.net/ithanmang/article/details/82352555
     -->
 </head>
 <body>
 
 <script>
     var commonObj = common();
+    var clock = new THREE.Clock();
     /**
      * 在Three.js中，
      * 能形成阴影的光源只有THREE.DirectionalLight与THREE.SpotLight；而相对地，
@@ -72,54 +75,26 @@
     // debug.name = "debug";
     commonObj.scene.add(debug);
 
-    // 强度值
-    // directionalLight.intensity = 0.5;
+    // 定义飞行控件
+    var flyContrils = new THREE.FlyControls(commonObj.camera,document.body);
+    flyContrils.rollSpeed = Math.PI / 24; // 翻滚速度
+    flyContrils.autoForward = true; //自动向前移动
+    flyContrils.dragToLook = false;
+    flyContrils.movementSpeed = 10; //移动速度
 
-    // 设置高 越大 阴影越细致
-    // directionalLight.shadowMapHeight = 200;
-    // directionalLight.shadowMapWidth = 100;
-
-
-    //用户交互插件 鼠标左键按住旋转，右键按住平移，滚轮缩放
-    var controls;
-    function initControls() {
-
-        controls = new THREE.OrbitControls(commonObj.camera, commonObj.renderer.domElement);
-
-        // 如果使用animate方法时，将此函数删除
-        //controls.addEventListener( 'change', render );
-        // 使动画循环使用时阻尼或自转 意思是否有惯性
-        controls.enableDamping = true;
-        //动态阻尼系数 就是鼠标拖拽旋转灵敏度
-        //controls.dampingFactor = 0.25;
-        //是否可以缩放
-        controls.enableZoom = true;
-        //是否自动旋转
-        controls.autoRotate = false;
-        //设置相机距离原点的最远距离
-        controls.minDistance = 50;
-        //设置相机距离原点的最远距离
-        controls.maxDistance = 200;
-        //是否开启右键拖拽
-        controls.enablePan = true;
-    }
-
-    initControls();
+    directionalLight.target = target;
+    commonObj.scene.add(directionalLight);
 
     function animate() {
         commonObj.renderer.render(commonObj.scene, commonObj.camera);
-
-        controls.update();
+        var d = clock.getDelta();
+        flyContrils.update(d);
 
         requestAnimationFrame(animate);
     }
 
     animate();
 
-    directionalLight.target = target;
-    commonObj.scene.add(directionalLight);
-
-    commonObj.renderer.render(commonObj.scene, commonObj.camera);
     document.body.appendChild(commonObj.renderer.domElement);
 </script>
 </body>

@@ -2,55 +2,66 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>点光源</title>
+    <title>半球光光源</title>
+    <style type="text/css">
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+    </style>
     <script src="../js/three.js"></script>
     <script src="../util/common.js"></script>
+    <script src="../js/OrbitControls.js"></script>
+    <!--
+    阴影失效解决 https://blog.csdn.net/weixin_34308389/article/details/88802516
+    https://blog.csdn.net/qq_24013817/article/details/50410433
+    -->
 </head>
 <body>
 
 <script>
     var commonObj = common();
+    /**
+     * 在Three.js中，
+     * 能形成阴影的光源只有THREE.DirectionalLight与THREE.SpotLight；而相对地，
+     * 能表现阴影效果的材质只有THREE.LambertMaterial与THREE.PhongMaterial。
+     * 因而在设置光源和材质的时候，一定要注意这一点。
+     * @type {BoxGeometry|BoxGeometry}
+     */
     // 立方体
     var cubeGeometry = new THREE.BoxGeometry(5, 5, 5);
-    var cubeMaterial = new THREE.MeshLambertMaterial({color: '#f00'});
+    var cubeMaterial = new THREE.MeshLambertMaterial({color: '#ffeba2'});
     var cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
-    cube.castShadow = true;
-    cube.position.set(-4, 3, 1);
-    commonObj.scene.add(cube);
-    //球体
-    var sphereGeometry = new THREE.SphereGeometry(4, 20, 30);
-    var sphereMaterial = new THREE.MeshLambertMaterial({color: "#77f"});
-    var sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
-    sphere.castShadow = true;
 
-    sphere.position.set(20, 6, 0);
+    cube.castShadow = true;
+    cube.position.set(0, 6, 0);
+    commonObj.scene.add(cube);
+
+    //球体
+    var sphereGeometry = new THREE.SphereGeometry(5, 20, 30);
+    var sphereMaterial = new THREE.MeshLambertMaterial({color: "#f0ffe5"});
+    var sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
+
+    sphere.castShadow = true;
+    sphere.position.set(20, 10, 0);
     commonObj.scene.add(sphere);
+
+    var sphere1 = new THREE.Mesh(sphereGeometry, sphereMaterial);
+    sphere1.position.set(10, 10, 0);
+    commonObj.scene.add(sphere1);
 
     commonObj.camera.position.set(-25, 30, 25);
     commonObj.camera.lookAt(commonObj.scene.position);
 
-    // 点光源
-    var spotLight = new THREE.PointLight("#fff");
-    spotLight.position.set(-40, 60, -10);
-    spotLight.castShadow = true;
+    // 半球光光源 天空颜色  地面颜色  光照强度
+    var hemiLight = new THREE.HemisphereLight("#00f","#0f0", 1);
+    // var hemiLight = new THREE.HemisphereLight(0xffffff, 0x000000, 1);
+    hemiLight.position.set(0,500,0);
+    commonObj.scene.add(hemiLight);
 
-    commonObj.scene.add(spotLight);
 
-    // function render() {
-    //     requestAnimationFrame(render);
-    //     spotLight.position.z += .06;
-    //     commonObj.renderer.render(commonObj.scene, commonObj.camera);
-    // }
-    //
-    // render();
-    /*
-        //环境光
-        commonObj.scene.add(new THREE.AmbientLight("#f00"));*/
-
-    document.body.appendChild(commonObj.renderer.domElement);
     commonObj.renderer.render(commonObj.scene, commonObj.camera);
-
-
+    document.body.appendChild(commonObj.renderer.domElement);
 </script>
 </body>
 </html>

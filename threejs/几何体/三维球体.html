@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>三维立方体</title>
+    <title>三维球体</title>
     <script src="../js/three.js"></script>
     <link rel="stylesheet" href="../css/base.css">
     <script src="../js/SceneUtils.js"></script>
@@ -30,7 +30,7 @@
     }
 
     // 创建立方体
-    var cube = creatMesh(new THREE.BoxGeometry(10, 10, 10, 3, 3, 3,));
+    var cube = creatMesh(new THREE.SphereGeometry(10,50,50,0,Math.PI));
     scene.add(cube);
 
     var spotLight = new THREE.SpotLight("#fff");

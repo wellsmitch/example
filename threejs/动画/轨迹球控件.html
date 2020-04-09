@@ -2,9 +2,84 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>$Title$</title>
+    <title>轨迹球控件</title>
+    <script src="../js/three.js"></script>
+    <script src="../js/SceneUtils.js"></script>
+    <script src="../js/OrbitControls.js"></script>
 </head>
 <body>
-$END$
+<script type="text/javascript">
+    var scene = new THREE.Scene();
+
+    var clock = new THREE.Clock();
+
+
+    var camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 100);
+    camera.position.set(-30, 40, 30);
+    camera.lookAt(scene.position);
+
+    var renderer = new THREE.WebGLRenderer();
+    renderer.setClearColor(new THREE.Color("#eeeeff"));
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.shadowMap.enabled = true;
+
+    function creatMesh(gemo) {
+        var meshMaterial = new THREE.MeshNormalMaterial();
+        meshMaterial.side = THREE.double;
+        var wireFrameMaterial = new THREE.MeshBasicMaterial();
+        wireFrameMaterial.wireframe = true;
+        return THREE.SceneUtils.createMultiMaterialObject(gemo, [meshMaterial, wireFrameMaterial]);
+    }
+
+    // 创建立方体
+    var cube = creatMesh(new THREE.BoxGeometry(10, 10, 10, 3, 3, 3,));
+    scene.add(cube);
+
+    var spotLight = new THREE.SpotLight("#fff");
+    scene.add(spotLight);
+
+    var controls;
+    function initControls() {
+
+        controls = new THREE.OrbitControls(camera, renderer.domElement);
+
+        // 如果使用animate方法时，将此函数删除
+        //controls.addEventListener( 'change', render );
+        // 使动画循环使用时阻尼或自转 意思是否有惯性
+        controls.enableDamping = true;
+        //动态阻尼系数 就是鼠标拖拽旋转灵敏度
+        //controls.dampingFactor = 0.25;
+        //是否可以缩放
+        controls.enableZoom = true;
+        //是否自动旋转
+        controls.autoRotate = false;
+        //设置相机距离原点的最远距离
+        controls.minDistance = 50;
+        //设置相机距离原点的最远距离
+        controls.maxDistance = 200;
+        //是否开启右键拖拽
+        controls.enablePan = true;
+    }
+
+    initControls();
+
+    function animate() {
+        renderer.render(scene, camera);
+
+        controls.update();
+
+        requestAnimationFrame(animate);
+    }
+
+    animate();
+
+    function render() {
+        requestAnimationFrame(render);
+        renderer.render(scene, camera);
+    }
+
+    render();
+    document.body.appendChild(renderer.domElement);
+</script>
 </body>
 </html>

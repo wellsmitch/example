@@ -2,65 +2,48 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>深度材质</title>
+    <title>法向材质</title>
     <script src="../js/three.js"></script>
     <link rel="stylesheet" href="../css/base.css">
-    <script src="../util/common.js"></script>
 </head>
 <body>
 <script type="text/javascript">
     var scene = new THREE.Scene();
 
-    // 添加深度材质
-    // scene.overrideMaterial = new THREE.MeshDepthMaterial();
     var renderer = new THREE.WebGLRenderer();
 
-    // 覆盖属性
-    scene.overrideMaterial = new THREE.MeshLambertMaterial({color : 0xF39600 });
-
     var camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 10000);
-    camera.position.set(-30, 40, 30);
-    camera.lookAt(scene.position);
+    camera.position.set(25, 25, 25);
+    camera.lookAt(new THREE.Vector3(0,0,0));
+    scene.add(camera);
 
-    renderer.setClearColor(new THREE.Color("#fff"));
+    renderer.setClearColor(0x000000);
     renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.shadowMap.enabled = true;
     var axes = new THREE.AxesHelper(20);
     scene.add(axes);
 
-    scene.add(new THREE.AmbientLight("#9dffd0"));
+    // light
+    var light = new THREE.PointLight(0xffffff, 1, 100);
+    light.position.set(10, 15, 5);
+    scene.add(light);
 
-    // var spotLight = new THREE.SpotLight(0xFFFFFF);
-    // spotLight.position.set(-40, 60, -10);
-    // spotLight.castShadow = true;
-    // spotLight.shadow.mapSize.height = 2048;
-    // spotLight.shadow.mapSize.width = 2048;
-    // scene.add(spotLight);
+    //环境光
+    // scene.add(new THREE.AmbientLight("#0c0c0c"));
+
 
     function addCube() {
-        var cubeSize = Math.ceil(Math.random() * 3);
-        var cubeGeometry = new THREE.CubeGeometry(cubeSize, cubeSize, cubeSize);
-        var cubeMaterial = new THREE.MeshLambertMaterial({color: Math.random() * 0xffffff});
+        var cubeGeometry = new THREE.CubeGeometry(16, 16, 16);
+        var cubeMaterial = new THREE.MeshNormalMaterial({color: 0x777777});
 
         var cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
-        cube.castShadow = true;
-        cube.receiveShadow = true;
+        var cube = new THREE.Mesh(new THREE.CubeGeometry(5, 5, 5), cubeMaterial);
 
-        cube.position.set(
-            -60 + Math.round(Math.random() * 100),
-            Math.round(Math.random() * 10),
-            -100 + Math.round(Math.random() * 150),
-        );
+        // cube.castShadow = true;
+
         scene.add(cube);
     }
 
-    for (var i = 0; i < 100; i++) {
         addCube();
-    }
-
-    var camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 100);
-    camera.position.set(-50, 40, 50);
-    camera.lookAt(scene.position);
 
     function render() {
         requestAnimationFrame(render);

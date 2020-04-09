@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>翻滚控件</title>
+    <title>第一人称控件</title>
     <style type="text/css">
         body {
             margin: 0;
@@ -12,6 +12,7 @@
     <script src="../js/three.js"></script>
     <script src="../util/common.js"></script>
     <script src="../source/js/controls/FirstPersonControls.js"></script>
+    <script src="../js/OrbitControls.js"></script>
     <!--
     阴影失效解决 https://blog.csdn.net/weixin_34308389/article/details/88802516
     https://blog.csdn.net/qq_24013817/article/details/50410433
@@ -76,7 +77,7 @@
 
     // 第一人称控件
     var contrils = new THREE.FirstPersonControls(commonObj.camera, document.body);
-    contrils.lookSpeed = Math.PI / 24; // 翻滚速度
+    contrils.lookSpeed = Math.PI / 50; // 翻滚速度
     contrils.movementSpeed = 10; //移动速度
     contrils.nofly = true; //自动向前移动
     contrils.lookVertical = true;
@@ -88,12 +89,10 @@
 
     directionalLight.target = target;
     commonObj.scene.add(directionalLight);
-
     function animate() {
         commonObj.renderer.render(commonObj.scene, commonObj.camera);
         var d = clock.getDelta();
         contrils.update(d);
-
         requestAnimationFrame(animate);
     }
 

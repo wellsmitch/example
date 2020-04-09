@@ -2,7 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>点光源</title>
+    <title>聚光灯</title>
+    <style type="text/css">
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+    </style>
     <script src="../js/three.js"></script>
     <script src="../util/common.js"></script>
 </head>
@@ -27,18 +33,35 @@
     commonObj.camera.position.set(-25, 30, 25);
     commonObj.camera.lookAt(commonObj.scene.position);
 
-    // 点光源
+    // 聚光灯光源
     var spotLight = new THREE.SpotLight("#fff");
     spotLight.position.set(-40, 60, -10);
-    spotLight.castShadow = true;
+    sphere.target = spotLight;
+    spotLight.castShadow = sphere;
 
     commonObj.scene.add(spotLight);
 
     function render() {
         requestAnimationFrame(render);
-        spotLight.position.z += 6;
+        // 聚光灯角度
+        spotLight.angle = Math.PI / angleNum;
         commonObj.renderer.render(commonObj.scene, commonObj.camera);
     }
+
+    var angleNum = 3;
+    document.onkeydown = function(e) {
+        switch (e.keyCode) {
+            case 38:
+                angleNum += 1;
+                break;
+            case 40:
+                angleNum -= 1;
+                if(angleNum < 1) {
+                    angleNum = 1;
+                }
+                break;
+        }
+    };
 
     render();
     /*

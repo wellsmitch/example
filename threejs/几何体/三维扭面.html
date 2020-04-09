@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>三维圆环</title>
+    <title>三维扭面</title>
     <script src="../js/three.js"></script>
     <link rel="stylesheet" href="../css/base.css">
     <script src="../js/SceneUtils.js"></script>
@@ -29,8 +29,8 @@
         return THREE.SceneUtils.createMultiMaterialObject(gemo, [meshMaterial, wireFrameMaterial]);
     }
 
-    // 创建圆环
-    var torusGeometry = creatMesh(new THREE.TorusGeometry(10, 2, 20, 10, 2 * Math.PI));
+    // 创建三维扭面
+    var torusGeometry = creatMesh(new THREE.TorusKnotGeometry(10, 1, 64, 10, 2, 8, 1));
     scene.add(torusGeometry);
 
     var spotLight = new THREE.SpotLight("#fff");

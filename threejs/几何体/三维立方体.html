@@ -2,9 +2,48 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>$Title$</title>
+    <title>三维立方体</title>
+    <script src="../js/three.js"></script>
+    <link rel="stylesheet" href="../css/base.css">
+    <script src="../js/SceneUtils.js"></script>
 </head>
 <body>
-$END$
+<script type="text/javascript">
+
+    var scene = new THREE.Scene();
+
+    var camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 100);
+    camera.position.set(-30, 40, 30);
+    camera.lookAt(scene.position);
+
+    var renderer = new THREE.WebGLRenderer();
+    renderer.setClearColor(new THREE.Color("#eeeeff"));
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.shadowMap.enabled = true;
+
+    function creatMesh(gemo) {
+        var meshMaterial = new THREE.MeshNormalMaterial();
+        meshMaterial.side = THREE.double;
+        var wireFrameMaterial = new THREE.MeshBasicMaterial();
+        wireFrameMaterial.wireframe = true;
+        return THREE.SceneUtils.createMultiMaterialObject(gemo, [meshMaterial, wireFrameMaterial]);
+    }
+
+    // 创建立方体
+    var cube = creatMesh(new THREE.BoxGeometry(10, 10, 10, 3, 3, 3,));
+    scene.add(cube);
+
+    var spotLight = new THREE.SpotLight("#fff");
+    scene.add(spotLight);
+
+    function render() {
+        cube.rotation.y += 0.01;
+        requestAnimationFrame(render);
+        renderer.render(scene, camera);
+    }
+
+    render();
+    document.body.appendChild(renderer.domElement);
+</script>
 </body>
 </html>

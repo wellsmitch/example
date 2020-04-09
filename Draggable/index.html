@@ -2,9 +2,54 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>$Title$</title>
+    <title>Title</title>
+    <script src="../js/vue.js"></script>
+    <!-- CDNJS :: Sortable (https://cdnjs.com/) -->
+    <script src="//cdn.jsdelivr.net/npm/sortablejs@1.8.4/Sortable.min.js"></script>
+    <!-- CDNJS :: Vue.Draggable (https://cdnjs.com/) -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/Vue.Draggable/2.20.0/vuedraggable.umd.min.js"></script>
+    <style type="text/css">
+        [draggable="true"] {
+            color: red;
+        }
+    </style>
 </head>
 <body>
-$END$
+<div id="out">
+    <draggable v-model="myArray" group="people" @start="drag" @end="drag1">
+        <div style="border: 1px solid" v-for="element in myArray" :key="element.id">{{element.name}}</div>
+    </draggable>
+</div>
+
+<script type="text/javascript">
+    var vm = new Vue({
+        el: '#out',
+        data: function () {
+            return {
+                myArray: [
+                    {id: 1, name: 111},
+                    {id: 2, name: 222},
+                    {id: 3, name: 333},
+                ]
+            };
+        },
+        methods: {
+            drag: function (a) {
+                console.log(a.clone);
+                a.clone.className = "activeDrag";
+                console.log("drag:", a);
+                console.log("dragmyArray:", this.myArray);
+            },
+            drag1: function (a) {
+                console.log("drag1:", a.clone);
+                console.log("drag1myArray:", this.myArray);
+            }
+        },
+        components: {
+            vuedraggable: vuedraggable,
+        }
+    })
+
+</script>
 </body>
 </html>
