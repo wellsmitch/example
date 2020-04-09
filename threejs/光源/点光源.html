@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>环境光</title>
+    <script src="../js/three.js"></script>
+    <script src="../util/common.js"></script>
+</head>
+<body>
+
+<script>
+    var commonObj = common();
+    var cubeGeometry = new THREE.BoxGeometry(5, 5, 5);
+    var cubeMaterial = new THREE.MeshLambertMaterial({color: '#f00'});
+    var cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
+    cube.castShadow = true;
+    cube.position.set(-4, 3, 1);
+
+    commonObj.scene.add(cube);
+    commonObj.camera.position.set(-25, 30, 25);
+    commonObj.camera.lookAt(commonObj.scene.position);
+
+    // 点光源
+    var spotLight = new THREE.SpotLight("#fff");
+    spotLight.position.set(-40, 60, -10);
+    spotLight.castShadow = true;
+
+    commonObj.scene.add(spotLight);
+
+    //环境光
+    commonObj.scene.add(new THREE.AmbientLight("#f00"));
+
+    document.body.appendChild(commonObj.renderer.domElement);
+    commonObj.renderer.render(commonObj.scene, commonObj.camera);
+
+
+</script>
+</body>
+</html>

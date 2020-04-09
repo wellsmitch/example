@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>平行光</title>
+    <style type="text/css">
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+    </style>
+    <script src="../js/three.js"></script>
+    <script src="../util/common.js"></script>
+    <script src="../js/OrbitControls.js"></script>
+    <!--
+    阴影失效解决 https://blog.csdn.net/weixin_34308389/article/details/88802516
+    https://blog.csdn.net/qq_24013817/article/details/50410433
+    -->
+</head>
+<body>
+
+<script>
+    var commonObj = common();
+    /**
+     * 在Three.js中，
+     * 能形成阴影的光源只有THREE.DirectionalLight与THREE.SpotLight；而相对地，
+     * 能表现阴影效果的材质只有THREE.LambertMaterial与THREE.PhongMaterial。
+     * 因而在设置光源和材质的时候，一定要注意这一点。
+     * @type {BoxGeometry|BoxGeometry}
+     */
+    // 立方体
+    var cubeGeometry = new THREE.BoxGeometry(5, 5, 5);
+    var cubeMaterial = new THREE.MeshLambertMaterial({color: '#f00'});
+    var cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
+    cube.castShadow = true;
+    cube.position.set(0, 6, 0);
+    commonObj.scene.add(cube);
+    //球体
+    var sphereGeometry = new THREE.SphereGeometry(5, 20, 30);
+    var sphereMaterial = new THREE.MeshLambertMaterial({color: "#f0ffe5"});
+    var sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
+    sphere.castShadow = true;
+    sphere.position.set(20, 10, 0);
+    // sphere.position.set(8, 6, 0);
+    commonObj.scene.add(sphere);
+
+    commonObj.camera.position.set(-25, 30, 25);
+    commonObj.camera.lookAt(commonObj.scene.position);
+
+    //环境光 不能单独使用
+    commonObj.scene.add(new THREE.AmbientLight("#1c1c1c"));
+
+    var target = new THREE.Object3D();
+    target.position.set(5, 0, 0);
+
+    // 平行光光源
+    var directionalLight = new THREE.DirectionalLight("#ffd8d3");
+    directionalLight.position.set(-40, 60, -11);
+    directionalLight.castShadow = true;
+
+    directionalLight.shadow.camera.far = 90;
+    directionalLight.shadow.camera.near = 0;
+    //
+    directionalLight.shadow.camera.left = -90;
+    directionalLight.shadow.camera.right = 90;
+    //
+    directionalLight.shadow.camera.top = 90;
+    directionalLight.shadow.camera.bottom = -90;
+
+    // 开启能够接收平行光投影的范围边界
+    var debug = new THREE.CameraHelper(directionalLight.shadow.camera);
+    // debug.name = "debug";
+    commonObj.scene.add(debug);
+
+    // 强度值
+    // directionalLight.intensity = 0.5;
+
+    // 设置高 越大 阴影越细致
+    // directionalLight.shadowMapHeight = 200;
+    // directionalLight.shadowMapWidth = 100;
+
+
+    //用户交互插件 鼠标左键按住旋转，右键按住平移，滚轮缩放
+    var controls;
+    function initControls() {
+
+        controls = new THREE.OrbitControls(commonObj.camera, commonObj.renderer.domElement);
+
+        // 如果使用animate方法时，将此函数删除
+        //controls.addEventListener( 'change', render );
+        // 使动画循环使用时阻尼或自转 意思是否有惯性
+        controls.enableDamping = true;
+        //动态阻尼系数 就是鼠标拖拽旋转灵敏度
+        //controls.dampingFactor = 0.25;
+        //是否可以缩放
+        controls.enableZoom = true;
+        //是否自动旋转
+        controls.autoRotate = false;
+        //设置相机距离原点的最远距离
+        controls.minDistance = 50;
+        //设置相机距离原点的最远距离
+        controls.maxDistance = 200;
+        //是否开启右键拖拽
+        controls.enablePan = true;
+    }
+
+    initControls();
+
+    function animate() {
+        commonObj.renderer.render(commonObj.scene, commonObj.camera);
+
+        controls.update();
+
+        requestAnimationFrame(animate);
+    }
+
+    animate();
+
+    directionalLight.target = target;
+    commonObj.scene.add(directionalLight);
+
+    commonObj.renderer.render(commonObj.scene, commonObj.camera);
+    document.body.appendChild(commonObj.renderer.domElement);
+</script>
+</body>
+</html>

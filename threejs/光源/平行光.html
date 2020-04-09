@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>聚光灯</title>
+    <style type="text/css">
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+    </style>
+    <script src="../js/three.js"></script>
+    <script src="../util/common.js"></script>
+</head>
+<body>
+
+<script>
+    var commonObj = common();
+    // 立方体
+    var cubeGeometry = new THREE.BoxGeometry(5, 5, 5);
+    var cubeMaterial = new THREE.MeshLambertMaterial({color: '#f00'});
+    var cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
+    cube.castShadow = true;
+    cube.position.set(-4, 3, 1);
+    commonObj.scene.add(cube);
+    //球体
+    var sphereGeometry = new THREE.SphereGeometry(4, 20, 30);
+    var sphereMaterial = new THREE.MeshLambertMaterial({color: "#77f"});
+    var sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
+    sphere.position.set(20, 6, 0);
+    commonObj.scene.add(sphere);
+
+    commonObj.camera.position.set(-25, 30, 25);
+    commonObj.camera.lookAt(commonObj.scene.position);
+
+    // 聚光灯光源
+    var spotLight = new THREE.SpotLight("#fff");
+    spotLight.position.set(-40, 60, -10);
+    sphere.target = spotLight;
+    spotLight.castShadow = sphere;
+
+    commonObj.scene.add(spotLight);
+
+    function render() {
+        requestAnimationFrame(render);
+        // 聚光灯角度
+        spotLight.angle = Math.PI / angleNum;
+        commonObj.renderer.render(commonObj.scene, commonObj.camera);
+    }
+
+    var angleNum = 3;
+    document.onkeydown = function(e) {
+        switch (e.keyCode) {
+            case 38:
+                angleNum += 1;
+                break;
+            case 40:
+                angleNum -= 1;
+                if(angleNum < 1) {
+                    angleNum = 1;
+                }
+                break;
+        }
+    };
+
+    render();
+    /*
+        //环境光
+        commonObj.scene.add(new THREE.AmbientLight("#f00"));*/
+
+    document.body.appendChild(commonObj.renderer.domElement);
+    commonObj.renderer.render(commonObj.scene, commonObj.camera);
+
+
+</script>
+</body>
+</html>

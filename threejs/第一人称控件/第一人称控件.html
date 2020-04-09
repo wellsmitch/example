@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>翻滚控件</title>
+    <style type="text/css">
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+    </style>
+    <script src="../js/three.js"></script>
+    <script src="../util/common.js"></script>
+    <script src="../source/js/controls/FirstPersonControls.js"></script>
+    <!--
+    阴影失效解决 https://blog.csdn.net/weixin_34308389/article/details/88802516
+    https://blog.csdn.net/qq_24013817/article/details/50410433
+
+    -->
+</head>
+<body>
+
+<script>
+    var commonObj = common();
+    var clock = new THREE.Clock();
+    /**
+     * 在Three.js中，
+     * 能形成阴影的光源只有THREE.DirectionalLight与THREE.SpotLight；而相对地，
+     * 能表现阴影效果的材质只有THREE.LambertMaterial与THREE.PhongMaterial。
+     * 因而在设置光源和材质的时候，一定要注意这一点。
+     * @type {BoxGeometry|BoxGeometry}
+     */
+        // 立方体
+    var cubeGeometry = new THREE.BoxGeometry(5, 5, 5);
+    var cubeMaterial = new THREE.MeshLambertMaterial({color: '#f00'});
+    var cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
+    cube.castShadow = true;
+    cube.position.set(0, 6, 0);
+    commonObj.scene.add(cube);
+    //球体
+    var sphereGeometry = new THREE.SphereGeometry(5, 20, 30);
+    var sphereMaterial = new THREE.MeshLambertMaterial({color: "#f0ffe5"});
+    var sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
+    sphere.castShadow = true;
+    sphere.position.set(20, 10, 0);
+    // sphere.position.set(8, 6, 0);
+    commonObj.scene.add(sphere);
+
+    commonObj.camera.position.set(-25, 30, 25);
+    commonObj.camera.lookAt(commonObj.scene.position);
+
+    //环境光 不能单独使用
+    commonObj.scene.add(new THREE.AmbientLight("#1c1c1c"));
+
+    var target = new THREE.Object3D();
+    target.position.set(5, 0, 0);
+
+    // 平行光光源
+    var directionalLight = new THREE.DirectionalLight("#ffd8d3");
+    directionalLight.position.set(-40, 60, -11);
+    directionalLight.castShadow = true;
+
+    directionalLight.shadow.camera.far = 90;
+    directionalLight.shadow.camera.near = 0;
+    //
+    directionalLight.shadow.camera.left = -90;
+    directionalLight.shadow.camera.right = 90;
+    //
+    directionalLight.shadow.camera.top = 90;
+    directionalLight.shadow.camera.bottom = -90;
+
+    // 开启能够接收平行光投影的范围边界
+    var debug = new THREE.CameraHelper(directionalLight.shadow.camera);
+    // debug.name = "debug";
+    commonObj.scene.add(debug);
+
+    // 第一人称控件
+    var contrils = new THREE.FirstPersonControls(commonObj.camera, document.body);
+    contrils.lookSpeed = Math.PI / 24; // 翻滚速度
+    contrils.movementSpeed = 10; //移动速度
+    contrils.nofly = true; //自动向前移动
+    contrils.lookVertical = true;
+    contrils.constrainVertical = true;
+    contrils.verticalMin = 1.0;
+    contrils.verticalMax = 2.0;
+    contrils.lon = -150;
+    contrils.lat = 120;
+
+    directionalLight.target = target;
+    commonObj.scene.add(directionalLight);
+
+    function animate() {
+        commonObj.renderer.render(commonObj.scene, commonObj.camera);
+        var d = clock.getDelta();
+        contrils.update(d);
+
+        requestAnimationFrame(animate);
+    }
+
+    animate();
+
+    document.body.appendChild(commonObj.renderer.domElement);
+</script>
+</body>
+</html>
