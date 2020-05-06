@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+    <title></title>
+    <script src="https://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+    <script src="https://res.wx.qq.com/open/js/jweixin-1.6.0.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+<ul id="con"></ul>
+
+<img style="width: 80px;height: 80px;" src="" alt="">
+<button id="getphone">拍照</button>
+<button id="sharePengyouquan">分享到微信朋友圈</button>
+<button id="voiceStart">开始录音</button>
+<button id="voiceStop">停止录音</button>
+<button id="voiceOpen">播放录音</button>
+<button id="net">网络状态</button>
+<button id="scan">扫一扫</button>
+<script type="text/javascript">
+    var getCodeUrl = "https://open.weixin.qq.com/connect/oauth2/authorize?" +
+        "appid=wx87c0971e9120297f&" +
+        "redirect_uri=" + encodeURIComponent("https://wellsmitch.top/testAjax.html") +
+        "&response_type=code&" +
+        "scope=snsapi_userinfo&state=STATE#wechat_redirect";
+
+    function getKey(key_) {
+        var targetString = location.href
+        // var targetString = url
+        if (targetString.split("?")[1]) {
+            var splitArr = targetString.split("?")[1].split("&")
+            for (var i = 0; i < splitArr.length; i++) {
+                var ele = splitArr[i].split("=")
+                if (key_ == ele[0]) {
+                    return ele[1]
+                }
+            }
+        }
+    }
+
+    // alert(getKey("code"))
+    // alert(location.href)
+    if (!getKey("code")) {
+        location.href = getCodeUrl;
+    } else {
+        alert(getKey('code'));
+        // alert("进了getWxInfo" + "https://wellsmitch.top/bbb/getWxInfo?code=" + getKey("code"))
+        $.ajax({
+            url: "https://wellsmitch.top/bbb/getWxInfo",
+            type: 'post',
+            dataType: 'json',
+            // contentType: "application/x-www-form-urlencoded; charset=utf-8",
+            data: {
+                'code': getKey('code')
+            },
+            success: function (data) {
+                var sequence = JSON.parse(data.data)
+                $("#con").empty();
+                // alert(Object.keys(sequence))
+                try {
+                    Object.keys(sequence).forEach(function (ele) {
+                        if (ele.toString().indexOf("img") > -1) {
+                            $("#con").append($("<img style='width: 80px;height: 80px' src=" + sequence[ele] + " />"))
+                        } else if (typeof sequence[ele] == "string") {
+                            $("#con").append($("<li>" + ele + "--" + sequence[ele] + "</li>"))
+                        }
+                    });
+                    configAjax()
+                } catch (e) {
+                    alert("eeeeee" + e)
+                }
+
+            },
+            fail: function (err) {
+                alert("fail")
+            }
+        })
+    }
+    //1f84c124d271f5e085fc6732d30f1434 AppSecret
+    //wxbba0b486dc5184da AppID
+    //  // url: "http://wellsmitch.top/ad/topic",//readhub
+    /* 		$.ajax({
+                url: "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wxbba0b486dc5184da&secret=wxbba0b486dc5184da",
+                async: false,
+                success: function(data) {
+                    alert(JSON.stringify(data))
+                },
+            }) */
+    function configAjax() {
+
+        alert(1111);
+        $.ajax({
+            url: "https://wellsmitch.top/bbb/getConfigInfo",
+            type: 'post',
+            dataType: 'json',
+            contentType: "application/x-www-form-urlencoded; charset=utf-8",
+            data: {
+                'url': location.href.split('#')[0]
+            },
+            success: function (data) {
+                alert("config数据：：" + JSON.stringify(data))
+                wx.config({
+                    debug: true,
+                    appId: data.data.appId,
+                    timestamp: Number(data.data.timestamp),
+                    nonceStr: data.data.nonceStr,
+                    signature: data.data.signature,
+                    jsApiList: [
+                        'checkJsApi',
+                        'onMenuShareTimeline',
+                        'onMenuShareAppMessage',
+                        'updateTimelineShareData',
+                        'updateAppMessageShareData',
+                        'onMenuShareQQ',
+                        'onMenuShareWeibo',
+                        'hideMenuItems',
+                        'showMenuItems',
+                        'hideAllNonBaseMenuItem',
+                        'showAllNonBaseMenuItem',
+                        'translateVoice',
+                        'startRecord',
+                        'stopRecord',
+                        'onRecordEnd',
+                        'playVoice',
+                        'pauseVoice',
+                        'stopVoice',
+                        'uploadVoice',
+                        'downloadVoice',
+                        'chooseImage',
+                        'previewImage',
+                        'uploadImage',
+                        'downloadImage',
+                        'getNetworkType',
+                        'openLocation',
+                        'getLocation',
+                        'hideOptionMenu',
+                        'showOptionMenu',
+                        'closeWindow',
+                        'scanQRCode',
+                        'chooseWXPay',
+                        'openProductSpecificView',
+                        'addCard',
+                        'chooseCard',
+                        'openCard'
+                    ] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+
+                });
+                wx.error(function (res) {
+                    alert(JSON.stringify(res))
+                    // config信息验证失败会执行error函数，如签名过期导致验证失败，具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，对于SPA可以在这里更新签名。
+                });
+
+                wx.error(function (res) {//配置失败调用此方法
+
+                    }
+                );
+            }
+        });
+
+        wx.ready(function () {
+            alert("ready。。。。。。。");
+            //拍照
+            var btn = document.getElementById("getphone");
+            btn.onclick = function () {
+
+                wx.chooseImage({
+                    success: function (res) {
+                        alert(JSON.stringify(res))
+                        var localIds = res.localIds;
+                        $('img').attr('src', localIds)
+                        // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
+                    }
+                })
+            };
+            var sharePengyouquan = document.getElementById("sharePengyouquan");
+
+            sharePengyouquan.onclick = function () {
+                wx.checkJsApi({
+                    jsApiList: ['updateAppMessageShareData'], // 需要检测的JS接口列表，所有JS接口列表见附录2,
+                    success: function (res) {
+                        alert(res)
+                        // 以键值对的形式返回，可用的api值true，不可用为false
+                        // 如：{"checkResult":{"chooseImage":true},"errMsg":"checkJsApi:ok"}
+                    }
+                });
+                /* alert("sharePengyouquan 执行了");
+                 wx.updateAppMessageShareData({
+                     title: 'wellSmithTitle', // 分享标题
+                     link: 'https://wellsmitch.top/testAjax.html', // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+                     imgUrl: 'https://wellsmitch.top/my.jpg', // 分享图标
+                     success: function () {
+                         // 用户点击了分享后执行的回调函数
+                         alert("分享到微信朋友圈成功")
+                     }
+                 });*/
+            };
+
+            var net = document.getElementById("net");
+            net.onclick = function () {
+                wx.getNetworkType({
+                    success: function (res) {
+                        var networkType = res.networkType; // 返回网络类型2g，3g，4g，wifi
+                        alert(networkType)
+                    }
+                })
+            };
+            scan.onclick = function () {
+                wx.scanQRCode({
+                    needResult: 1, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
+                    scanType: ["qrCode", "barCode"], // 可以指定扫二维码还是一维码，默认二者都有
+                    success: function (res) {
+                        var result = res.resultStr; // 当needResult 为 1 时，扫码返回的结果
+                        alert(result)
+                    }
+                });
+            }
+        })
+    }
+</script>
+</body>
+</html>
