@@ -4,7 +4,8 @@
  *
  */
 
-var grayscale = (function(){
+var grayscale = (
+    function(){
 
     var config = {
             colorProps: ['color','backgroundColor','borderBottomColor','borderTopColor','borderLeftColor','borderRightColor','backgroundImage'],
