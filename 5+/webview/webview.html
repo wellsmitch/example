@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+	</head>
+
+	<body>
+		<button type="button" onclick="test()">test</button>
+		<button onclick="openTest1()">打开test1</button>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+		</script>
+		<script type="text/javascript">
+			var view;
+			// document.addEventListener('plusready', function(){
+			// 	var wvs = plus.webview.all();
+			// 	for (var i =0;i<wvs.length;i++) {
+			// 		console.log(wvs[i].id)
+			// 	}
+				
+			// }, false);
+			function refreswh1() {
+				alert("refresh1")
+			}
+			refreswh1()
+			window.addEventListener('refresh1', function(e) {
+				alert(123)
+			        plus.webview.currentWebview().reload()
+			})  
+			function openTest1() {
+				view = plus.webview.getWebviewById('test1.html');
+				if(!view) {
+					view = plus.webview.open(
+						'test1.html'//url
+						,'test1'//id
+						,{
+							top:'100px',bottom:'0px'
+						}// style
+						,'slide-in-right'
+					);
+				}
+			}
+			
+		</script>
+	</body>
+
+</html>

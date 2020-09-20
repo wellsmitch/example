@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<script src="https://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	</head>
+	<body>
+		<ul id="con"></ul>
+		<button id="localstorage">set localstorage</button>
+		<script type="text/javascript">
+			$("#localstorage").click(function() {
+				try{
+					window.localStorage.setItem("aa",123456)
+					alert(window.localStorage.getItem("aa"))
+				}catch(e){
+					//TODO handle the exception
+					alert(e)
+				}
+
+			})
+			var getCodeUrl = "https://open.weixin.qq.com/connect/oauth2/authorize?" +
+				"appid=wx87c0971e9120297f&" +
+				"redirect_uri=" + encodeURIComponent("https://wellsmitch.top/userInfo.html") +
+				"&response_type=code&" +
+				"scope=snsapi_userinfo&state=STATE#wechat_redirect"
+
+			function getKey(key_) {
+				var targetString = location.href
+				// var targetString = url
+				if (targetString.split("?")[1]) {
+					var splitArr = targetString.split("?")[1].split("&")
+					for (var i = 0; i < splitArr.length; i++) {
+						var ele = splitArr[i].split("=")
+						if (key_ == ele[0]) {
+							return ele[1]
+						}
+					}
+				}
+			}
+
+			// alert(getKey("code"))
+			// alert(location.href)
+			if (!getKey("code")) {
+				location.href = getCodeUrl;
+			} else {
+                alert(getKey('code'));
+				// alert("进了getWxInfo" + "https://wellsmitch.top/bbb/getWxInfo?code=" + getKey("code"))
+				$.ajax({
+					url: "https://wellsmitch.top/bbb/getWxInfo",
+					type: 'post',
+					dataType: 'json',
+					// contentType: "application/x-www-form-urlencoded; charset=utf-8",
+					data: {
+						'code': getKey('code')
+					},
+					success: function(data) {
+						var sequence = JSON.parse(data.data)
+						$("#con").empty();
+						// alert(Object.keys(sequence))
+						try {
+							Object.keys(sequence).forEach(function(ele) {
+								if (ele.toString().indexOf("img") > -1) {
+									$("#con").append($("<img style='width: 80px;height: 80px' src=" + sequence[ele] + " />"))
+								} else if (typeof sequence[ele] == "string") {
+									$("#con").append($("<li>" + ele + "--" + sequence[ele] + "</li>"))
+								}
+							})
+						} catch (e) {
+							alert("eeeeee" + e)
+						}
+
+					},
+					fail: function(err) {
+						alert("fail")
+					}
+				})
+			}
+		</script>
+	</body>
+</html>

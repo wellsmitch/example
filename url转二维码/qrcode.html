@@ -3,8 +3,6 @@
 <head>
     <title></title>
     <meta charset="utf-8"/>
-    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
-    <script src="js/qrcode.js"></script>
     <style>
         #qrcode{
             /*text-align: center;*/
@@ -15,6 +13,9 @@
             /*position: relative;*/
         }
     </style>
+    <script src="../js/jquery.js"></script>
+    <script src="js/qrcode.js"></script>
+
 </head>
 <body>
 <div id="qrcode">
@@ -24,11 +25,13 @@
 <script>
 
     window.onload =function(){
+
         var qrcode = new QRCode(document.getElementById("qrcode"), {
             width : 96,//设置宽高
             height : 96
         });
-        qrcode.makeCode("http://222.143.38.161:8080/app/static/lib/apk/client.apk?mp.wexin.qq.com");
+        qrcode.makeCode("你好http://222.143.38.161:8080/app/static/lib/apk/client.apk?mp.wexin.qq.com");
+        $('#qrcode').css({position: "relative"}).append($('<img style="width: 20px;height: 20px;position: absolute;top: 0;bottom: 0;left: 0;right: 0;margin: auto" src="'+"../img/bg01.jpg"+'" alt="">'));
         document.getElementById("send").onclick =function(){
             qrcode.makeCode(document.getElementById("getval").value);
         }
