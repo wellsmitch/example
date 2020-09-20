@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        .fl {
+            float: left;
+        }
+
+        .fr {
+            float: right;
+        }
+
+        .overflow {
+            overflow: hidden;
+        }
+
+        .zyTabTitle {
+            cursor: pointer;
+            float: left;
+            margin-left: 3px;
+            padding: 0 5px;
+            border-radius: 3px 3px 0 0/3px 3px 0 0;
+            border: 1px solid rgba(0, 121, 255, .8);
+            border-bottom: none;
+            color: rgba(0, 121, 255, .8);
+            line-height: 26px;
+            font-size: 14px;
+        }
+
+        .zyTabTitlePanel {
+            transform: rotate(-90deg) translateX(-100%);
+            transform-origin: left top;
+            overflow: hidden;
+
+        }
+
+        .zyTabContentPanel {
+            position: absolute;
+            left: 26px;
+            right: 0;
+        }
+
+        .zyTabActive {
+            background: rgba(0, 121, 255, .8);
+            color: #ffffff;
+        }
+
+        .zyTab {
+            position: relative;
+            width: 200px;
+        }
+
+        .zyTab table {
+            border-collapse: collapse;
+            width: calc(100% - 10px);
+            margin: 5px auto;
+        }
+
+        .zyTab tr:hover {
+            background: #eaeaea;
+        }
+
+        .zyTab td {
+            border: 1px solid #e6e6e6;
+        }
+
+        .zyTab td:nth-child(1) {
+            width: 50px;
+            vertical-align: middle;
+            word-break: break-word;
+        }
+
+        .zyTabContent {
+            border: 1px solid rgba(0, 121, 255, .8);
+        }
+
+        .collapseAction {
+            text-align: right;
+            margin-right: 10px;
+            color: #1269d3;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+    </style>
+    <script src="../js/vue.js"></script>
+    <script src="../js/jquery.js"></script>
+</head>
+<body>
+<div id="out" style="height: 300px;/*background: red*/">
+    <div class="resTable">
+        <div class="zyTab">
+            <div class="zyTabTitlePanel fl">
+                <div v-for="(item, index) in queryResData"
+                     :class="'zyTabTitle ' + (index === zyTabActive ? 'zyTabActive' :'')"
+                     @click="zyTabTap(index)" :key="index">{{item.title}}
+                </div>
+            </div>
+            <div class="zyTabContentPanel fl">
+                <div class="zyTabContent"
+                     v-for="(item, index) in queryResData" v-show="index === zyTabActive"
+                     :key="index">
+                    <div v-for="(value, k) in item.resList" :key="k">
+                        <table>
+                            <tr v-for="(value1, k1,value1_index) in value" :key="k1"
+                                v-show="value.spread ? true : (value1_index < 2)">
+                                <td>{{k1}}</td>
+                                <td>{{value1}}</td>
+                            </tr>
+                        </table>
+                        <div class="collapseAction" @click="collapseAction(value)">
+                            {{value.spread ? "收起" : "展开"}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    let vm = new Vue({
+        el: "#out",
+        methods: {
+            zyTabTap(index) {
+                this.zyTabActive = index;
+            },
+            collapseAction(value) {
+                this.$set(
+                    value, 'spread', !value.spread
+                )
+                console.log(value.spread ? true : false);
+            }
+        },
+        data() {
+            return {
+                zyTabActive: 0,
+                queryResData: [
+                    {
+                        title: "tab1",
+                        resList: [
+                            {
+                                aa1vadsfsfsdfsdf: 111111,
+                                a2: 222222,
+                                a3: 333333,
+                                a4: 444444,
+                                a5: 555555,
+                            },
+                            {
+                                rrrrrr: 111111,
+                                a2: 222222,
+                                a3: 333333,
+                                a4: 444444,
+                                a5: 555555,
+                            }
+                        ]
+                    }, {
+                        title: "tab2",
+                        resList: [
+                            {
+                                aa1vadsfsfsdfsdf: 111111,
+                                aa2: 222222,
+                                aa3: 333333,
+                                aa4: 444444,
+                                aa5: 555555,
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+    })
+</script>
+</body>
+</html>
