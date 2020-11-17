@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>百度导航条</title>
+    <style type="text/css">
+        .nav {
+            background: #01204f;
+            height: 30px;
+            position: relative;
+        }
+        .out {
+            height: 100px;
+            overflow: auto;
+            border: 1px solid #1269d3;
+            position: relative;
+        }
+    </style>
+    <script src="jquery.min.js"></script>
+</head>
+<body>
+<div class="out">
+    <div>11111</div>
+    <div>11111w</div>
+    <div>11111wsd</div>
+    <div>11111wsd23</div>
+    <div class="nav"></div>
+    <ul>
+        <li>csdfsafs</li>
+        <li>csdfsafs</li>
+        <li>csdfsafs</li>
+        <li>csdfsafs</li>
+        <li>csdfsafs</li>
+        <li>csdfsafs</li>
+        <li>csdfsafs</li>
+        <li>csdfsafs</li>
+        <li>csdfsafs</li>
+        <li>csdfsafs</li>
+        <li>csdfsafs</li>
+        <li>csdfsafs</li>
+        <li>csdfsafs</li>
+        <li>csdfsafs</li>
+        <li>csdfsafs</li>
+        <li>csdfsafs</li>
+        <li>csdfsafs</li>
+        <li>csdfsafs</li>
+        <li>csdfsafs</li>
+        <li>csdfsafs</li>
+    </ul>
+</div>
+<script type="text/javascript">
+	document.querySelector(".out").onscroll = function (e) {
+        console.log(e.target.scrollTop);
+
+        return false
+    }
+</script>
+</body>
+</html>
