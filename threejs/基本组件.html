@@ -8,6 +8,7 @@
 <script src="js/three.js"></script>
 <script>
     // 设置场景
+    console.log(THREE);
     var scene = new THREE.Scene();
 
 
@@ -48,7 +49,7 @@
     function addCube() {
         // 设置立方体
         var cubeGeometry = new THREE.CubeGeometry(4, 4, 4);
-        var cubeMaterial = new THREE.MeshLambertMaterial({color: "#dec7fb"});//打开线框
+        var cubeMaterial = new THREE.MeshLambertMaterial({color: "#fb222f"});//打开线框
         var cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
         cube.position.x = -30 + Math.round(Math.random() * planeGemomeetry.parameters.width);
         cube.position.y = Math.round(Math.random() + 5);

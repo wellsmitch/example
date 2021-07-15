@@ -16,6 +16,8 @@
         var renderer = new THREE.WebGLRenderer();
 
         renderer.setClearColor(0x000000);
+        renderer.setSize(window.innerWidth, window.innerHeight);
+
         var scene = new THREE.Scene();
 
         // camera

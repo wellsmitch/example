@@ -26,13 +26,20 @@
     /**
      * 创建网格模型
      */
-        // var geometry = new THREE.SphereGeometry(60, 40, 40); //创建一个球体几何对象
+/*        // var geometry = new THREE.SphereGeometry(60, 40, 40); //创建一个球体几何对象
     var geometry = new THREE.BoxGeometry(100, 100, 100); //创建一个立方体几何对象Geometry
     var material = new THREE.MeshLambertMaterial({
-        color: "#00f"
+        color: "#ffe5be"
     }); //材质对象Material
     var mesh = new THREE.Mesh(geometry, material); //网格模型对象Mesh
-    scene.add(mesh); //网格模型添加到场景中
+    scene.add(mesh); //网格模型添加到场景中*/
+    // 立方体
+    var cubeGeometry = new THREE.BoxGeometry(5, 5, 5);
+    var cubeMaterial = new THREE.MeshBasicMaterial({color: '#f00'});
+    var cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
+    // cube.castShadow = true;
+    // cube.position.set(0, 6, 0);
+    scene.add(cube);
     /**
      * 光源设置
      */
