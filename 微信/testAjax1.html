@@ -27,13 +27,13 @@
         "scope=snsapi_userinfo&state=STATE#wechat_redirect";
 
     function getKey(key_) {
-        var targetString = location.href
+        var targetString = location.href;
         // var targetString = url
         if (targetString.split("?")[1]) {
-            var splitArr = targetString.split("?")[1].split("&")
+            var splitArr = targetString.split("?")[1].split("&");
             for (var i = 0; i < splitArr.length; i++) {
-                var ele = splitArr[i].split("=")
-                if (key_ == ele[0]) {
+                var ele = splitArr[i].split("=");
+                if (key_ === ele[0]) {
                     return ele[1]
                 }
             }
@@ -56,7 +56,7 @@
                 'code': getKey('code')
             },
             success: function (data) {
-                var sequence = JSON.parse(data.data)
+                var sequence = JSON.parse(data.data);
                 $("#con").empty();
                 // alert(Object.keys(sequence))
                 try {

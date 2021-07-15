@@ -89,7 +89,8 @@
 </head>
 <body>
 <div id="out" style="height: 300px;/*background: red*/">
-    <div class="resTable">
+    <button @click="tap($event)">aaa</button>
+    <div class="resTasble">
         <div class="zyTab">
             <div class="zyTabTitlePanel fl">
                 <div v-for="(item, index) in queryResData"
@@ -122,20 +123,24 @@
     let vm = new Vue({
         el: "#out",
         methods: {
+            tap(e) {
+                console.log(e);
+            },
             zyTabTap(index) {
                 this.zyTabActive = index;
             },
             collapseAction(value) {
                 this.$set(
                     value, 'spread', !value.spread
-                )
+                );
                 console.log(value.spread ? true : false);
             }
         },
         data() {
             return {
                 zyTabActive: 0,
-                queryResData: [
+                queryResData: [],
+                queryResData1: [
                     {
                         title: "tab1",
                         resList: [
@@ -168,6 +173,13 @@
                     }
                 ]
             }
+        },
+        mounted() {
+            var _this = this;
+            setTimeout(function () {
+                _this.queryResData = _this.queryResData1;
+
+            },2000)
         }
     })
 </script>

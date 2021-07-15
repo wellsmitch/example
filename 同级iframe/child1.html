@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<button id="btn">触发child2中的方法</button>
+<script type="text/javascript">
+    parent.document.getElementById("child2").onload = function (ev) {
+        btn.onclick = function () {
+            var d = parent.document.getElementById("child2").contentWindow;
+            d.child2();
+        }
+    }
+</script>
+<style>
+    button {
+        color: red;
+    }
+</style>
+</body>
+</html>

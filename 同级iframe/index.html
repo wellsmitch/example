@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/jquery.js"></script>
+</head>
+<body>
+<iframe id="child1" src="./child1.html" frameborder="0"></iframe>
+<iframe id="child2" src="./child2.html" frameborder="0"></iframe>
+<script type="text/javascript">
+    document.querySelector("#child1").onload = function () {
+        var d = $("#child1")[0].contentDocument;
+        console.log($(d).find("#btn"));
+    }
+
+</script>
+</body>
+</html>

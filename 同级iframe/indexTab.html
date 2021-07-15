@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="总目录分目录/三门峡打印/jquery.js"></script>
+</head>
+<body>
+<div>
+    <div class="tabPanelS">
+        <div class="tabTitleS">
+            <div class="tabTitleItem">11</div>
+            <div class="tabTitleItem">22</div>
+        </div>
+        <div class="tabContentS">
+            <div class="tabContentItem">11</div>
+            <div class="tabContentItem">22</div>
+        </div>
+    </div>
+
+    <div class="tabPanelS">
+        <div class="tabTitleS">
+            <div class="tabTitleItem">11</div>
+            <div class="tabTitleItem">22</div>
+        </div>
+        <div class="tabContentS">
+            <div class="tabContentItem">11</div>
+            <div class="tabContentItem">22</div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $.each($(".tabPanelS"),function (i,ele) {
+        $(ele).find('.tabContentItem').eq(0).show().siblings().hide();
+    });
+
+	$(".tabPanelS .tabTitleItem").click(function () {
+        var index = $(this).index();
+        $(this).parent().parent().find(".tabContentItem").eq(index).show().siblings().hide();
+    })
+</script>
+</body>
+</html>

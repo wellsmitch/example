@@ -5,6 +5,16 @@
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<title></title>
 		<link rel="stylesheet" type="text/css" href="../css/mui.min.css" />
+        <style>
+            a {
+                color: #a3cfed;
+                color: #8dbfe4;
+                color: #106ea5;
+                color: #1c82cd;
+                color: #1cc5cd;
+            }
+          
+        </style>
 		<script src="../js/mui.min.js"></script>
 	</head>
 	<body>
@@ -29,16 +39,16 @@
 				cView.close();
 				// cView.hide();
 			}
-			mui.init({  
-			    beforeback: function() {  
-			        //获得列表界面的webview  
-			        var list = plus.webview.currentWebview().opener();  
-			        //触发列表界面的自定义事件（refresh）,从而进行数据刷新  
-			        mui.fire(list, 'refresh1');  
-			        //返回true，继续页面关闭逻辑  
-			        return true;  
-			    }  
-			});  
+			mui.init({
+			    beforeback: function() {
+			        //获得列表界面的webview
+			        var list = plus.webview.currentWebview().opener();
+			        //触发列表界面的自定义事件（refresh）,从而进行数据刷新
+			        mui.fire(list, 'refresh1');
+			        //返回true，继续页面关闭逻辑
+			        return true;
+			    }
+			});
 		</script>
 	</body>
 </html>

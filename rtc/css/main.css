@@ -1,0 +1,22 @@
+body {
+    font-family: sans-serif;
+}
+
+video {
+    width: 100%;
+}
+
+.video-container {
+    max-width: 200px;
+    width: 50%;
+    position: relative;
+    float: left;
+}
+
+.video-container .username {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    color: #3b293f;
+    font-family: 楷体;
+}

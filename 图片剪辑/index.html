@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>Title</title>
+    <link rel="stylesheet" href="cropper.css">
+    <script src="cropper.js"></script>
+    <script src="../js/jquery.js"></script>
+</head>
+<body>
+<!--https://blog.csdn.net/weixin_38023551/article/details/78792400-->
+<div class="hello">
+    <p>预览</p>
+    <div class="before"></div>
+    <iy-button style="margin: 30px auto;" type="error" onclick="sureSava()">裁剪</iy-button>
+    <div class="container">
+        <div class="img-container">
+            <img src="aaa.png" id="imagesss" alt="">
+        </div>
+        <div class="afterCropper">
+            <img id="afterImg" src="" alt="">
+        </div>
+    </div>
+</div>
+</body>
+<script type="text/javascript">
+    function sureSava() {
+        var s = this.myCropper.getCroppedCanvas({
+            imageSmoothingQuality: 'high'
+        }).toDataURL('image/jpeg');
+        document.querySelector("#afterImg").src = s;
+    }
+
+    var myCropper = new Cropper(document.querySelector("#imagesss"), {
+        viewMode: 1,
+        dragMode: 'none',
+        initialAspectRatio: 1,
+        aspectRatio: 1,
+        preview: '.before',
+        background: false,
+        autoCropArea: 0.6,
+        zoomOnWheel: false,
+    })
+    var fm = new FormData();
+    fm.append();
+    $.ajax({
+    		type:"get",
+    		url:"",
+    		async:true,
+    		success:function(data) {
+
+    		}
+    	});
+</script>
+</html>
