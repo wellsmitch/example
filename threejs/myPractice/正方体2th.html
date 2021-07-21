@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>正方体2th</title>
+    <style>
+        .threeJsOuter {
+            width: 800px;
+            height: 600px;
+        }
+    </style>
+    <script src="../js/three.js"></script>
+    <script src="../js/OrbitControls.js"></script>
+</head>
+<body>
+<div class="threeJsOuter"></div>
+<script type="text/javascript">
+    var threeWindow = {
+        width: 800,
+        height: 600,
+    };
+    var scene = new THREE.Scene();
+    var camera = new THREE.PerspectiveCamera(undefined, threeWindow.width / threeWindow.height, 0.1, 100);
+    camera.position.x = -30;
+    camera.position.y = 40;
+    camera.position.z = 30;
+    camera.lookAt(scene.position);
+
+    var renderder = new THREE.WebGLRenderer();
+    renderder.setSize(threeWindow.width, threeWindow.height);
+    renderder.setClearColor("#c0617b");
+
+
+    var geometry1 = new THREE.BoxGeometry(10, 10, 5);
+    var baseMaterial = new THREE.MeshBasicMaterial({
+        color: "#f00"
+    });
+
+    var geo = new THREE.Mesh(geometry1, baseMaterial);
+    geo.position.set(0, 6, 0);
+
+    scene.add(geo);
+
+    var controls = new THREE.OrbitControls(camera,renderder.domElement);
+    controls.enableDamping = true;
+    function render() {
+        renderder.render(scene, camera);
+        controls.update();
+        requestAnimationFrame(render)
+    }
+
+    render();
+    document.querySelector(".threeJsOuter").appendChild(renderder.domElement);
+</script>
+</body>
+</html>

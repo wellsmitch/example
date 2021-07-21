@@ -1,1 +1,22 @@
 OrbitControls  可以实现滑鼠标时候实现视图旋转
+
+顶点索引(首先对所有顶点进行罗列然后可以通过顶点索引来组成自己想要的图形eg 0,2,3 第1点 连 第3点 连 第4点)
+        var vertices = new Float32Array([
+            1, 1, 1, //顶点1位置
+            9, 1, 1, //顶点2位置
+            9, 9, 1, //顶点3位置
+            1, 9, 1, //顶点4位置
+        ]);
+        console.log(vertices);
+        var attribue = new THREE.BufferAttribute(vertices, 3);
+
+
+
+        // Uint16Array类型数组创建顶点索引数据,如果顶点数量更多可以使用Uint32Array来创建顶点索引数据的类型数组对象
+        var indexes = new Uint16Array([
+            // 0, 1, 2,
+            // 0, 2, 3,
+            0,2,3
+        ]);
+        // // 索引数据赋值给几何体的index属性
+        geometry.index = new THREE.BufferAttribute(indexes, 1);
