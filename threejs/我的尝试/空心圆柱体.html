@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>空心圆柱体</title>
+    <style>
+        .threeJsOuter {
+            width: 800px;
+            height: 600px;
+        }
+    </style>
+    <script src="../js/three.js"></script>
+    <script src="../js/OrbitControls.js"></script>
+</head>
+<body>
+<div class="threeJsOuter"></div>
+<script type="text/javascript">
+    var threeWindow = {
+        width: 800,
+        height: 600
+    }
+    var scene = new THREE.Scene();
+    var camera = new THREE.PerspectiveCamera(undefined, threeWindow.width / threeWindow.height, 0.1, 1000);
+    camera.position.x = 10;
+    camera.position.y = 10;
+    camera.position.z = 10;
+    camera.lookAt(scene.position);
+
+    var renderder = new THREE.WebGLRenderer();
+    renderder.setSize(threeWindow.width, threeWindow.height);
+    renderder.setClearColor("#c0617b");
+
+    var geometry = new THREE.CylinderBufferGeometry( 2, 8, 10 );
+    var material = new THREE.MeshBasicMaterial( {color: "#ffe5be"} );
+    var cylinder = new THREE.Mesh( geometry, material );
+    scene.add( cylinder );
+
+
+    var axes = new THREE.AxesHelper(30);
+    scene.add(axes);
+
+    var controls = new THREE.OrbitControls(camera, renderder.domElement);
+
+    function renderFn() {
+        geometry.radiusTop = 20;
+
+        renderder.render(scene, camera);
+        controls.update();
+        requestAnimationFrame(renderFn)
+    }
+
+    renderFn();
+
+    renderder.render(scene, camera);
+
+    document.querySelector(".threeJsOuter").appendChild(renderder.domElement)
+
+</script>
+</body>
+</html>

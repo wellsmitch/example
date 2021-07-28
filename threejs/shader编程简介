@@ -1,0 +1,12 @@
+#attribute 为CPU传给显卡 GPU的参数
+attribute vec4 aVertexPosition;
+    #uniform 为常量
+    uniform mat4 uModelViewMatrix;
+    uniform mat4 uProjectionMatrix;
+
+    void main() {
+        gl Position = uProjectionMatrix * uModelViewMatrix * aVertexPosition;
+
+    }
+
+    # 函数可以调用 但是不能递归

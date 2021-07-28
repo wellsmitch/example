@@ -1,0 +1,22 @@
+normal three.js内置法线， position three.js内置位置
+threejs的着色器内置变量
+
+变量	说明	类型
+position	顶点位置	 vec3
+normal	    法线向量 vec3
+uv	        纹理坐标	 vec2
+
+归一化向量：这个归一化就是将括号里面的总和变成1，然后写出每个数的比例。例：{2.5 3.5 0.5 1.5}归一化后变成了{0.3125 0.4375 0.0625 0.1875}
+
+ // 定义光线向量
+	  vec3 light = vec3(0.5,0.2,1.0);
+	  // 归一化向量
+	  light = normalize(light);
+	  // 计算光线向量和法线向量的点积，如果点积小于0（即光线无法照到），就设为0
+	  float dProd = max(0.0, dot(vNormal, light));
+	  // 填充片元颜色
+	  gl_FragColor = vec4(dProd, // R
+	                      dProd, // G
+	                      dProd, // B
+	                      1.0);  // A
+*************   只能在main 写赋值逻辑   **********

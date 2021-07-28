@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="baidu-site-verification" content="sq4c0nNCaH"/>
+    <meta name="baidu-tc-verification" content="ee46e32c49619d2e51c8748433f7f286"/>
+    <title>Three.js虫洞特效</title>
+    <link href="http://www.yanhuangxueyuan.com/style.css" rel="stylesheet" type="text/css">
+    <script src="http://www.yanhuangxueyuan.com/versions/threejsR92/build/three.min.js"></script>
+
+    <script src="http://www.yanhuangxueyuan.com/js/vue@2.5.16.min.js"></script>
+</head>
+
+<body style="margin: 0px;padding: 0px;">
+
+<!--<div style="background-color: blue;height: 45px;width: 100%;margin-left: 0px"></div>-->
+
+<!-- webgl场景   canvas不变，改变场景   重新插入新的场景组件，流水灯效果，同时执行压力应该很大，想个办法，轮廓所有的3D案例-->
+<div id="div" :style="{width:width+'px',height:height+'px'}"></div>
+<!-- <div id="div" style="width: 1000px;margin-left: auto;margin-right: auto;"></div> -->
+
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            width: window.innerWidth,
+            height: window.innerHeight,
+        }
+    });
+</script>
+<script>
+    var scene = new THREE.Scene();
+    var curve = new THREE.CatmullRomCurve3([
+        new THREE.Vector3(-500, 200, 900),
+        new THREE.Vector3(-100, 400, 400),
+        new THREE.Vector3(0, 0, 0),
+        new THREE.Vector3(600, -600, 0),
+        new THREE.Vector3(900, -400, 600),
+        new THREE.Vector3(1200, -200, 300),]);
+    var points = curve.getPoints(500);
+    console.log(points);
+    var geometry = new THREE.TubeGeometry(curve, 200, 30, 30);
+    var length = geometry.vertices.length;
+    for (var i = 0; i < length; i++) {
+        var color = new THREE.Color();
+        color.setRGB(Math.random(), 1, i / length);
+        geometry.colors.push(color);
+    }
+
+    var material = new THREE.PointsMaterial({
+        size: 1.5,
+        vertexColors: THREE.VertexCoblors,
+    });
+    var point = new THREE.Points(geometry, material);
+    scene.add(point);
+    var width = window.innerWidth;
+    var height = window.innerHeight;
+    var camera = new THREE.PerspectiveCamera(60, width / height, 1, 1000);
+    var renderer = new THREE.WebGLRenderer();
+    renderer.setSize(width, height);
+    document.getElementById("div").appendChild(renderer.domElement);
+    var i = 0;
+
+    function render() {
+        renderer.render(scene, camera);
+        if (i < points.length - 100) {
+            camera.position.set(points[i].x, points[i].y, points[i].z);
+            camera.lookAt(new THREE.Vector3(points[i + 1].x, points[i + 1].y, points[i + 1].z));
+            i += 1
+        } else {
+            i = 0
+        }
+        requestAnimationFrame(render);
+
+    }
+
+    render();
+    window.onresize = function () {
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix()
+    };
+</script>
+
+</body>
+
+</html>

@@ -13,6 +13,7 @@
     </style>
     <!--引入three.js三维引擎-->
     <script src="../js/three.js"></script>
+    <script src="../js/OrbitControls.js"></script>
     <!-- <script src="./three.js"></script> -->
     <!-- <script src="http://www.yanhuangxueyuan.com/threejs/build/three.js"></script> -->
 </head>
@@ -27,12 +28,40 @@
      * 创建网格模型
      */
         // var geometry = new THREE.SphereGeometry(60, 40, 40); //创建一个球体几何对象
-    var geometry = new THREE.BoxGeometry(100, 100, 100); //创建一个立方体几何对象Geometry
-    var material = new THREE.MeshLambertMaterial({
-        color: "#00f"
-    }); //材质对象Material
-    var mesh = new THREE.Mesh(geometry, material); //网格模型对象Mesh
-    scene.add(mesh); //网格模型添加到场景中
+    // var geometry = new THREE.BoxGeometry(100, 100, 100); //创建一个立方体几何对象Geometry
+    // var material = new THREE.MeshLambertMaterial({
+    //     color: "#00f"
+    // }); //材质对象Material
+    // var mesh = new THREE.Mesh(geometry, material); //网格模型对象Mesh
+    // scene.add(mesh); //网格模型添加到场景中
+    //
+    var material = new THREE.MeshStandardMaterial( {
+            color : 0x00cc00 ,
+        side: THREE.DoubleSide
+    } );
+
+    //创建仅有一个三角面片的几何体
+    var geometry = new THREE.Geometry();
+    geometry.vertices.push( new THREE.Vector3( -50, -50, 0 ) );
+    geometry.vertices.push( new THREE.Vector3(  50, -50, 0 ) );
+    geometry.vertices.push( new THREE.Vector3(  50,  50, 0 ) );
+
+    //利用顶点 0, 1, 2 创建一个面
+    var normal = new THREE.Vector3( 0, 1, 0 ); //optional
+    var color = new THREE.Color( "#ffaa00" ); //optional
+    var materialIndex = 0; //optional
+    var face = new THREE.Face3( 0, 1, 2, normal, color, materialIndex );
+
+    //将创建的面添加到几何体的面的队列
+    geometry.faces.push( face );
+
+    //如果没有特别指明，面和顶点的法向量可以通过如下代码自动计算
+    geometry.computeFaceNormals();
+    geometry.computeVertexNormals();
+
+    scene.add( new THREE.Mesh( geometry, material ) );
+
+
     /**
      * 光源设置
      */
@@ -63,9 +92,18 @@
     var renderer = new THREE.WebGLRenderer();
     renderer.setSize(width, height);//设置渲染区域尺寸
     renderer.setClearColor("#b9d3ff", 1); //设置背景颜色
+
+    var controls = new THREE.OrbitControls(camera, renderer.domElement);
+
+    function animate() {
+        //执行渲染操作   指定场景、相机作为参数
+        controls.update();
+        renderer.render(scene, camera);
+        requestAnimationFrame(animate)
+    }
+    animate()
     document.body.appendChild(renderer.domElement); //body元素中插入canvas对象
-    //执行渲染操作   指定场景、相机作为参数
-    renderer.render(scene, camera);
+
 </script>
 </body>
 </html>

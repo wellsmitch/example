@@ -23,10 +23,22 @@
 
     // 创建网格对象
     function createMesh(gemo) {
-        var meshMaterial = new THREE.MeshNormalMaterial();
+        /*
+        * 直接上代码，关键的三个参数：
+
+            前面：FrontSide  （默认）
+
+            背面：BackSide
+
+            双面：DoubleSide
+        * */
+        var meshMaterial = new THREE.MeshNormalMaterial({
+            // 前面FrontSide  背面：BackSide 双面：DoubleSide
+            side:THREE.DoubleSide,
+        });
         var wireFrameMaterial = new THREE.MeshBasicMaterial();
         wireFrameMaterial.wireframe = true;
-        return THREE.SceneUtils.createMultiMaterialObject(gemo, [meshMaterial, wireFrameMaterial])
+        return THREE.SceneUtils.createMultiMaterialObject(gemo, [meshMaterial/*, wireFrameMaterial*/])
     }
 
     var plane = createMesh(new THREE.PlaneGeometry(12, 15, 10, 15));
