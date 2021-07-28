@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>gui</title>
+    <script src="../../js/three.js"></script>
+    <!--  SceneUtils.js 需要在three.js之后引入否则会报错   -->
+    <script src="../../js/SceneUtils.js"></script>
+    <script src="../../js/OrbitControls.js"></script>
+    <script src="../../js/stats.min.js"></script>
+    <script src="../../js/dat.gui.min.js"></script>
+    <script src="../../js/jquery.js"></script>
+    <style>
+        body {
+            /* 设置 margin 为 0，并且 overflow 为 hidden，来完成页面样式 */
+            margin: 0;
+            overflow: hidden;
+        }
+
+        /* 统计对象的样式 */
+        #Stats-output {
+            position: absolute;
+            left: 0px;
+            top: 0px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- 用于 WebGL 输出的 Div -->
+<div id="webgl-output"></div>
+<!-- 用于统计 FPS 输出的 Div -->
+<div id="stats-output"></div>
+
+<!-- 运行 Three.js 示例的 Javascript 代码 -->
+<script type="text/javascript">
+
+    var scene;
+    var camera;
+    var render;
+    var webglRender;
+    //var canvasRender;
+    var controls;
+    var stats;
+    var guiParams;
+
+    var ground;
+    //var box;
+    //var sphere;
+    var cylinder;
+    //var plane;
+
+    var meshMaterial;
+
+    var ambientLight;
+    var spotLight;
+    //var cameraHelper;
+
+    stats = initStats();
+    scene = new THREE.Scene();
+
+    webglRender = new THREE.WebGLRenderer({antialias: true, alpha: true}); // antialias 抗锯齿
+    webglRender.setSize(window.innerWidth, window.innerHeight);
+    webglRender.setClearColor(0xeeeeee, 1.0);
+    webglRender.shadowMap.enabled = true; // 允许阴影投射
+    render = webglRender;
+
+    camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.01, 1000); // 2147483647
+    camera.position.set(-45.5, 68.2, 90.9);
+
+    var target = new THREE.Vector3(10, 0, 0);
+    controls = new THREE.OrbitControls(camera, render.domElement);
+    controls.target = target;
+    camera.lookAt(target);
+
+    document.querySelector('#webgl-output').appendChild(render.domElement);
+    window.addEventListener('resize', onWindowResize, false);
+
+    ambientLight = new THREE.AmbientLight(0x0c0c0c);
+    // scene.add(ambientLight);
+
+    spotLight = new THREE.SpotLight(0xffffff);
+    spotLight.position.set(0, 60, 30);
+    spotLight.shadow.mapSize.width = 5120; // 必须是 2的幂，默认值为 512
+    spotLight.shadow.mapSize.height = 5120; // 必须是 2的幂，默认值为 512
+    spotLight.castShadow = true;
+    scene.add(spotLight);
+    //cameraHelper = new THREE.CameraHelper(spotLight.shadow.camera);
+    //scene.add(cameraHelper);
+
+    // 加入一个地面
+    var groundGeometry = new THREE.PlaneGeometry(100, 100, 4, 4);
+    var groundMaterial = new THREE.MeshLambertMaterial({color: 0x777777}); // MeshBasicMaterial 材质不能接收阴影
+    ground = new THREE.Mesh(groundGeometry, groundMaterial);
+    ground.rotation.set(-0.5 * Math.PI, 0, 0); // 沿着 X轴旋转-90°
+    ground.receiveShadow = true;
+    scene.add(ground);
+
+    // 材质
+    meshMaterial = [
+        // new THREE.MeshNormalMaterial({side: THREE.DoubleSide}),
+        new THREE.MeshBasicMaterial({
+            wireframe: true,
+            color: [new THREE.Color("#f00"),new THREE.Color("#f0f"),new THREE.Color("#00f")]
+            // color: "#f0f"
+        })
+    ];
+
+    /** 用来保存那些需要修改的变量 */
+    guiParams = {
+        rotationSpeed: 0.02,
+        radiusTop: 10,
+        radiusBottom: 10,
+        height: 20,
+        radiusSegments: 16,
+        heightSegments: 4,
+        openEnded: true,
+        thetaStart: 0,
+        thetaLength: 2 * Math.PI
+    };
+
+    /** 定义 dat.GUI 对象，并绑定 guiParams 的几个属性 */
+    var gui = new dat.GUI();
+    gui.add(guiParams, 'radiusTop', -10, 50, 1).onChange(function (e) {
+        updateMesh()
+    });
+    gui.add(guiParams, 'radiusBottom', -10, 50, 1).onChange(function (e) {
+        updateMesh()
+    });
+    gui.add(guiParams, 'height', 1, 50, 1).onChange(function (e) {
+        updateMesh()
+    });
+    gui.add(guiParams, 'radiusSegments', 2, 20, 1).onChange(function (e) {
+        updateMesh()
+    });
+    gui.add(guiParams, 'heightSegments', 1, 20, 1).onChange(function (e) {
+        updateMesh()
+    });
+    gui.add(guiParams, 'openEnded').onChange(function (e) {
+        updateMesh()
+    });
+    gui.add(guiParams, 'thetaStart', 0, Math.PI, 0.01).onChange(function (e) {
+        updateMesh()
+    });
+    gui.add(guiParams, 'thetaLength', 0, 2 * Math.PI, 0.01).onChange(function (e) {
+        updateMesh()
+    });
+
+    updateMesh();
+
+    renderScene();
+
+    /** 渲染场景 */
+    function renderScene() {
+        stats.update();
+        rotateMesh(); // 旋转物体
+
+        requestAnimationFrame(renderScene);
+        render.render(scene, camera);
+    }
+
+    /** 初始化 stats 统计对象 */
+    function initStats() {
+        stats = new Stats();
+        stats.setMode(0); // 0 为监测 FPS；1 为监测渲染时间
+        document.querySelector("#stats-output").appendChild(stats.domElement);
+        // $('#stats-output').append(stats.domElement);
+        return stats;
+    }
+
+    /** 当浏览器窗口大小变化时触发 */
+    function onWindowResize() {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        render.setSize(window.innerWidth, window.innerHeight);
+    }
+
+    /** 旋转物体 */
+    var step = 0;
+
+    function rotateMesh() {
+        step += guiParams.rotationSpeed;
+        scene.traverse(function (mesh) {
+            if ((mesh instanceof THREE.Mesh || mesh instanceof THREE.Line) && mesh != ground) {
+                // mesh.rotation.x = step;
+                // mesh.rotation.y = step;
+                // mesh.rotation.z = step;
+            }
+        });
+    }
+
+    function updateMesh() {
+        scene.remove(cylinder);
+
+        // 定义 cylinder
+        var cylinderGeometry = new THREE.CylinderGeometry(guiParams.radiusTop, guiParams.radiusBottom, guiParams.height, guiParams.radiusSegments, guiParams.heightSegments, guiParams.openEnded, guiParams.thetaStart, guiParams.thetaLength);
+        cylinderGeometry.colors = [new THREE.Color("#f00"),new THREE.Color("#f0f"),new THREE.Color("#00f")];
+        var geometry = new THREE.Geometry();
+
+        geometry.vertices.push(
+            new THREE.Vector3( -10,  10, 0 ),
+            new THREE.Vector3( -10, -10, 0 ),
+            new THREE.Vector3(  10, -10, 0 ),
+            new THREE.Vector3( -10,  10, 10 ),
+            new THREE.Vector3( -10, -10, 10 ),
+            new THREE.Vector3(  10, -10, 10 )
+        );
+
+        geometry.faces.push( new THREE.Face3( 0, 1, 2 ) );
+        cylinder = new THREE.SceneUtils.createMultiMaterialObject(geometry, meshMaterial);
+        // cylinder.children[1].castShadow = true; // cylinder.children[0] 的材质是 MeshNormalMaterial，不能投射阴影
+        cylinder.position.set(0, guiParams.height / 2 + 3, 0);
+        scene.add(cylinder);
+    }
+
+</script>
+</body>
+</html>
